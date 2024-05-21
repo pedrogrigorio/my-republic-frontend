@@ -1,16 +1,12 @@
 'use client'
 
 import Logo from '@/components/icons/Logo'
-import { House } from '@phosphor-icons/react'
-import {
-  CaretLeft,
-  CaretUp,
-  MagnifyingGlass,
-  Megaphone,
-} from '@phosphor-icons/react/dist/ssr'
+import { CaretLeft } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import persona from '@/assets/img/persona.png'
+import { mainMenu, systemMenu } from '@/data/SidebarData'
+import MenuItem from './MenuItem'
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
@@ -42,31 +38,45 @@ export default function Sidebar() {
         <h1 className="text-xl font-bold text-logo">MyRepublic</h1>
       </div>
 
-      {/* Menu principal */}
-      <div className="mt-20 flex-1 font-medium">
-        <span className="text-sidebarMenu p-4 text-xs">Principal</span>
-        <ul className="text-sidebarMenu mt-2 flex flex-col gap-3 text-sm">
-          <li className="flex h-10 items-center gap-2 rounded-xl p-4 hover:text-black ">
-            <House width={20} height={20} />
-            Início
-          </li>
-          <li className="flex h-10 items-center gap-2 rounded-xl bg-gray-50 p-4 hover:text-black ">
-            <Megaphone width={20} height={20} />
-            Meus anúncios
-          </li>
-          <li className="flex h-10 items-center justify-between rounded-xl p-4 hover:text-black ">
-            <div className="flex flex-1 gap-2">
-              <MagnifyingGlass width={20} height={20} />
-              Buscar repúblicas
-            </div>
+      {/* Menus */}
+      <div className="mt-20 flex-1">
+        {/* Menu principal */}
+        <div className="font-medium">
+          <span className="text-sidebarMenu p-4 text-xs">PRINCIPAL</span>
+          <ul className="text-sidebarMenu mt-2 flex flex-col gap-3 text-sm">
+            {mainMenu.map((item) => (
+              <li key={item.id}>
+                <MenuItem
+                  icon={item.icon}
+                  label={item.label}
+                  path={item.path}
+                  submenu={item.submenu}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
 
-            <CaretUp width={16} height={16} />
-          </li>
-        </ul>
+        {/* Menu de Sistema */}
+        <div className="mt-6 flex-1 font-medium">
+          <span className="text-sidebarMenu p-4 text-xs">SISTEMA</span>
+          <ul className="text-sidebarMenu mt-2 flex flex-col gap-3 text-sm">
+            {systemMenu.map((item) => (
+              <li key={item.id}>
+                <MenuItem
+                  icon={item.icon}
+                  label={item.label}
+                  path={item.path}
+                  submenu={item.submenu}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {/* Perfil */}
-      <div className="flex cursor-pointer items-center gap-4 rounded-xl p-4 hover:bg-gray-50">
+      <div className="flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:bg-gray-50">
         <Image
           src={persona}
           width={32}
