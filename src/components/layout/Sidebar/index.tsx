@@ -6,7 +6,9 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import persona from '@/assets/img/persona.png'
 import { mainMenu, systemMenu } from '@/data/SidebarData'
-import MenuItem from './MenuItem'
+import dynamic from 'next/dynamic'
+
+const MenuItem = dynamic(() => import('./MenuItem'), { ssr: false })
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)

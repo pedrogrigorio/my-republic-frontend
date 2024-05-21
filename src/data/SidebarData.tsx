@@ -15,30 +15,30 @@ export const mainMenu = [
   },
   {
     id: 'ads',
-    label: 'Seus anúncios',
-    path: '/seus-anuncios',
+    label: 'Meus anúncios',
+    path: '/my-ads',
     icon: <Megaphone size={20} />,
   },
   {
     id: 'search',
     label: 'Buscar repúblicas',
-    path: '/buscar-republicas',
+    path: '/search-student-housing',
     icon: <MagnifyingGlass size={20} />,
     submenu: [
       {
         id: 'search-ads',
         label: 'Buscar',
-        path: '/buscar-republicas',
+        path: '/search-student-housing',
       },
       {
         id: 'my-applications',
         label: 'Minhas aplicações',
-        path: '/minhas-aplicacoes',
+        path: '/applications',
       },
       {
         id: 'favorites',
         label: 'Favoritos',
-        path: '/favoritos',
+        path: '/favorites',
       },
     ],
   },
@@ -48,18 +48,19 @@ export const systemMenu = [
   {
     id: 'notifications',
     label: 'Notificações',
+    path: '',
     icon: <Bell size={20} />,
   },
   {
     id: 'settings',
     label: 'Configurações',
-    path: '/configuracoes',
+    path: '/settings/account',
     icon: <Gear size={20} />,
     submenu: [
       {
-        id: '/my-account',
+        id: 'my-account',
         label: 'Minha conta',
-        path: '/minha-conta',
+        path: '/settings/account',
       },
     ],
   },
