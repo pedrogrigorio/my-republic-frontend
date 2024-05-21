@@ -15,6 +15,7 @@ const config: Config = {
 
       textColor: {
         logo: '#131313',
+        sidebarMenu: '#5c5e64',
       },
 
       colors: {
