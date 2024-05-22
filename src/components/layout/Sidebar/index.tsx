@@ -3,7 +3,7 @@
 import Logo from '@/components/icons/Logo'
 import { CaretLeft } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import persona from '@/assets/img/persona.png'
 import { mainMenu, systemMenu } from '@/data/SidebarData'
 import dynamic from 'next/dynamic'
@@ -12,10 +12,6 @@ const MenuItem = dynamic(() => import('./MenuItem'), { ssr: false })
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
-
-  useEffect(() => {
-    console.log(isOpen)
-  }, [isOpen])
 
   return (
     <div className="relative flex w-80 flex-col bg-white px-6 py-4">
@@ -44,8 +40,8 @@ export default function Sidebar() {
       <div className="mt-20 flex-1">
         {/* Menu principal */}
         <div className="font-medium">
-          <span className="text-sidebarMenu p-4 text-xs">PRINCIPAL</span>
-          <ul className="text-sidebarMenu mt-2 flex flex-col gap-3 text-sm">
+          <span className="p-4 text-xs text-sidebarMenu">PRINCIPAL</span>
+          <ul className="mt-2 flex flex-col gap-3 text-sm text-sidebarMenu">
             {mainMenu.map((item) => (
               <li key={item.id}>
                 <MenuItem
@@ -53,6 +49,7 @@ export default function Sidebar() {
                   label={item.label}
                   path={item.path}
                   submenu={item.submenu}
+                  redirectTo={item.redirectTo}
                 />
               </li>
             ))}
@@ -61,8 +58,8 @@ export default function Sidebar() {
 
         {/* Menu de Sistema */}
         <div className="mt-6 flex-1 font-medium">
-          <span className="text-sidebarMenu p-4 text-xs">SISTEMA</span>
-          <ul className="text-sidebarMenu mt-2 flex flex-col gap-3 text-sm">
+          <span className="p-4 text-xs text-sidebarMenu">SISTEMA</span>
+          <ul className="mt-2 flex flex-col gap-3 text-sm text-sidebarMenu">
             {systemMenu.map((item) => (
               <li key={item.id}>
                 <MenuItem
@@ -70,6 +67,7 @@ export default function Sidebar() {
                   label={item.label}
                   path={item.path}
                   submenu={item.submenu}
+                  redirectTo={item.redirectTo}
                 />
               </li>
             ))}

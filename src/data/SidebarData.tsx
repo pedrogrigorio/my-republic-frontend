@@ -22,23 +22,24 @@ export const mainMenu = [
   {
     id: 'search',
     label: 'Buscar repúblicas',
-    path: '/search-student-housing',
+    path: '/student-housing',
+    redirectTo: '/student-housing/search',
     icon: <MagnifyingGlass size={20} />,
     submenu: [
       {
         id: 'search-ads',
         label: 'Buscar',
-        path: '/search-student-housing',
+        path: '/student-housing/search',
       },
       {
         id: 'my-applications',
         label: 'Minhas aplicações',
-        path: '/applications',
+        path: '/student-housing/applications',
       },
       {
         id: 'favorites',
         label: 'Favoritos',
-        path: '/favorites',
+        path: '/student-housing/favorites',
       },
     ],
   },
@@ -48,13 +49,14 @@ export const systemMenu = [
   {
     id: 'notifications',
     label: 'Notificações',
-    path: '',
+    path: '#',
     icon: <Bell size={20} />,
   },
   {
     id: 'settings',
     label: 'Configurações',
-    path: '/settings/account',
+    path: '/settings',
+    redirectTo: '/settings/account',
     icon: <Gear size={20} />,
     submenu: [
       {
