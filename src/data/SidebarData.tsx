@@ -11,20 +11,20 @@ export const mainMenu = [
     id: 'home',
     label: 'Início',
     path: '/',
-    icon: <House size={20} />,
+    icon: <House size={24} />,
   },
   {
     id: 'ads',
     label: 'Meus anúncios',
     path: '/my-ads',
-    icon: <Megaphone size={20} />,
+    icon: <Megaphone size={24} />,
   },
   {
     id: 'search',
     label: 'Buscar repúblicas',
     path: '/student-housing',
     redirectTo: '/student-housing/search',
-    icon: <MagnifyingGlass size={20} />,
+    icon: <MagnifyingGlass size={24} />,
     submenu: [
       {
         id: 'search-ads',
@@ -50,14 +50,14 @@ export const systemMenu = [
     id: 'notifications',
     label: 'Notificações',
     path: '#',
-    icon: <Bell size={20} />,
+    icon: <Bell size={24} />,
   },
   {
     id: 'settings',
     label: 'Configurações',
     path: '/settings',
     redirectTo: '/settings/account',
-    icon: <Gear size={20} />,
+    icon: <Gear size={24} />,
     submenu: [
       {
         id: 'my-account',

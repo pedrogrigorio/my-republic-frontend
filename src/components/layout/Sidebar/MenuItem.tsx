@@ -1,7 +1,7 @@
 import { CaretUp } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 interface SubmenuItem {
   id: string
@@ -15,12 +15,18 @@ interface MenuItemProps {
   path: string
   submenu?: SubmenuItem[]
   redirectTo?: string
+  sidebarIsOpen: boolean
 }
 
 export default function MenuItem(item: MenuItemProps) {
   const [isSubmenuActive, setIsSubmenuActive] = useState(false)
 
   const pathname = usePathname()
+  const { sidebarIsOpen } = item
+
+  useEffect(() => {
+    setIsSubmenuActive(false)
+  }, [sidebarIsOpen])
 
   const isActive = () => {
     if (item.path === '/') {
@@ -42,47 +48,53 @@ export default function MenuItem(item: MenuItemProps) {
       >
         <Link
           href={item.redirectTo ? item.redirectTo : item.path}
-          className={`flex h-full flex-1 items-center gap-2 ${active ? 'text-black' : ''}`}
+          className={`flex h-full items-center gap-4 ${active && 'text-black'}`}
         >
           {item.icon}
-          {item.label}
+          <span
+            className={`${!sidebarIsOpen ? 'w-0 opacity-0' : 'opacity-100'} flex-1 whitespace-nowrap transition-opacity duration-200`}
+          >
+            {item.label}
+          </span>
         </Link>
 
         <button
           onClick={() => setIsSubmenuActive(!isSubmenuActive)}
-          className={`${isSubmenuActive ? 'rotate-180 text-black' : 'rotate-0'} transition duration-500`}
+          className={`${isSubmenuActive ? 'rotate-180 text-black' : 'rotate-0'} ${!sidebarIsOpen && 'hidden'} transition duration-500`}
         >
           {item.submenu && <CaretUp width={16} height={16} />}
         </button>
       </div>
 
       {/* Submenu */}
-      <div
-        className={`transform overflow-hidden transition-all duration-500 ${isSubmenuActive ? 'max-h-32' : 'max-h-0'}`}
-      >
-        <div className="mt-2 flex gap-2 px-4">
-          <div className="flex w-5 justify-center">
-            <div className="w-1 rounded-lg bg-gray-200"></div>
-          </div>
+      {sidebarIsOpen && (
+        <div
+          className={`transform overflow-hidden transition-all duration-500 ${isSubmenuActive ? 'max-h-32' : 'max-h-0'}`}
+        >
+          <div className="mt-2 flex gap-2 px-4">
+            <div className="flex w-5 justify-center">
+              <div className="w-1 rounded-lg bg-gray-200"></div>
+            </div>
 
-          <ul className="flex flex-1 flex-col gap-1">
-            {item.submenu?.map((subitem) => (
-              <li key={subitem.id} className="h-8">
-                <Link
-                  href={subitem.path}
-                  className={`flex h-full items-center rounded-xl px-4 text-xs hover:text-black ${pathname.includes(subitem.path) ? 'bg-gray-50' : ''}`}
-                >
-                  <span
-                    className={`${pathname.includes(subitem.path) && 'text-black'}`}
+            <ul className="flex flex-1 flex-col gap-1">
+              {item.submenu?.map((subitem) => (
+                <li key={subitem.id} className="h-8">
+                  <Link
+                    href={subitem.path}
+                    className={`flex h-full items-center rounded-xl px-4 text-xs hover:text-black ${pathname.includes(subitem.path) ? 'bg-gray-50' : ''}`}
                   >
-                    {subitem.label}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+                    <span
+                      className={`${pathname.includes(subitem.path) && 'text-black'}`}
+                    >
+                      {subitem.label}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
