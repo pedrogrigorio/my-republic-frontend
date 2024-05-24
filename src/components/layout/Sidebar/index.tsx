@@ -1,13 +1,22 @@
 'use client'
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+
 import Logo from '@/components/icons/Logo'
-import { CaretLeft } from '@phosphor-icons/react/dist/ssr'
+import { CaretLeft, SignOut } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import { useState } from 'react'
 import persona from '@/assets/img/persona.png'
 import { mainMenu, systemMenu } from '@/data/SidebarData'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { LogOut, LogOutIcon } from 'lucide-react'
 
 const MenuItem = dynamic(() => import('./MenuItem'), { ssr: false })
 
@@ -16,7 +25,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`relative bg-white px-6 py-4 ${isOpen ? 'w-80' : 'w-[104px]'} transition-all duration-500`}
+      className={`relative bg-white p-4 transition-all duration-500 ${isOpen ? 'w-80' : 'w-[88px]'}`}
     >
       {/* Botão de fechar sidebar */}
       <button
@@ -35,15 +44,12 @@ export default function Sidebar() {
 
       <div className="flex h-full w-full flex-col overflow-hidden">
         {/* Logo da aplicação */}
-        <Link
-          href="/"
-          className={`flex items-center gap-4 px-4 ${!isOpen && 'justify-center'}`}
-        >
-          <div className="flex min-h-8 min-w-8">
+        <Link href="/" className="flex items-center px-3">
+          <div className="h-8 w-8">
             <Logo />
           </div>
           <h1
-            className={`whitespace-nowrap text-xl font-bold text-logo ${!isOpen && 'hidden'}`}
+            className={`whitespace-nowrap pl-3 text-xl font-bold text-logo transition-opacity duration-200 ${!isOpen ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
           >
             MyRepublic
           </h1>
@@ -52,15 +58,15 @@ export default function Sidebar() {
         {/* Menus */}
         <div className="mt-20 flex-1">
           {/* Menu principal */}
-          <div className={`${!isOpen && ''} flex flex-col gap-2 font-medium`}>
+          <div className="font-medium">
             <span
-              className={`px-4 text-xs text-sidebarMenu transition-opacity duration-200 ${!isOpen ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+              className={`h-4 px-4 text-xs text-sidebarMenu transition-opacity duration-200 ${!isOpen ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
             >
               PRINCIPAL
             </span>
             <ul className="flex flex-col gap-3 text-sm text-sidebarMenu">
               {mainMenu.map((item) => (
-                <li key={item.id} className={`${!isOpen && 'flex'}`}>
+                <li key={item.id}>
                   <MenuItem
                     icon={item.icon}
                     label={item.label}
@@ -75,9 +81,7 @@ export default function Sidebar() {
           </div>
 
           {/* Menu de Sistema */}
-          <div
-            className={`${!isOpen ? '' : 'gap-2'} mt-6 flex flex-col font-medium`}
-          >
+          <div className="mt-6 flex flex-col font-medium">
             <span
               className={`px-4 text-xs text-sidebarMenu transition-all duration-200 ${!isOpen ? 'pointer-events-none h-0 opacity-0' : 'h-4 opacity-100'}`}
             >
@@ -85,7 +89,7 @@ export default function Sidebar() {
             </span>
             <ul className="flex flex-col gap-3 text-sm text-sidebarMenu">
               {systemMenu.map((item) => (
-                <li key={item.id} className={`${!isOpen && 'flex'}`}>
+                <li key={item.id}>
                   <MenuItem
                     icon={item.icon}
                     label={item.label}
@@ -101,20 +105,37 @@ export default function Sidebar() {
         </div>
 
         {/* Perfil */}
-        <div className="flex cursor-pointer items-center gap-3 rounded-xl px-4 py-2 hover:bg-gray-50">
-          <Image
-            src={persona}
-            width={32}
-            height={32}
-            className="rounded-full border-[1px] border-gray-300"
-            alt=""
-          />
-          <h3
-            className={`whitespace-nowrap text-sm font-semibold text-gray-800 ${!isOpen && 'hidden'}`}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 hover:bg-gray-50">
+              <Image
+                src={persona}
+                width={32}
+                height={32}
+                className="h-8 w-8 rounded-full border-[1px] border-gray-300"
+                alt="Profile image"
+              />
+              <h3
+                className={`whitespace-nowrap text-sm font-semibold text-gray-800 transition-opacity duration-200 ${!isOpen ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+              >
+                John Doe
+              </h3>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            side={isOpen ? 'top' : 'right'}
+            className="max-h-[--radix-dropdown-menu-content-available-height] w-[--radix-dropdown-menu-trigger-width]"
           >
-            Pedro Henrique
-          </h3>
-        </div>
+            <DropdownMenuGroup>
+              <DropdownMenuItem asChild>
+                <div className="flex gap-3 text-gray-800">
+                  <SignOut size={24} />
+                  <span>Sair</span>
+                </div>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   )

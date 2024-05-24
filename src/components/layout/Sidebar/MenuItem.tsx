@@ -1,3 +1,11 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+
 import { CaretUp } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -43,20 +51,61 @@ export default function MenuItem(item: MenuItemProps) {
   return (
     <div>
       {/* Item principal */}
-      <div
-        className={`flex h-10 items-center justify-between rounded-xl px-4 hover:text-black ${active ? 'bg-gray-50' : ''}`}
-      >
-        <Link
-          href={item.redirectTo ? item.redirectTo : item.path}
-          className={`flex h-full items-center gap-4 ${active && 'text-black'}`}
-        >
-          {item.icon}
-          <span
-            className={`${!sidebarIsOpen ? 'w-0 opacity-0' : 'opacity-100'} flex-1 whitespace-nowrap transition-opacity duration-200`}
+      <div className="relative flex h-12 items-center justify-between rounded-xl px-3 hover:text-black">
+        {active && (
+          <div className="absolute left-0 z-0 h-full w-full rounded-xl bg-gray-50"></div>
+        )}
+
+        {sidebarIsOpen || !item.submenu ? (
+          <Link
+            href={item.redirectTo ? item.redirectTo : item.path}
+            className={`z-10 flex h-full items-center ${active && 'text-black'}`}
           >
-            {item.label}
-          </span>
-        </Link>
+            <div className="flex w-8 items-center justify-center">
+              {item.icon}
+            </div>
+            <span
+              className={`${!sidebarIsOpen ? 'w-0 opacity-0' : 'opacity-100'} flex-1 whitespace-nowrap pl-3 transition-opacity duration-200`}
+            >
+              {item.label}
+            </span>
+          </Link>
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div
+                className={`z-10 flex h-full items-center ${active && 'text-black'}`}
+              >
+                <div className="flex w-8 items-center justify-center">
+                  {item.icon}
+                </div>
+                <span
+                  className={`${!sidebarIsOpen ? 'w-0 opacity-0' : 'opacity-100'} flex-1 whitespace-nowrap pl-3 transition-opacity duration-200`}
+                >
+                  {item.label}
+                </span>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="right" className="w-48">
+              <DropdownMenuGroup>
+                {item.submenu.map((subitem) => (
+                  <DropdownMenuItem
+                    key={subitem.id}
+                    asChild
+                    className={`${pathname.includes(subitem.path) && 'bg-gray-100'}`}
+                  >
+                    <Link
+                      href={subitem.path}
+                      className={`${pathname.includes(subitem.path) ? 'text-black' : 'text-sidebarMenu'}`}
+                    >
+                      {subitem.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
 
         <button
           onClick={() => setIsSubmenuActive(!isSubmenuActive)}
@@ -81,7 +130,7 @@ export default function MenuItem(item: MenuItemProps) {
                 <li key={subitem.id} className="h-8">
                   <Link
                     href={subitem.path}
-                    className={`flex h-full items-center rounded-xl px-4 text-xs hover:text-black ${pathname.includes(subitem.path) ? 'bg-gray-50' : ''}`}
+                    className={`flex h-full items-center rounded-xl px-4 text-xs hover:text-black ${pathname.includes(subitem.path) && 'bg-gray-50'}`}
                   >
                     <span
                       className={`${pathname.includes(subitem.path) && 'text-black'}`}
