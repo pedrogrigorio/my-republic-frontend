@@ -13,12 +13,13 @@ import { CaretLeft, SignOut } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import { useState } from 'react'
 import persona from '@/assets/img/persona.png'
-import { mainMenu, systemMenu } from '@/data/SidebarData'
-import dynamic from 'next/dynamic'
+import { mainMenu, settingsMenu } from '@/data/SidebarData'
+// import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { LogOut, LogOutIcon } from 'lucide-react'
+import NotificationItem from './NotificationItem'
+import MenuItem from './MenuItem'
 
-const MenuItem = dynamic(() => import('./MenuItem'), { ssr: false })
+// const MenuItem = dynamic(() => import('./MenuItem'), { ssr: true })
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
@@ -88,18 +89,19 @@ export default function Sidebar() {
               SISTEMA
             </span>
             <ul className="flex flex-col gap-3 text-sm text-sidebarMenu">
-              {systemMenu.map((item) => (
-                <li key={item.id}>
-                  <MenuItem
-                    icon={item.icon}
-                    label={item.label}
-                    path={item.path}
-                    submenu={item.submenu}
-                    redirectTo={item.redirectTo}
-                    sidebarIsOpen={isOpen}
-                  />
-                </li>
-              ))}
+              <li className="cursor-pointer">
+                <NotificationItem sidebarIsOpen={isOpen} />
+              </li>
+              <li>
+                <MenuItem
+                  icon={settingsMenu.icon}
+                  label={settingsMenu.label}
+                  path={settingsMenu.path}
+                  submenu={settingsMenu.submenu}
+                  redirectTo={settingsMenu.redirectTo}
+                  sidebarIsOpen={isOpen}
+                />
+              </li>
             </ul>
           </div>
         </div>

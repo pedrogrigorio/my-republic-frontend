@@ -1,5 +1,4 @@
 import {
-  Bell,
   Gear,
   House,
   MagnifyingGlass,
@@ -45,25 +44,17 @@ export const mainMenu = [
   },
 ]
 
-export const systemMenu = [
-  {
-    id: 'notifications',
-    label: 'Notificações',
-    path: '#',
-    icon: <Bell size={24} />,
-  },
-  {
-    id: 'settings',
-    label: 'Configurações',
-    path: '/settings',
-    redirectTo: '/settings/account',
-    icon: <Gear size={24} />,
-    submenu: [
-      {
-        id: 'my-account',
-        label: 'Minha conta',
-        path: '/settings/account',
-      },
-    ],
-  },
-]
+export const settingsMenu = {
+  id: 'settings',
+  label: 'Configurações',
+  path: '/settings',
+  redirectTo: '/settings/account',
+  icon: <Gear size={24} />,
+  submenu: [
+    {
+      id: 'my-account',
+      label: 'Minha conta',
+      path: '/settings/account',
+    },
+  ],
+}

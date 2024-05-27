@@ -109,7 +109,7 @@ export default function MenuItem(item: MenuItemProps) {
 
         <button
           onClick={() => setIsSubmenuActive(!isSubmenuActive)}
-          className={`${isSubmenuActive ? 'rotate-180 text-black' : 'rotate-0'} ${!sidebarIsOpen && 'hidden'} transition duration-500`}
+          className={`${isSubmenuActive ? 'rotate-180 text-black' : 'rotate-0'} ${!sidebarIsOpen && 'hidden'} pl-3 transition duration-500`}
         >
           {item.submenu && <CaretUp width={16} height={16} />}
         </button>
