@@ -96,7 +96,7 @@ export default function MenuItem(item: MenuItemProps) {
                   >
                     <Link
                       href={subitem.path}
-                      className={`${pathname.includes(subitem.path) ? 'text-black' : 'text-sidebarMenu'}`}
+                      className={`${pathname.includes(subitem.path) ? 'text-black' : 'text-sidebar'}`}
                     >
                       {subitem.label}
                     </Link>

@@ -61,11 +61,11 @@ export default function Sidebar() {
           {/* Menu principal */}
           <div className="font-medium">
             <span
-              className={`h-4 px-4 text-xs text-sidebarMenu transition-opacity duration-200 ${!isOpen ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+              className={`h-4 px-4 text-xs text-sidebar transition-opacity duration-200 ${!isOpen ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
             >
               PRINCIPAL
             </span>
-            <ul className="flex flex-col gap-3 text-sm text-sidebarMenu">
+            <ul className="flex flex-col gap-3 text-sm text-sidebar">
               {mainMenu.map((item) => (
                 <li key={item.id}>
                   <MenuItem
@@ -84,11 +84,11 @@ export default function Sidebar() {
           {/* Menu de Sistema */}
           <div className="mt-6 flex flex-col font-medium">
             <span
-              className={`px-4 text-xs text-sidebarMenu transition-all duration-200 ${!isOpen ? 'pointer-events-none h-0 opacity-0' : 'h-4 opacity-100'}`}
+              className={`px-4 text-xs text-sidebar transition-all duration-200 ${!isOpen ? 'pointer-events-none h-0 opacity-0' : 'h-4 opacity-100'}`}
             >
               SISTEMA
             </span>
-            <ul className="flex flex-col gap-3 text-sm text-sidebarMenu">
+            <ul className="flex flex-col gap-3 text-sm text-sidebar">
               <li className="cursor-pointer">
                 <NotificationItem sidebarIsOpen={isOpen} />
               </li>
