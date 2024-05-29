@@ -16,8 +16,8 @@ import persona from '@/assets/img/persona.png'
 import { mainMenu, settingsMenu } from '@/data/SidebarData'
 // import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import NotificationItem from './NotificationItem'
 import MenuItem from './MenuItem'
+import NotificationItem from './NotificationItem'
 
 // const MenuItem = dynamic(() => import('./MenuItem'), { ssr: true })
 

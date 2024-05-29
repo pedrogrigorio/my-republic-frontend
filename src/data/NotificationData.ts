@@ -1,4 +1,5 @@
 import persona from '@/assets/img/persona.png'
+import { groupNotificationsByDate } from '@/utils/groupNotificationsByDate'
 
 export const notifications = [
   {
@@ -6,9 +7,10 @@ export const notifications = [
     img_url: persona,
     type: 0,
     user: 'João da Silva',
+    title: ' te enviou uma mensagem sobre o anúncio ',
     ad: 'República Quixadá',
     body: 'Olá, tudo bem? Tenho interesse no seu anúncio de república e gostaria de saber se você ainda tem vagas.',
-    date: '2023-03-07 12:12:00',
+    date: '2024-05-29 05:47:00',
     isRead: false,
   },
   {
@@ -16,9 +18,10 @@ export const notifications = [
     img_url: null,
     type: 1,
     user: null,
+    title: 'Vagas disponíveis na república ',
     ad: 'República Quixadá',
     body: 'Não perca tempo e faça sua aplicação agora mesmo!',
-    date: '2023-03-07 12:12:00',
+    date: '2024-05-28 12:45:00',
     isRead: false,
   },
   {
@@ -26,88 +29,79 @@ export const notifications = [
     img_url: null,
     type: 2,
     user: null,
+    title: 'Seu anúncio foi pausado: ',
     ad: 'República Quixadá',
     body: 'Número máximo de pessoas atingido.',
-    date: '2023-03-07 12:12:00',
-    isRead: false,
+    date: '2024-05-28 23:10:00',
+    isRead: true,
   },
   {
     id: 3,
     img_url: persona,
     type: 0,
     user: 'João da Silva',
+    title: ' te enviou uma mensagem sobre o anúncio ',
     ad: 'República Quixadá',
     body: 'Olá, tudo bem? Tenho interesse no seu anúncio de república. Você ainda tem vagas?',
-    date: '2023-03-08 12:12:00',
-    isRead: false,
+    date: '2023-03-08 00:23:00',
+    isRead: true,
   },
   {
     id: 4,
     img_url: null,
     type: 1,
     user: null,
+    title: 'Vagas disponíveis na república ',
     ad: 'República Quixadá',
     body: 'Não perca tempo e faça sua aplicação agora mesmo!',
-    date: '2023-03-08 12:12:00',
-    isRead: false,
+    date: '2023-03-08 22:43:00',
+    isRead: true,
   },
   {
     id: 5,
     img_url: null,
     type: 2,
     user: null,
+    title: 'Seu anúncio foi pausado: ',
     ad: 'República Quixadá',
     body: 'Número máximo de pessoas atingido.',
-    date: '2023-03-08 12:12:00',
-    isRead: false,
+    date: '2023-03-08 11:45:00',
+    isRead: true,
   },
   {
     id: 6,
     img_url: persona,
     type: 0,
     user: 'João da Silva',
+    title: ' te enviou uma mensagem sobre o anúncio ',
     ad: 'República Quixadá',
     body: 'Olá, tudo bem? Tenho interesse no seu anúncio de república. Você ainda tem vagas?',
-    date: '2023-03-09 12:12:00',
-    isRead: false,
+    date: '2023-03-09 14:20:00',
+    isRead: true,
   },
   {
     id: 7,
     img_url: null,
     type: 1,
     user: null,
+    title: 'Vagas disponíveis na república ',
     ad: 'República Quixadá',
     body: 'Não perca tempo e faça sua aplicação agora mesmo!',
-    date: '2023-03-09 12:12:00',
-    isRead: false,
+    date: '2023-03-09 17:30:00',
+    isRead: true,
   },
   {
     id: 8,
     img_url: null,
     type: 2,
     user: null,
+    title: 'Seu anúncio foi pausado: ',
     ad: 'República Quixadá',
     body: 'Número máximo de pessoas atingido.',
-    date: '2023-03-09 12:12:00',
-    isRead: false,
+    date: '2023-03-09 15:43:00',
+    isRead: true,
   },
 ]
-
-const groupNotificationsByDate = (notifications: Notification[]) => {
-  const grouped = notifications.reduce((acc, notification) => {
-    const date = notification.date.split(' ')[0]
-    if (!acc[date]) {
-      acc[date] = []
-    }
-    acc[date].push(notification)
-    return acc
-  }, {})
-
-  return Object.keys(grouped).map((date) => ({
-    date,
-    notifications: grouped[date],
-  }))
-}
 
 export const notificationsGroupedByDate =
   groupNotificationsByDate(notifications)

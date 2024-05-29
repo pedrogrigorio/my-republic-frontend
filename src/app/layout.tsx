@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import Sidebar from '@/components/layout/Sidebar'
+import '@/lib/dayjs'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
