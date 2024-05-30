@@ -12,7 +12,9 @@ export default function Notifications({ notifications }: NotificationsProps) {
     <ul>
       {notifications.map((notification, index) => (
         <li key={notification.id}>
+          {/* Notificação */}
           <div className="flex gap-3 px-6 py-4 hover:bg-gray-50">
+            {/* Icone ou imagem */}
             {notification.img_url ? (
               <Image
                 src={notification.img_url}
@@ -27,7 +29,9 @@ export default function Notifications({ notifications }: NotificationsProps) {
               </div>
             )}
 
+            {/* Textos */}
             <div className="flex-1 overflow-hidden text-sm text-primary">
+              {/* Título */}
               <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
                 {notification.type === 0 && (
                   <>
@@ -57,9 +61,13 @@ export default function Notifications({ notifications }: NotificationsProps) {
                   </>
                 )}
               </div>
+
+              {/* Descrição */}
               <p className="overflow-hidden text-ellipsis whitespace-nowrap">
                 {notification.body}
               </p>
+
+              {/* Data */}
               <p className="mt-1 text-xs">
                 {dayjs(notification.date).format(
                   'D[ de ]MMMM[ de ]YYYY[ · ]h[:]m A',
@@ -67,11 +75,13 @@ export default function Notifications({ notifications }: NotificationsProps) {
               </p>
             </div>
 
+            {/* Bolinha de notificação nova */}
             <div
               className={`mt-1 h-3 w-3 rounded-full bg-badge ${notification.isRead && 'opacity-0'}`}
             />
           </div>
 
+          {/* Divisor */}
           {index !== notifications.length - 1 && (
             <div className="h-[1px] w-full bg-gray-200" />
           )}
