@@ -35,7 +35,7 @@ export default function NotificationItem({
       <PopoverContent
         side="right"
         sideOffset={24}
-        className="flex h-[650px] w-[572px] translate-y-16 flex-col overflow-hidden rounded-3xl p-0"
+        className="flex h-[65vh] w-[572px] translate-y-16 flex-col overflow-hidden rounded-3xl p-0"
       >
         {/* Título */}
         <div className="px-6 pb-4 pt-8 font-medium text-strong">

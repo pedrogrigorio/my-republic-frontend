@@ -14,12 +14,9 @@ import Image from 'next/image'
 import { useState } from 'react'
 import persona from '@/assets/img/persona.png'
 import { mainMenu, settingsMenu } from '@/data/SidebarData'
-// import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import MenuItem from './MenuItem'
 import NotificationItem from './NotificationItem'
-
-// const MenuItem = dynamic(() => import('./MenuItem'), { ssr: true })
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
@@ -57,7 +54,7 @@ export default function Sidebar() {
         </Link>
 
         {/* Menus */}
-        <div className="mt-20 flex-1">
+        <div className="mb-8 mt-20 flex-1 overflow-y-auto overflow-x-hidden scrollbar scrollbar-track-transparent scrollbar-thumb-gray-300 scrollbar-corner-transparent">
           {/* Menu principal */}
           <div className="font-medium">
             <span

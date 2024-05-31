@@ -21,12 +21,21 @@ const config = {
         },
       },
       colors: {
-        buttons: {
+        button: {
           primary: '#F28000',
+          primaryHover: '#df7400',
+          secondary: '#43B682',
+          secondaryHover: '#3DA676',
           filter: '#43B682',
+        },
+        border: {
+          DEFAULT: '#d9d9d9',
         },
         badge: {
           DEFAULT: '#F28000',
+        },
+        placeholder: {
+          DEFAULT: '#ABB0B4',
         },
         gray: {
           50: '#fafafa',
@@ -64,6 +73,9 @@ const config = {
           800: '#5D2524',
           900: '#471D1C',
         },
+      },
+      boxShadow: {
+        custom: '0 2px 18px -2px rgba(0, 0, 0, 0.1)', // Adiciona uma sombra personalizada
       },
     },
   },
