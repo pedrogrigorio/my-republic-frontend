@@ -1,18 +1,18 @@
 'use client'
 
 import ColorfulSearchIcon from '@/components/icons/ColorfulSearchIcon'
-import SearchBox from '@/components/layout/SearchBox'
 import { Button } from '@/components/ui/button'
 import Card from './_components/Card'
 import ColorfulApplyIcon from '@/components/icons/ColorfulApplyIcon'
 import ColorfulChatIcon from '@/components/icons/ColorfulChatIcon'
-import { useState } from 'react'
 import ColorfulClockIcon from '@/components/icons/ColorfulClockIcon'
 import ColorfulFormIcon from '@/components/icons/ColorfulFormIcon'
 import ColorfulPauseIcon from '@/components/icons/ColorfulPauseIcon'
+import SearchInput from '@/components/layout/SearchInput'
+import { useSelectedGroup } from './_hooks/useSelectedGroup'
 
 export default function Home() {
-  const [selectedGroup, setSelectedGroup] = useState('search')
+  const { selectedGroup, selectSearch, selectAnnounce } = useSelectedGroup()
 
   return (
     <div className="mt-32 w-full px-8 pb-16">
@@ -22,8 +22,8 @@ export default function Home() {
       </div>
 
       <div className="mt-4 flex justify-center gap-3">
-        <SearchBox className="min-w-64 max-w-[516px]" />
-        <Button className="bg-button-primary hover:bg-button-primaryHover h-14 rounded-xl px-10 text-lg font-semibold">
+        <SearchInput className="min-w-64 max-w-[516px]" />
+        <Button className="hover:bg-button-primary-hover h-14 rounded-xl bg-button-primary px-10 text-lg font-semibold">
           Buscar
         </Button>
       </div>
@@ -33,15 +33,15 @@ export default function Home() {
         <div className="flex w-full justify-center gap-4">
           <Button
             variant={selectedGroup === 'search' ? 'default' : 'outline'}
-            className={`h-10 max-w-60 flex-1 ${selectedGroup === 'search' && 'bg-button-secondary hover:bg-button-secondaryHover'}`}
-            onClick={() => setSelectedGroup('search')}
+            className={`h-10 max-w-60 flex-1 ${selectedGroup === 'search' && 'hover:bg-button-secondary-hover bg-button-secondary'}`}
+            onClick={selectSearch}
           >
             Para quem busca
           </Button>
           <Button
             variant={selectedGroup === 'announce' ? 'default' : 'outline'}
-            className={`h-10 max-w-60 flex-1 ${selectedGroup === 'announce' && 'bg-button-secondary hover:bg-button-secondaryHover'}`}
-            onClick={() => setSelectedGroup('announce')}
+            className={`h-10 max-w-60 flex-1 ${selectedGroup === 'announce' && 'hover:bg-button-secondary-hover bg-button-secondary'}`}
+            onClick={selectAnnounce}
           >
             Para quem anuncia
           </Button>

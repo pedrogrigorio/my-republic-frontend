@@ -19,17 +19,26 @@ const config = {
           DEFAULT: '#5c5e64',
           hightlight: '#000',
         },
+        currency: '#43B682',
       },
       colors: {
+        danger: '#A94442',
         button: {
-          primary: '#F28000',
-          primaryHover: '#df7400',
-          secondary: '#43B682',
-          secondaryHover: '#3DA676',
-          filter: '#43B682',
+          primary: {
+            DEFAULT: '#F28000',
+            hover: '#df7400',
+          },
+          secondary: {
+            DEFAULT: '#43B682',
+            hover: '#3DA676',
+          },
+          filter: {
+            DEFAULT: '#43B682',
+            hover: '#3DA676',
+          },
         },
         border: {
-          DEFAULT: '#d9d9d9',
+          primary: '#d9d9d9',
         },
         badge: {
           DEFAULT: '#F28000',
@@ -37,6 +46,7 @@ const config = {
         placeholder: {
           DEFAULT: '#ABB0B4',
         },
+
         gray: {
           50: '#fafafa',
           100: '#f6f6f6',

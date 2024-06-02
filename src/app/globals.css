@@ -17,13 +17,13 @@ h1 {
 h2 {
   /* text-2xl font-medium */
   font-size: 1.5rem; /* 24px */;
-  line-height: 1.5rem;
+  line-height: 1.75rem;
   font-weight: 500;
 }
 
 h3 {
   /* text-xl font-semibold */
   font-size: 1.25rem; /* 20px */;
-  line-height: 1.25rem;
+  line-height: 1.5rem;
   font-weight: 600;
 }
