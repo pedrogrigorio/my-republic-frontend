@@ -8,7 +8,7 @@ interface SearchBoxProps {
 export default function SearchInput({ className }: SearchBoxProps) {
   return (
     <div
-      className={`${className} border-border-primary flex h-14 flex-1 items-center rounded-xl border bg-white px-3`}
+      className={`${className} border-primary flex h-14 flex-1 items-center rounded-xl border bg-white px-3`}
     >
       <MagnifyingGlass size={32} className="text-placeholder" />
       <Input

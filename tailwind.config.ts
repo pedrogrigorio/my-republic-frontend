@@ -21,8 +21,14 @@ const config = {
         },
         currency: '#43B682',
       },
+      borderColor: {
+        primary: '#d9d9d9',
+        tabActive: '#F28000',
+      },
       colors: {
         danger: '#A94442',
+        warning: '#F28000',
+        divisor: '#d9d9d9',
         button: {
           primary: {
             DEFAULT: '#F28000',
@@ -36,9 +42,6 @@ const config = {
             DEFAULT: '#43B682',
             hover: '#3DA676',
           },
-        },
-        border: {
-          primary: '#d9d9d9',
         },
         badge: {
           DEFAULT: '#F28000',

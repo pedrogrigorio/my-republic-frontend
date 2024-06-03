@@ -1,10 +1,13 @@
+'use client'
+
 import SearchInput from '@/components/layout/SearchInput'
 import { Button } from '@/components/ui/button'
-import { Faders } from '@phosphor-icons/react/dist/ssr'
 import MyAdvertisement from './_components/MyAdvertisement'
 import { ads } from '@/data/AdData'
+import { useState } from 'react'
 
 export default function MyAds() {
+  const [selectedTab, setSelectedTab] = useState('all')
   // return (
   //   <div className="relative h-full w-full">
   //     <div className="absolute top-64 flex w-full flex-col items-center gap-4">
@@ -24,31 +27,75 @@ export default function MyAds() {
     <div className="h-screen px-12 py-10">
       <SearchInput />
       <div className="mt-10 flex flex-col text-strong">
-        <div className="flex items-end justify-between">
+        <div className="flex items-start justify-between">
           <div>
             <h2 className="font-bold">Meus anúncios</h2>
             <span>10 resultados encontrados</span>
           </div>
-          <Button className="gap-2 bg-button-filter px-6 hover:bg-button-filter-hover">
-            <Faders size={24} />
-            Filtro
+          <Button className="my-3 self-end bg-button-primary hover:bg-button-primary-hover">
+            Criar anúncio
           </Button>
         </div>
 
-        <ul className="overflow-y-auto">
-          {ads.map((ad) => (
-            <li key={ad.id}>
-              <MyAdvertisement advertisement={ad} />
+        <div className="border-b border-border-primary">
+          <button
+            onClick={() => setSelectedTab('all')}
+            data-success={selectedTab === 'all'}
+            className="border-tabActive h-10 w-32 text-gray-300 data-[success=true]:border-b-2 data-[success=true]:text-strong"
+          >
+            Todos
+          </button>
+          <button
+            onClick={() => setSelectedTab('active')}
+            data-success={selectedTab === 'active'}
+            className="border-tabActive h-10 w-32 text-gray-300 data-[success=true]:border-b-2 data-[success=true]:text-strong"
+          >
+            Ativo
+          </button>
+          <button
+            onClick={() => setSelectedTab('paused')}
+            data-success={selectedTab === 'paused'}
+            className="h-10 w-32 border-button-primary text-gray-300 data-[success=true]:border-b-2 data-[success=true]:text-strong"
+          >
+            Pausado
+          </button>
+        </div>
 
-              {/* Divisor */}
-              <div className="h-[1px] w-full bg-gray-200" />
-            </li>
-          ))}
+        <ul>
+          {selectedTab === 'all' &&
+            ads.map((ad) => (
+              <li key={ad.id}>
+                <MyAdvertisement advertisement={ad} />
+
+                {/* Divisor */}
+                <div className="bg-divisor h-[1px] w-full" />
+              </li>
+            ))}
+
+          {selectedTab === 'active' &&
+            ads
+              .filter((ad) => ad.isActive)
+              .map((ad) => (
+                <li key={ad.id}>
+                  <MyAdvertisement advertisement={ad} />
+
+                  {/* Divisor */}
+                  <div className="bg-divisor h-[1px] w-full" />
+                </li>
+              ))}
+
+          {selectedTab === 'paused' &&
+            ads
+              .filter((ad) => !ad.isActive)
+              .map((ad) => (
+                <li key={ad.id}>
+                  <MyAdvertisement advertisement={ad} />
+
+                  {/* Divisor */}
+                  <div className="bg-divisor h-[1px] w-full" />
+                </li>
+              ))}
         </ul>
-
-        <Button className="my-3 self-end bg-button-primary hover:bg-button-primary-hover">
-          Criar anúncio
-        </Button>
       </div>
     </div>
   )

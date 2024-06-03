@@ -43,7 +43,7 @@ export default function NotificationItem({
         </div>
 
         {/* Divisor */}
-        <div className="h-[1px] w-full bg-gray-200"></div>
+        <div className="bg-divisor h-[1px] w-full"></div>
 
         {/* Conteúdo */}
         <div className="overflow-y-auto pt-4 scrollbar-thin">
