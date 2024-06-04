@@ -11,6 +11,9 @@ const config = {
   prefix: '',
   theme: {
     extend: {
+      spacing: {
+        '128': '512px',
+      },
       textColor: {
         logo: '#131313',
         strong: '#333437',

@@ -1,35 +1,18 @@
 'use client'
 
-import SearchInput from '@/components/layout/SearchInput'
-import { Button } from '@/components/ui/button'
+import SearchInput from '@/components/common/SearchInput'
 import MyAdvertisement from './_components/MyAdvertisement'
-import { ads as adsData } from '@/data/AdData'
-import { useSelectedTab } from './_hooks/useSelectedTab'
 import { Advertisement } from '@/types/advertisement'
+import { useSelectedTab } from './_hooks/useSelectedTab'
 import { useMockFetch } from '@/hooks/useMockFetch'
+import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import { ads as adsData } from '@/data/AdData'
 
 export default function MyAds() {
   const { data: ads, isLoading } = useMockFetch<Advertisement[]>(adsData)
   const { selectedTab, selectAll, selectActive, selectPaused } =
     useSelectedTab()
-
-  if (ads.length === 0 && !isLoading) {
-    return (
-      <div className="relative h-full w-full">
-        <div className="absolute top-64 flex w-full flex-col items-center gap-4">
-          <div className="flex flex-col items-center gap-2">
-            <h1>Você ainda não possui anúncios</h1>
-            <h2>Encontre pessoas e forme uma república.</h2>
-          </div>
-
-          <Button className="hover:bg-button-primaryHover h-12 bg-button-primary px-6 font-semibold">
-            Criar anúncio
-          </Button>
-        </div>
-      </div>
-    )
-  }
 
   if (isLoading) {
     return (
@@ -52,6 +35,23 @@ export default function MyAds() {
               <MyAdvertisement key={index} />
             ))}
           </ul>
+        </div>
+      </div>
+    )
+  }
+
+  if (ads.length === 0) {
+    return (
+      <div className="relative h-full w-full">
+        <div className="absolute top-64 flex w-full flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-2">
+            <h1>Você ainda não possui anúncios</h1>
+            <h2>Encontre pessoas e forme uma república.</h2>
+          </div>
+
+          <Button className="hover:bg-button-primaryHover h-12 bg-button-primary px-6 font-semibold">
+            Criar anúncio
+          </Button>
         </div>
       </div>
     )

@@ -8,7 +8,7 @@ import ColorfulChatIcon from '@/components/icons/ColorfulChatIcon'
 import ColorfulClockIcon from '@/components/icons/ColorfulClockIcon'
 import ColorfulFormIcon from '@/components/icons/ColorfulFormIcon'
 import ColorfulPauseIcon from '@/components/icons/ColorfulPauseIcon'
-import SearchInput from '@/components/layout/SearchInput'
+import SearchInput from '@/components/common/SearchInput'
 import { useSelectedGroup } from './_hooks/useSelectedGroup'
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <div className="mt-32 w-full px-8 pb-16">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center gap-2">
         <h1>Buscar repúblicas</h1>
         <h2>Onde deseja morar?</h2>
       </div>
