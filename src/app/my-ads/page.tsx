@@ -3,25 +3,59 @@
 import SearchInput from '@/components/layout/SearchInput'
 import { Button } from '@/components/ui/button'
 import MyAdvertisement from './_components/MyAdvertisement'
-import { ads } from '@/data/AdData'
-import { useState } from 'react'
+import { ads as adsData } from '@/data/AdData'
+import { useSelectedTab } from './_hooks/useSelectedTab'
+import { Advertisement } from '@/types/advertisement'
+import { useMockFetch } from '@/hooks/useMockFetch'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function MyAds() {
-  const [selectedTab, setSelectedTab] = useState('all')
-  // return (
-  //   <div className="relative h-full w-full">
-  //     <div className="absolute top-64 flex w-full flex-col items-center gap-4">
-  //       <div className="flex flex-col items-center gap-2">
-  //         <h1>Você ainda não possui anúncios</h1>
-  //         <h2>Encontre pessoas e forme uma república.</h2>
-  //       </div>
+  const { data: ads, isLoading } = useMockFetch<Advertisement[]>(adsData)
+  const { selectedTab, selectAll, selectActive, selectPaused } =
+    useSelectedTab()
 
-  //       <Button className="h-10 bg-button-primary font-medium hover:bg-button-primaryHover">
-  //         Criar anúncio
-  //       </Button>
-  //     </div>
-  //   </div>
-  // )
+  if (ads.length === 0 && !isLoading) {
+    return (
+      <div className="relative h-full w-full">
+        <div className="absolute top-64 flex w-full flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-2">
+            <h1>Você ainda não possui anúncios</h1>
+            <h2>Encontre pessoas e forme uma república.</h2>
+          </div>
+
+          <Button className="hover:bg-button-primaryHover h-12 bg-button-primary px-6 font-semibold">
+            Criar anúncio
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <div className="h-screen px-12 py-10">
+        <SearchInput />
+        <div className="mt-10 flex flex-col text-strong">
+          <div className="flex items-start justify-between">
+            <div>
+              <Skeleton className="h-8 w-48" />
+              <Skeleton className="mt-2 h-4 w-56" />
+            </div>
+            <Skeleton className="h-10 w-32" />
+          </div>
+          <div className="border-border-primary border-b">
+            <div className="h-10" />
+          </div>
+
+          <ul>
+            {Array.from({ length: 10 }).map((_, index) => (
+              <MyAdvertisement key={index} />
+            ))}
+          </ul>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="h-screen px-12 py-10">
@@ -37,23 +71,23 @@ export default function MyAds() {
           </Button>
         </div>
 
-        <div className="border-b border-border-primary">
+        <div className="border-border-primary border-b">
           <button
-            onClick={() => setSelectedTab('all')}
+            onClick={selectAll}
             data-success={selectedTab === 'all'}
-            className="border-tabActive h-10 w-32 text-gray-300 data-[success=true]:border-b-2 data-[success=true]:text-strong"
+            className="h-10 w-32 border-tabActive text-gray-300 data-[success=true]:border-b-2 data-[success=true]:text-strong"
           >
             Todos
           </button>
           <button
-            onClick={() => setSelectedTab('active')}
+            onClick={selectActive}
             data-success={selectedTab === 'active'}
-            className="border-tabActive h-10 w-32 text-gray-300 data-[success=true]:border-b-2 data-[success=true]:text-strong"
+            className="h-10 w-32 border-tabActive text-gray-300 data-[success=true]:border-b-2 data-[success=true]:text-strong"
           >
             Ativo
           </button>
           <button
-            onClick={() => setSelectedTab('paused')}
+            onClick={selectPaused}
             data-success={selectedTab === 'paused'}
             className="h-10 w-32 border-button-primary text-gray-300 data-[success=true]:border-b-2 data-[success=true]:text-strong"
           >
@@ -68,7 +102,7 @@ export default function MyAds() {
                 <MyAdvertisement advertisement={ad} />
 
                 {/* Divisor */}
-                <div className="bg-divisor h-[1px] w-full" />
+                <div className="h-[1px] w-full bg-divisor" />
               </li>
             ))}
 
@@ -80,7 +114,7 @@ export default function MyAds() {
                   <MyAdvertisement advertisement={ad} />
 
                   {/* Divisor */}
-                  <div className="bg-divisor h-[1px] w-full" />
+                  <div className="h-[1px] w-full bg-divisor" />
                 </li>
               ))}
 
@@ -92,7 +126,7 @@ export default function MyAds() {
                   <MyAdvertisement advertisement={ad} />
 
                   {/* Divisor */}
-                  <div className="bg-divisor h-[1px] w-full" />
+                  <div className="h-[1px] w-full bg-divisor" />
                 </li>
               ))}
         </ul>

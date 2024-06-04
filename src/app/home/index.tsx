@@ -23,7 +23,7 @@ export default function Home() {
 
       <div className="mt-4 flex justify-center gap-3">
         <SearchInput className="min-w-64 max-w-[516px]" />
-        <Button className="hover:bg-button-primary-hover h-14 rounded-xl bg-button-primary px-10 text-lg font-semibold">
+        <Button className="h-14 rounded-xl bg-button-primary px-10 text-lg font-semibold hover:bg-button-primary-hover">
           Buscar
         </Button>
       </div>
@@ -33,14 +33,14 @@ export default function Home() {
         <div className="flex w-full justify-center gap-4">
           <Button
             variant={selectedGroup === 'search' ? 'default' : 'outline'}
-            className={`h-10 max-w-60 flex-1 ${selectedGroup === 'search' && 'hover:bg-button-secondary-hover bg-button-secondary'}`}
+            className={`h-10 max-w-60 flex-1 ${selectedGroup === 'search' && 'bg-button-secondary hover:bg-button-secondary-hover'}`}
             onClick={selectSearch}
           >
             Para quem busca
           </Button>
           <Button
             variant={selectedGroup === 'announce' ? 'default' : 'outline'}
-            className={`h-10 max-w-60 flex-1 ${selectedGroup === 'announce' && 'hover:bg-button-secondary-hover bg-button-secondary'}`}
+            className={`h-10 max-w-60 flex-1 ${selectedGroup === 'announce' && 'bg-button-secondary hover:bg-button-secondary-hover'}`}
             onClick={selectAnnounce}
           >
             Para quem anuncia
