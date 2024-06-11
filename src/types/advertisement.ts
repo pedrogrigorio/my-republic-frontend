@@ -7,4 +7,5 @@ export interface Advertisement {
   locale: string
   price: number
   isActive: boolean
+  isFavorite: boolean
 }

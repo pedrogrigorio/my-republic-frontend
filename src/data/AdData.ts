@@ -8,6 +8,7 @@ export const ads = [
     locale: 'Fortaleza, CE',
     price: 800,
     isActive: true,
+    isFavorite: true,
   },
   {
     id: 1,
@@ -16,6 +17,7 @@ export const ads = [
     locale: 'São Paulo, SP',
     price: 1500,
     isActive: true,
+    isFavorite: true,
   },
   {
     id: 2,
@@ -24,6 +26,7 @@ export const ads = [
     locale: 'Rio de Janeiro, RJ',
     price: 2000,
     isActive: true,
+    isFavorite: false,
   },
   {
     id: 3,
@@ -32,6 +35,7 @@ export const ads = [
     locale: 'Curitiba, PR',
     price: 1200,
     isActive: false,
+    isFavorite: false,
   },
   {
     id: 4,
@@ -40,6 +44,7 @@ export const ads = [
     locale: 'Salvador, BA',
     price: 950,
     isActive: true,
+    isFavorite: false,
   },
   {
     id: 5,
@@ -48,6 +53,7 @@ export const ads = [
     locale: 'Porto Alegre, RS',
     price: 1100,
     isActive: true,
+    isFavorite: false,
   },
   {
     id: 6,
@@ -56,6 +62,7 @@ export const ads = [
     locale: 'Recife, PE',
     price: 850,
     isActive: false,
+    isFavorite: false,
   },
   {
     id: 7,
@@ -64,6 +71,7 @@ export const ads = [
     locale: 'Brasília, DF',
     price: 2500,
     isActive: true,
+    isFavorite: false,
   },
   {
     id: 8,
@@ -72,6 +80,7 @@ export const ads = [
     locale: 'Belo Horizonte, MG',
     price: 1300,
     isActive: true,
+    isFavorite: false,
   },
   {
     id: 9,
@@ -80,5 +89,6 @@ export const ads = [
     locale: 'Florianópolis, SC',
     price: 1000,
     isActive: true,
+    isFavorite: false,
   },
 ]

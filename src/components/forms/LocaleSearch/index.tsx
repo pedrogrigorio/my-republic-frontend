@@ -80,6 +80,8 @@ export default function LocaleSearch({ withButton }: LocaleSearchProps) {
           >
             <MagnifyingGlass size={32} className="text-placeholder" />
             <Input
+              autoComplete="off"
+              type="search"
               className=" border-none placeholder:text-placeholder focus-visible:ring-0 focus-visible:ring-offset-0"
               placeholder="Busque por cidade"
               value={search}
