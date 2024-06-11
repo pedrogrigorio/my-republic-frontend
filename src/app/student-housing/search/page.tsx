@@ -1,7 +1,40 @@
+'use client'
+
+import MyAdvertisement from '@/app/my-ads/_components/MyAdvertisement'
 import LocaleSearch from '@/components/forms/LocaleSearch'
-// import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+import { useSearchParams } from 'next/navigation'
 
 export default function Search() {
+  const params = useSearchParams()
+  const city = params.get('city')
+
+  if (city) {
+    return (
+      <div className="h-screen px-12 py-10">
+        <LocaleSearch />
+        <div className="mt-10 flex flex-col text-strong">
+          <div className="flex items-start justify-between">
+            <div>
+              <Skeleton className="h-8 w-48" />
+              <Skeleton className="mt-2 h-4 w-56" />
+            </div>
+            <Skeleton className="h-10 w-32" />
+          </div>
+          <div className="border-border-primary border-b">
+            <div className="h-10" />
+          </div>
+
+          <ul>
+            {Array.from({ length: 10 }).map((_, index) => (
+              <MyAdvertisement key={index} />
+            ))}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="relative h-full w-full">
       <div className="absolute top-64 w-full items-center gap-4">
@@ -11,10 +44,7 @@ export default function Search() {
         </div>
 
         <div className="mt-8 flex justify-center">
-          <LocaleSearch />
-          {/* <Button className="h-14 rounded-xl bg-button-primary px-10 text-lg font-semibold hover:bg-button-primary-hover">
-            Buscar
-          </Button> */}
+          <LocaleSearch withButton />
         </div>
       </div>
     </div>

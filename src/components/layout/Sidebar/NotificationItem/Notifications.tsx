@@ -83,7 +83,7 @@ export default function Notifications({ notifications }: NotificationsProps) {
 
           {/* Divisor */}
           {index !== notifications.length - 1 && (
-            <div className="bg-divisor h-[1px] w-full" />
+            <div className="h-[1px] w-full bg-divisor" />
           )}
         </li>
       ))}
