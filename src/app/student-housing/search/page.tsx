@@ -55,7 +55,12 @@ export default function Search() {
             <FilterButton />
           </div>
 
-          <ul className="mt-8 grid grid-cols-3 gap-4">
+          <ul
+            className="mt-8 grid gap-4"
+            style={{
+              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+            }}
+          >
             {ads.map((ad) => (
               <li key={ad.id}>
                 <AdvertisementCard ad={ad} />

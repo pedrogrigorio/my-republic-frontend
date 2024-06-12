@@ -19,22 +19,22 @@ interface AdvertisementCardProps {
 
 export default function AdvertisementCard({ ad }: AdvertisementCardProps) {
   return (
-    <div className="flex w-fit flex-col rounded-xl bg-white shadow-custom">
+    <div className="group flex flex-col rounded-xl bg-white shadow-custom">
       <div className="relative">
         <Image
           src={ad.img_url}
           alt="advertisement_image"
-          width={346}
-          height={186}
-          className="rounded-t-xl"
+          width={692}
+          height={372}
+          className="h-full w-full rounded-t-xl"
         />
-        <button className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-75 transition duration-300 hover:bg-gray-800">
+        <button className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-75 opacity-0 transition duration-300 group-hover:opacity-100 hover:bg-gray-800">
           <CaretLeft size={24} className="text-white" />
         </button>
-        <button className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-75 transition duration-300 hover:bg-gray-800">
+        <button className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-75 opacity-0 transition duration-200 group-hover:opacity-100 hover:bg-gray-800">
           <CaretRight size={24} className="text-white" />
         </button>
-        <button className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black bg-opacity-75 transition duration-300 hover:bg-gray-800">
+        <button className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black bg-opacity-75 opacity-0 transition duration-300 group-hover:opacity-100 hover:bg-gray-800">
           <Heart
             size={24}
             className={`${ad.isFavorite ? 'text-red-500' : 'text-white'}`}
