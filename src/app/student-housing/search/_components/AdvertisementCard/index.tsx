@@ -1,3 +1,9 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { Advertisement } from '@/types/advertisement'
 import { priceToCurrency } from '@/utils/priceToCurrency'
 import {
@@ -11,6 +17,7 @@ import {
   Person,
   Toilet,
 } from '@phosphor-icons/react/dist/ssr'
+
 import Image from 'next/image'
 
 interface AdvertisementCardProps {
@@ -44,8 +51,20 @@ export default function AdvertisementCard({ ad }: AdvertisementCardProps) {
       </div>
 
       <div className="p-4">
-        <div className="flex">
-          <h3 className="flex-1">Título da república</h3>
+        <div className="flex items-center gap-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <h3 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg">
+                  {ad.title}
+                </h3>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{ad.title}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
           <span className="font-semibold text-currency">
             {priceToCurrency(ad.price)}
           </span>

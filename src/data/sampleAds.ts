@@ -1,10 +1,10 @@
 import apartment from '@/assets/img/apartamento-duplex-1024x576.jpg'
 
-export const ads = [
+export const data = [
   {
     id: 0,
     img_url: apartment,
-    title: 'Título da República',
+    title: 'Título da República de teste do Romeu e Julieta',
     locale: 'Fortaleza, CE',
     price: 800,
     isActive: true,
@@ -84,6 +84,24 @@ export const ads = [
   },
   {
     id: 9,
+    img_url: apartment,
+    title: 'Apto Bem Localizado e Silencioso',
+    locale: 'Florianópolis, SC',
+    price: 1000,
+    isActive: true,
+    isFavorite: false,
+  },
+  {
+    id: 10,
+    img_url: apartment,
+    title: 'Apartamento Familiar Amplo',
+    locale: 'Belo Horizonte, MG',
+    price: 1300,
+    isActive: true,
+    isFavorite: false,
+  },
+  {
+    id: 11,
     img_url: apartment,
     title: 'Apto Bem Localizado e Silencioso',
     locale: 'Florianópolis, SC',

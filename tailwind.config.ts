@@ -90,6 +90,20 @@ const config = {
           900: '#471D1C',
         },
       },
+      animation: {
+        marquee: 'marquee 5s linear infinite',
+        marquee2: 'marquee2 25s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        marquee2: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+      },
       boxShadow: {
         custom: '0 2px 18px -2px rgba(0, 0, 0, 0.1)', // Adiciona uma sombra personalizada
       },

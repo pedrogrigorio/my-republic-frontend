@@ -7,14 +7,14 @@ import { useSelectedTab } from './_hooks/useSelectedTab'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { ads as adsData } from '@/data/AdData'
+import { data as adsData } from '@/data/sampleAds'
 
 export default function MyAds() {
   const { data: ads, isLoading } = useMockFetch<Advertisement[]>(adsData)
   const { selectedTab, selectAll, selectActive, selectPaused } =
     useSelectedTab()
 
-  if (isLoading) {
+  if (isLoading || !ads) {
     return (
       <div className="h-screen px-12 py-10">
         <SearchInput />

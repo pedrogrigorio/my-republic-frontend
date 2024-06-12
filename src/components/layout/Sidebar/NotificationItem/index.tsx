@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Bell, Checks } from '@phosphor-icons/react/dist/ssr'
-import { notificationsGroupedByDate } from '@/data/NotificationData'
+import { notificationsGroupedByDate } from '@/data/notificationData'
 import Notifications from './Notifications'
 import dayjs from '@/lib/dayjs'
 
@@ -43,7 +43,7 @@ export default function NotificationItem({
         </div>
 
         {/* Divisor */}
-        <div className="bg-divisor h-[1px] w-full"></div>
+        <div className="h-[1px] w-full bg-divisor"></div>
 
         {/* Conteúdo */}
         <div className="overflow-y-auto pt-4 scrollbar-thin">
