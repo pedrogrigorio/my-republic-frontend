@@ -26,6 +26,7 @@ const config = {
       },
       borderColor: {
         primary: '#d9d9d9',
+        strong: '#333437',
         tabActive: '#F28000',
       },
       colors: {
