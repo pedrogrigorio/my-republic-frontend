@@ -1,15 +1,15 @@
 'use client'
 
-import ColorfulSearchIcon from '@/components/icons/ColorfulSearchIcon'
 import { Button } from '@/components/ui/button'
-import Card from './_components/Card'
-import ColorfulApplyIcon from '@/components/icons/ColorfulApplyIcon'
-import ColorfulChatIcon from '@/components/icons/ColorfulChatIcon'
-import ColorfulClockIcon from '@/components/icons/ColorfulClockIcon'
-import ColorfulFormIcon from '@/components/icons/ColorfulFormIcon'
-import ColorfulPauseIcon from '@/components/icons/ColorfulPauseIcon'
 import { useSelectedGroup } from './_hooks/useSelectedGroup'
-import LocaleSearch from '@/components/forms/LocaleSearch'
+import ColorfulApplyIcon from '@/components/icons/colorful-apply-icon'
+import ColorfulChatIcon from '@/components/icons/colorful-chat-icon'
+import ColorfulClockIcon from '@/components/icons/colorful-clock-icon'
+import ColorfulFormIcon from '@/components/icons/colorful-form-icon'
+import ColorfulPauseIcon from '@/components/icons/colorful-pause-icon'
+import ColorfulSearchIcon from '@/components/icons/colorful-search-icon'
+import LocaleSearchForm from '@/components/forms/locale-search-form'
+import Card from './_components/card'
 
 export default function Home() {
   const { selectedGroup, selectSearch, selectAnnounce } = useSelectedGroup()
@@ -22,7 +22,7 @@ export default function Home() {
       </div>
 
       <div className="mt-4 flex justify-center">
-        <LocaleSearch withButton />
+        <LocaleSearchForm withButton />
       </div>
 
       <section className="mt-16 flex w-full flex-col items-center gap-4">

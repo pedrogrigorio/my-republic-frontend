@@ -7,39 +7,41 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { City } from '@/types/locale'
+import { useRouter } from 'next/navigation'
+import { useFetchCities } from '@/hooks/useFetchCities'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { City } from '@/types/locale'
-import { useRouter } from 'next/navigation'
-import { useFetchCities } from './hooks/useFetchCities'
 
-const searchFormSchema = z.object({
+const localeSearchFormSchema = z.object({
   search: z.string(),
 })
 
-type searchFormData = z.infer<typeof searchFormSchema>
+type localeSearchFormData = z.infer<typeof localeSearchFormSchema>
 
-interface LocaleSearchProps {
+interface LocaleSearchFormProps {
   withButton?: boolean
 }
 
-export default function LocaleSearch({ withButton }: LocaleSearchProps) {
+export default function LocaleSearchForm({
+  withButton,
+}: LocaleSearchFormProps) {
   const router = useRouter()
   const { cities } = useFetchCities()
   const [search, setSearch] = useState('')
 
-  const { register, handleSubmit, reset } = useForm<searchFormData>({
-    resolver: zodResolver(searchFormSchema),
+  const { register, handleSubmit, reset } = useForm<localeSearchFormData>({
+    resolver: zodResolver(localeSearchFormSchema),
   })
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
   }
 
-  const onSearch = (data: searchFormData) => {
+  const onSearch = (data: localeSearchFormData) => {
     console.log(data)
     reset()
   }

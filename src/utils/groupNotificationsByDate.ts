@@ -1,4 +1,4 @@
-import { Notification } from '@/types'
+import { Notification } from '@/types/notification'
 
 export const groupNotificationsByDate = (notifications: Notification[]) => {
   const grouped = notifications.reduce<Record<string, Notification[]>>(

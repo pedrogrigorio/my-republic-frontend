@@ -1,7 +1,7 @@
 'use client'
 
-import SearchInput from '@/components/common/SearchInput'
-import MyAdvertisement from './_components/MyAdvertisement'
+import SearchInput from '@/components/common/search-input'
+import MyAdvertisement from './_components/my-advertisement'
 import { Advertisement } from '@/types/advertisement'
 import { useSelectedTab } from './_hooks/useSelectedTab'
 import { useMockFetch } from '@/hooks/useMockFetch'

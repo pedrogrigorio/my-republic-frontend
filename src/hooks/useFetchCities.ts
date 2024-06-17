@@ -1,6 +1,6 @@
-import { City, CityData } from '@/types/locale'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { City, CityData } from '@/types/locale'
+import { useState, useEffect } from 'react'
 
 export function useFetchCities() {
   const [cities, setCities] = useState<City[]>([])

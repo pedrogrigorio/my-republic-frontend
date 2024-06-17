@@ -1,4 +1,4 @@
-import apartment from '@/assets/img/apartamento-duplex-1024x576.jpg'
+import apartment from '@/assets/img/apartment.jpg'
 
 export const advertisements = [
   {

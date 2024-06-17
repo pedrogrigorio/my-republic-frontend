@@ -1,11 +1,13 @@
 'use client'
 
-import LocaleSearch from '@/components/forms/LocaleSearch'
-import FilterButton from '@/components/ui/filter-button'
+import LocaleSearchForm from '@/components/forms/locale-search-form'
+import AdvertisementCard from './_components/advertisement-card'
+import { searchData } from '@/data/search-data'
+import { SearchResult } from '@/types/search-result'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { useSearchParams } from 'next/navigation'
-import AdvertisementCard from './_components/AdvertisementCard'
+
 import {
   Pagination,
   PaginationContent,
@@ -15,18 +17,17 @@ import {
   PaginationEllipsis,
   PaginationNext,
 } from '@/components/ui/pagination'
-import { searchData } from '@/data/searchData'
-import { SearchDataType } from '@/types/searchData'
+import FilterButton from '@/components/common/filter-button'
 
 export default function Search() {
   const params = useSearchParams()
   const city = params.get('city')
-  const { data, isLoading } = useMockFetch<SearchDataType>(searchData, city)
+  const { data, isLoading } = useMockFetch<SearchResult>(searchData, city)
 
   if (isLoading && city) {
     return (
       <div className="h-screen px-12 py-10">
-        <LocaleSearch />
+        <LocaleSearchForm />
         <div className="mt-10 flex flex-col pb-8">
           <div className="flex items-center justify-between">
             <div>
@@ -56,7 +57,7 @@ export default function Search() {
   if (data) {
     return (
       <div className="h-screen px-12 py-10">
-        <LocaleSearch />
+        <LocaleSearchForm />
         <div className="mt-10 flex flex-col pb-8 text-strong">
           <div className="flex items-center justify-between">
             <div>
@@ -117,7 +118,7 @@ export default function Search() {
         </div>
 
         <div className="mt-8 flex justify-center">
-          <LocaleSearch withButton />
+          <LocaleSearchForm withButton />
         </div>
       </div>
     </div>

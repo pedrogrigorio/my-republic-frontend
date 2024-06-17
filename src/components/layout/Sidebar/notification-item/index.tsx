@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/popover'
 import { Bell, Checks } from '@phosphor-icons/react/dist/ssr'
 import { notificationsGroupedByDate } from '@/data/notifications'
-import Notifications from './Notifications'
+import Notifications from './notifications'
 import dayjs from '@/lib/dayjs'
 
 interface NotificationItemProps {

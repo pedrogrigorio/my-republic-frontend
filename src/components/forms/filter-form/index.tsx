@@ -8,7 +8,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { amenities } from '@/data/amenities'
 import { rules } from '@/data/rules'
-import RadioInput from './RadioInput'
+import RadioInput from './radio-input'
 
 const filterFormSchema = z.object({
   priceRange: z.array(z.number()),

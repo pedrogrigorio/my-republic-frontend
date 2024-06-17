@@ -8,15 +8,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import Logo from '@/components/icons/Logo'
+import Logo from '@/components/icons/logo'
 import { CaretLeft, SignOut } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import { useState } from 'react'
 import persona from '@/assets/img/persona.png'
-import { mainMenu, settingsMenu } from '@/data/SidebarData'
+import { mainMenu, settingsMenu } from '@/data/sidebar-data'
 import Link from 'next/link'
-import MenuItem from './MenuItem'
-import NotificationItem from './NotificationItem'
+import MenuItem from './menu-item'
+import NotificationItem from './notification-item'
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
