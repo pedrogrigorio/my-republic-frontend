@@ -1,4 +1,4 @@
-import { Rule } from '@/types/rules'
+import { Rule } from '@/types/rule'
 
 export const rules: Rule[] = [
   { id: 1, tag: 'noSmoking', name: 'Proibido fumar' },

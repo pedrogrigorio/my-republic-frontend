@@ -7,10 +7,10 @@ import { useSelectedTab } from './_hooks/useSelectedTab'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { data as adsData } from '@/data/sampleAds'
+import { advertisements } from '@/data/advertisements'
 
 export default function MyAds() {
-  const { data: ads, isLoading } = useMockFetch<Advertisement[]>(adsData)
+  const { data: ads, isLoading } = useMockFetch<Advertisement[]>(advertisements)
   const { selectedTab, selectAll, selectActive, selectPaused } =
     useSelectedTab()
 

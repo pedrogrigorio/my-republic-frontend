@@ -1,6 +1,6 @@
 import apartment from '@/assets/img/apartamento-duplex-1024x576.jpg'
 
-export const data = [
+export const advertisements = [
   {
     id: 0,
     img_url: apartment,

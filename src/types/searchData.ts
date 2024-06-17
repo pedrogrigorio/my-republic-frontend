@@ -1,6 +1,6 @@
 import { Advertisement } from './advertisement'
 
-export interface SearchData {
+export interface SearchDataType {
   total: number
   ads: Advertisement[]
 }

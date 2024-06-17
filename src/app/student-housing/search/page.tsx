@@ -4,7 +4,6 @@ import MyAdvertisement from '@/app/my-ads/_components/MyAdvertisement'
 import LocaleSearch from '@/components/forms/LocaleSearch'
 import FilterButton from '@/components/ui/filter-button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { data as searchData } from '@/data/searchData'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { useSearchParams } from 'next/navigation'
 import AdvertisementCard from './_components/AdvertisementCard'
@@ -17,13 +16,14 @@ import {
   PaginationEllipsis,
   PaginationNext,
 } from '@/components/ui/pagination'
-import { SearchData } from '@/types/search'
+import { searchData } from '@/data/searchData'
+import { SearchDataType } from '@/types/searchData'
 
 export default function Search() {
   const params = useSearchParams()
   const city = params.get('city')
 
-  const { data, isLoading } = useMockFetch<SearchData>(searchData)
+  const { data, isLoading } = useMockFetch<SearchDataType>(searchData)
 
   if (isLoading) {
     return (

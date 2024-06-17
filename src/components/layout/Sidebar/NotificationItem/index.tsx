@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Bell, Checks } from '@phosphor-icons/react/dist/ssr'
-import { notificationsGroupedByDate } from '@/data/notificationData'
+import { notificationsGroupedByDate } from '@/data/notifications'
 import Notifications from './Notifications'
 import dayjs from '@/lib/dayjs'
 

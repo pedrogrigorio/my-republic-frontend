@@ -1,6 +1,6 @@
-import { data as sampleAds } from './sampleAds'
+import { advertisements } from './advertisements'
 
-export const data = {
+export const searchData = {
   total: 12,
-  ads: sampleAds,
+  ads: advertisements,
 }

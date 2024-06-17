@@ -1,4 +1,4 @@
-import { Notification } from '@/types'
+import { Notification } from '@/types/notification'
 import { Bell } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import dayjs from '@/lib/dayjs'
