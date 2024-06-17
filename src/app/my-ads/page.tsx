@@ -19,14 +19,14 @@ export default function MyAds() {
       <div className="h-screen px-12 py-10">
         <SearchInput />
         <div className="mt-10 flex flex-col text-strong">
-          <div className="flex items-start justify-between">
+          <div className="flex items-center justify-between">
             <div>
-              <Skeleton className="h-8 w-48" />
-              <Skeleton className="mt-2 h-4 w-56" />
+              <Skeleton className="h-6 w-48" />
+              <Skeleton className="mt-2 h-5 w-56" />
             </div>
             <Skeleton className="h-10 w-32" />
           </div>
-          <div className="border-border-primary border-b">
+          <div className="border-border-primary mt-4 border-b">
             <div className="h-10" />
           </div>
 
@@ -61,17 +61,17 @@ export default function MyAds() {
     <div className="h-screen px-12 py-10">
       <SearchInput />
       <div className="mt-10 flex flex-col text-strong">
-        <div className="flex items-start justify-between">
+        <div className="flex items-center justify-between">
           <div>
             <h2 className="font-bold">Meus anúncios</h2>
             <span>10 resultados encontrados</span>
           </div>
-          <Button className="my-3 self-end bg-button-primary hover:bg-button-primary-hover">
+          <Button className="bg-button-primary hover:bg-button-primary-hover">
             Criar anúncio
           </Button>
         </div>
 
-        <div className="border-border-primary border-b">
+        <div className="border-border-primary mt-4 border-b">
           <button
             onClick={selectAll}
             data-success={selectedTab === 'all'}

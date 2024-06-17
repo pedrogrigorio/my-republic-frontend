@@ -28,10 +28,10 @@ export default function Search() {
       <div className="h-screen px-12 py-10">
         <LocaleSearch />
         <div className="mt-10 flex flex-col pb-8">
-          <div className="flex items-start justify-between">
+          <div className="flex items-center justify-between">
             <div>
-              <Skeleton className="h-8 w-48" />
-              <Skeleton className="mt-2 h-4 w-56" />
+              <Skeleton className="h-6 w-48" />
+              <Skeleton className="mt-2 h-5 w-56" />
             </div>
             <Skeleton className="h-10 w-28" />
           </div>
@@ -58,7 +58,7 @@ export default function Search() {
       <div className="h-screen px-12 py-10">
         <LocaleSearch />
         <div className="mt-10 flex flex-col pb-8 text-strong">
-          <div className="flex items-start justify-between">
+          <div className="flex items-center justify-between">
             <div>
               <h2 className="font-bold">Buscar repúblicas</h2>
               <span>{data.total} resultados encontrados em São Paulo, SP</span>
