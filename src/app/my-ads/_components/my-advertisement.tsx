@@ -7,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Skeleton } from '@/components/ui/skeleton'
 import { Advertisement } from '@/types/advertisement'
 import { priceToCurrency } from '@/utils/priceToCurrency'
 import {
@@ -22,30 +21,11 @@ import {
 import Image from 'next/image'
 
 interface MyAdvertisementProps {
-  advertisement?: Advertisement
+  advertisement: Advertisement
 }
 
 export default function MyAdvertisement(props: MyAdvertisementProps) {
   const { advertisement } = props
-
-  if (!advertisement) {
-    return (
-      <div className="relative flex gap-3 py-3">
-        <Skeleton className="h-32 w-56" />
-        <div className="flex flex-col justify-between py-2">
-          <div>
-            <Skeleton className="h-6 w-48" />
-            <Skeleton className="mt-2 h-4 w-32" />
-          </div>
-          <Skeleton className="h-6 w-24" />
-        </div>
-        <div className="absolute right-10 top-1/2 flex h-fit -translate-y-1/2 gap-3">
-          <Skeleton className="h-8 w-8" />
-          <Skeleton className="h-8 w-8" />
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="relative flex gap-3 py-3">

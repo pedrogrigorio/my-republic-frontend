@@ -1,13 +1,14 @@
 'use client'
 
-import SearchInput from '@/components/common/search-input'
 import MyAdvertisement from './_components/my-advertisement'
-import { Advertisement } from '@/types/advertisement'
+import MyAdsSkeleton from './_components/my-ads-skeleton'
+import SearchInput from '@/components/common/search-input'
+
+import { advertisements } from '@/data/advertisements'
 import { useSelectedTab } from './_hooks/useSelectedTab'
+import { Advertisement } from '@/types/advertisement'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
-import { advertisements } from '@/data/advertisements'
 
 export default function MyAds() {
   const { data: ads, isLoading } = useMockFetch<Advertisement[]>(advertisements)
@@ -15,29 +16,7 @@ export default function MyAds() {
     useSelectedTab()
 
   if (isLoading || !ads) {
-    return (
-      <div className="h-screen px-12 py-10">
-        <SearchInput />
-        <div className="mt-10 flex flex-col text-strong">
-          <div className="flex items-center justify-between">
-            <div>
-              <Skeleton className="h-6 w-48" />
-              <Skeleton className="mt-2 h-5 w-56" />
-            </div>
-            <Skeleton className="h-10 w-32" />
-          </div>
-          <div className="border-border-primary mt-4 border-b">
-            <div className="h-10" />
-          </div>
-
-          <ul>
-            {Array.from({ length: 10 }).map((_, index) => (
-              <MyAdvertisement key={index} />
-            ))}
-          </ul>
-        </div>
-      </div>
-    )
+    return <MyAdsSkeleton />
   }
 
   if (ads.length === 0) {
