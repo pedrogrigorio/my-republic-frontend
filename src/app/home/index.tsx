@@ -1,7 +1,5 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { useSelectedGroup } from './_hooks/useSelectedGroup'
 import ColorfulApplyIcon from '@/components/icons/colorful-apply-icon'
 import ColorfulChatIcon from '@/components/icons/colorful-chat-icon'
 import ColorfulClockIcon from '@/components/icons/colorful-clock-icon'
@@ -10,6 +8,9 @@ import ColorfulPauseIcon from '@/components/icons/colorful-pause-icon'
 import ColorfulSearchIcon from '@/components/icons/colorful-search-icon'
 import LocaleSearchForm from '@/components/forms/locale-search-form'
 import Card from './_components/card'
+
+import { Button } from '@/components/ui/button'
+import { useSelectedGroup } from './_hooks/useSelectedGroup'
 
 export default function Home() {
   const { selectedGroup, selectSearch, selectAnnounce } = useSelectedGroup()
@@ -21,8 +22,15 @@ export default function Home() {
         <h2>Onde deseja morar?</h2>
       </div>
 
-      <div className="mt-4 flex justify-center">
-        <LocaleSearchForm withButton />
+      <div className="mt-4 flex justify-center gap-3">
+        <LocaleSearchForm className="max-w-128" />
+        <Button
+          type="submit"
+          form="localeForm"
+          className="h-14 rounded-xl bg-button-primary px-10 text-lg font-semibold hover:bg-button-primary-hover"
+        >
+          Buscar
+        </Button>
       </div>
 
       <section className="mt-16 flex w-full flex-col items-center gap-4">

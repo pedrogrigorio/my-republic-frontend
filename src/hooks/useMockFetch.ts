@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export function useMockFetch<T>(
-  sampleData: T,
-  dependency: string | null = 'noDependecy',
-) {
+export function useMockFetch<T>(sampleData: T, dependency: boolean = true) {
   const [data, setData] = useState<T>()
   const [isLoading, setIsLoading] = useState(true)
 

@@ -1,11 +1,13 @@
+import Image from 'next/image'
+import { priceToCurrency } from '@/utils/priceToCurrency'
+import { Advertisement } from '@/types/advertisement'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { Advertisement } from '@/types/advertisement'
-import { priceToCurrency } from '@/utils/priceToCurrency'
+
 import {
   Bed,
   CaretLeft,
@@ -17,8 +19,6 @@ import {
   Person,
   Toilet,
 } from '@phosphor-icons/react/dist/ssr'
-
-import Image from 'next/image'
 
 interface AdvertisementCardProps {
   ad: Advertisement

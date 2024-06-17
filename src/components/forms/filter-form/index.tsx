@@ -1,14 +1,15 @@
-import { priceToCurrency } from '@/utils/priceToCurrency'
 import * as Slider from '@radix-ui/react-slider'
 import * as RadioGroup from '@radix-ui/react-radio-group'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { z } from 'zod'
+import RadioInput from './radio-input'
+
 import { Controller, useForm } from 'react-hook-form'
+import { priceToCurrency } from '@/utils/priceToCurrency'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { amenities } from '@/data/amenities'
 import { rules } from '@/data/rules'
-import RadioInput from './radio-input'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { z } from 'zod'
 
 const filterFormSchema = z.object({
   priceRange: z.array(z.number()),

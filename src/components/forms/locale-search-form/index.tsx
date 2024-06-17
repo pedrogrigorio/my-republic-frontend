@@ -1,15 +1,14 @@
 'use client'
 
 import { ChangeEvent, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { City } from '@/types/locale'
-import { useRouter } from 'next/navigation'
 import { useFetchCities } from '@/hooks/useFetchCities'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { Input } from '@/components/ui/input'
+import { City } from '@/types/locale'
+import { z } from 'zod'
 import {
   Popover,
   PopoverContent,
@@ -23,12 +22,10 @@ const localeSearchFormSchema = z.object({
 type localeSearchFormData = z.infer<typeof localeSearchFormSchema>
 
 interface LocaleSearchFormProps {
-  withButton?: boolean
+  className?: string
 }
 
-export default function LocaleSearchForm({
-  withButton,
-}: LocaleSearchFormProps) {
+export default function LocaleSearchForm({ className }: LocaleSearchFormProps) {
   const router = useRouter()
   const { cities } = useFetchCities()
   const [search, setSearch] = useState('')
@@ -48,7 +45,7 @@ export default function LocaleSearchForm({
 
   const handleCityClick = (city: City) => {
     setSearch(`${city.municipioNome} - ${city.UFSigla}`)
-    router.push(`/student-housing/search?city=${city.municipioId}`)
+    router.push(`/student-housing/search/${city.municipioId}`)
   }
 
   const filteredCities =
@@ -71,15 +68,13 @@ export default function LocaleSearchForm({
 
   return (
     <form
-      className="flex flex-1 justify-center gap-3"
+      className={`flex-1 ${className}`}
       onSubmit={handleSubmit(onSearch)}
+      id="localeForm"
     >
       <Popover open={filteredCities.length > 0 && !!search} modal={false}>
         <PopoverTrigger asChild>
-          <div
-            data-success={withButton}
-            className="flex h-14 min-w-64 flex-1 items-center rounded-xl border border-primary bg-white px-3 data-[success=true]:max-w-128"
-          >
+          <div className="flex h-14 min-w-64 flex-1 items-center rounded-xl border border-primary bg-white px-3 ">
             <MagnifyingGlass size={32} className="text-placeholder" />
             <Input
               autoComplete="off"
@@ -115,15 +110,6 @@ export default function LocaleSearchForm({
           </ul>
         </PopoverContent>
       </Popover>
-
-      {withButton && (
-        <Button
-          type="submit"
-          className="h-14 rounded-xl bg-button-primary px-10 text-lg font-semibold hover:bg-button-primary-hover"
-        >
-          Buscar
-        </Button>
-      )}
     </form>
   )
 }
