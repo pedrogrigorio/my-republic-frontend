@@ -1,6 +1,5 @@
 'use client'
 
-import MyAdvertisement from '@/app/my-ads/_components/MyAdvertisement'
 import LocaleSearch from '@/components/forms/LocaleSearch'
 import FilterButton from '@/components/ui/filter-button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -22,28 +21,31 @@ import { SearchDataType } from '@/types/searchData'
 export default function Search() {
   const params = useSearchParams()
   const city = params.get('city')
+  const { data, isLoading } = useMockFetch<SearchDataType>(searchData, city)
 
-  const { data, isLoading } = useMockFetch<SearchDataType>(searchData)
-
-  if (isLoading) {
+  if (isLoading && city) {
     return (
       <div className="h-screen px-12 py-10">
         <LocaleSearch />
-        <div className="mt-10 flex flex-col text-strong">
+        <div className="mt-10 flex flex-col pb-8">
           <div className="flex items-start justify-between">
             <div>
               <Skeleton className="h-8 w-48" />
               <Skeleton className="mt-2 h-4 w-56" />
             </div>
-            <Skeleton className="h-10 w-32" />
-          </div>
-          <div className="border-border-primary border-b">
-            <div className="h-10" />
+            <Skeleton className="h-10 w-28" />
           </div>
 
-          <ul>
-            {Array.from({ length: 10 }).map((_, index) => (
-              <MyAdvertisement key={index} />
+          <ul
+            className="mt-8 grid gap-4"
+            style={{
+              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+            }}
+          >
+            {Array.from({ length: 12 }).map((_, index) => (
+              <li key={index}>
+                <Skeleton className="h-[340px] w-full" />
+              </li>
             ))}
           </ul>
         </div>
@@ -51,7 +53,7 @@ export default function Search() {
     )
   }
 
-  if (city && data) {
+  if (data) {
     return (
       <div className="h-screen px-12 py-10">
         <LocaleSearch />

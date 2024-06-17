@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react'
 
-export function useMockFetch<T>(sampleData: T) {
+export function useMockFetch<T>(
+  sampleData: T,
+  dependency: string | null = 'noDependecy',
+) {
   const [data, setData] = useState<T>()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    setTimeout(() => {
-      setData(sampleData)
-      setIsLoading(false)
-    }, 500)
-  }, [sampleData])
+    setIsLoading(true)
+    if (dependency) {
+      setTimeout(() => {
+        setData(sampleData)
+        setIsLoading(false)
+      }, 500)
+    }
+  }, [sampleData, dependency])
 
   return { data, isLoading }
 }
