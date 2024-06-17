@@ -6,40 +6,9 @@ import { Label } from '@/components/ui/label'
 import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-interface Rule {
-  id: number
-  tag: string
-  name: string
-}
-
-const rules: Rule[] = [
-  { id: 1, tag: 'noSmoking', name: 'Proibido fumar' },
-  { id: 2, tag: 'noAlcohol', name: 'Proibido bebidas alcóolicas' },
-  { id: 3, tag: 'noParties', name: 'Proibido festas' },
-  { id: 4, tag: 'noPets', name: 'Proibido animais de estimação' },
-  { id: 5, tag: 'noNoiseAfter10', name: 'Proibido barulho após às 22h' },
-  { id: 6, tag: 'noUncleanAreas', name: 'Proibido deixar áreas comuns sujas' },
-  { id: 7, tag: 'noSharingKeys', name: 'Proibido compartilhar chaves' },
-  { id: 8, tag: 'noOvernightGuests', name: 'Proibido convidados pernoitarem' },
-]
-
-interface Amenity {
-  id: number
-  tag: string
-  name: string
-}
-
-const amenities: Amenity[] = [
-  { id: 1, tag: 'furnishedResidence', name: 'Residência mobiliada' },
-  { id: 2, tag: 'garage', name: 'Vaga em garagem' },
-  { id: 3, tag: 'airConditioning', name: 'Ar condicionado' },
-  { id: 4, tag: 'swimmingPool', name: 'Piscina' },
-  { id: 5, tag: 'gym', name: 'Academia' },
-  { id: 6, tag: 'nearbyMarket', name: 'Mercado próximo' },
-  { id: 7, tag: 'laundry', name: 'Lavanderia' },
-  { id: 8, tag: 'publicTransportNearby', name: 'Transporte público próximo' },
-]
+import { amenities } from '@/data/amenities'
+import { rules } from '@/data/rules'
+import RadioInput from './RadioInput'
 
 const filterFormSchema = z.object({
   priceRange: z.array(z.number()),
@@ -136,30 +105,9 @@ export default function FilterForm() {
                 onBlur={field.onBlur}
                 className="mt-2 flex gap-4"
               >
-                <div className="flex items-center">
-                  <RadioGroup.Item
-                    className="flex h-8 w-24 items-center justify-center rounded-lg border border-primary bg-white data-[state='checked']:border-strong data-[state='checked']:font-medium"
-                    value="male"
-                  >
-                    <span className="text-sm">Masculino</span>
-                  </RadioGroup.Item>
-                </div>
-                <div className="flex items-center">
-                  <RadioGroup.Item
-                    className="flex h-8 w-24 items-center justify-center rounded-lg border border-primary bg-white data-[state='checked']:border-strong data-[state='checked']:font-medium"
-                    value="female"
-                  >
-                    <span className="text-sm">Feminino</span>
-                  </RadioGroup.Item>
-                </div>
-                <div className="flex items-center">
-                  <RadioGroup.Item
-                    className="flex h-8 w-24 items-center justify-center rounded-lg border border-primary bg-white data-[state='checked']:border-strong data-[state='checked']:font-medium"
-                    value="mixed"
-                  >
-                    <span className="text-sm">Misto</span>
-                  </RadioGroup.Item>
-                </div>
+                <RadioInput value="male" label="Masculino" />
+                <RadioInput value="female" label="Feminino" />
+                <RadioInput value="mixed" label="Misto" />
               </RadioGroup.Root>
             )}
           />
@@ -178,22 +126,8 @@ export default function FilterForm() {
                 onBlur={field.onBlur}
                 className="mt-2 flex gap-4"
               >
-                <div className="flex items-center">
-                  <RadioGroup.Item
-                    className="flex h-8 w-32 items-center justify-center rounded-lg border border-primary bg-white data-[state='checked']:border-strong data-[state='checked']:font-medium"
-                    value="individual"
-                  >
-                    <span className="text-sm">Individual</span>
-                  </RadioGroup.Item>
-                </div>
-                <div className="flex items-center">
-                  <RadioGroup.Item
-                    className="flex h-8 w-32 items-center justify-center rounded-lg border border-primary bg-white data-[state='checked']:border-strong data-[state='checked']:font-medium"
-                    value="shared"
-                  >
-                    <span className="text-sm">Compartilhado</span>
-                  </RadioGroup.Item>
-                </div>
+                <RadioInput value="individual" label="Individual" />
+                <RadioInput value="shared" label="Compartilhado" />
               </RadioGroup.Root>
             )}
           />
@@ -212,22 +146,8 @@ export default function FilterForm() {
                 onBlur={field.onBlur}
                 className="mt-2 flex gap-4"
               >
-                <div className="flex items-center">
-                  <RadioGroup.Item
-                    className="flex h-8 w-32 items-center justify-center rounded-lg border border-primary bg-white data-[state='checked']:border-strong data-[state='checked']:font-medium"
-                    value="true"
-                  >
-                    <span className="text-sm">Possui</span>
-                  </RadioGroup.Item>
-                </div>
-                <div className="flex items-center">
-                  <RadioGroup.Item
-                    className="flex h-8 w-32 items-center justify-center rounded-lg border border-primary bg-white data-[state='checked']:border-strong data-[state='checked']:font-medium"
-                    value="false"
-                  >
-                    <span className="text-sm">Não possui</span>
-                  </RadioGroup.Item>
-                </div>
+                <RadioInput value="true" label="Possui" />
+                <RadioInput value="false" label="Não possui" />
               </RadioGroup.Root>
             )}
           />
