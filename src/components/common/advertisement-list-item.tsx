@@ -1,14 +1,16 @@
+import Image from 'next/image'
+
+import { priceToCurrency } from '@/utils/priceToCurrency'
+import { Advertisement } from '@/types/advertisement'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Advertisement } from '@/types/advertisement'
-import { priceToCurrency } from '@/utils/priceToCurrency'
+
 import {
   ChatCircle,
   DotsThreeOutline,
@@ -18,15 +20,14 @@ import {
   Pencil,
   TrashSimple,
 } from '@phosphor-icons/react/dist/ssr'
-import Image from 'next/image'
 
-interface MyAdvertisementProps {
+interface AdvertisementListItemProps {
   advertisement: Advertisement
 }
 
-export default function MyAdvertisement(props: MyAdvertisementProps) {
-  const { advertisement } = props
-
+export default function AdvertisementListItem({
+  advertisement,
+}: AdvertisementListItemProps) {
   return (
     <div className="relative flex gap-3 py-3">
       <Image
@@ -73,9 +74,7 @@ export default function MyAdvertisement(props: MyAdvertisementProps) {
           <DropdownMenuTrigger asChild>
             <DotsThreeOutline size={32} weight="fill" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>{advertisement.title}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
+          <DropdownMenuContent className="w-48">
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Eye className="mr-2 h-4 w-4" />

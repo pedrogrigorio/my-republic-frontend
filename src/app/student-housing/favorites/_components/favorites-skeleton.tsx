@@ -1,17 +1,14 @@
-import LocaleSearchForm from '@/components/forms/locale-search-form'
+import SearchInput from '@/components/common/search-input'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default function FavoritesSkeleton() {
   return (
     <div className="h-screen px-12 py-10">
-      <LocaleSearchForm />
+      <SearchInput placeholder="Buscar por nome do anúncio..." />
       <div className="mt-10 flex flex-col pb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <Skeleton className="h-6 w-48" />
-            <Skeleton className="mt-2 h-5 w-56" />
-          </div>
-          <Skeleton className="h-10 w-28" />
+        <div>
+          <Skeleton className="h-6 w-48" />
+          <Skeleton className="mt-2 h-5 w-56" />
         </div>
 
         <ul

@@ -1,6 +1,6 @@
 'use client'
 
-import MyAdvertisement from './_components/my-advertisement'
+import AdvertisementListItem from '../../components/common/advertisement-list-item'
 import MyAdsSkeleton from './_components/my-ads-skeleton'
 import SearchInput from '@/components/common/search-input'
 
@@ -78,7 +78,7 @@ export default function MyAds() {
           {selectedTab === 'all' &&
             ads.map((ad) => (
               <li key={ad.id}>
-                <MyAdvertisement advertisement={ad} />
+                <AdvertisementListItem advertisement={ad} />
 
                 {/* Divisor */}
                 <div className="h-[1px] w-full bg-divisor" />
@@ -90,7 +90,7 @@ export default function MyAds() {
               .filter((ad) => ad.isActive)
               .map((ad) => (
                 <li key={ad.id}>
-                  <MyAdvertisement advertisement={ad} />
+                  <AdvertisementListItem advertisement={ad} />
 
                   {/* Divisor */}
                   <div className="h-[1px] w-full bg-divisor" />
@@ -102,7 +102,7 @@ export default function MyAds() {
               .filter((ad) => !ad.isActive)
               .map((ad) => (
                 <li key={ad.id}>
-                  <MyAdvertisement advertisement={ad} />
+                  <AdvertisementListItem advertisement={ad} />
 
                   {/* Divisor */}
                   <div className="h-[1px] w-full bg-divisor" />

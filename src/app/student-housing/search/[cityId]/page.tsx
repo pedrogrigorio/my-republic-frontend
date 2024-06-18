@@ -2,7 +2,7 @@
 
 import FilterButton from '@/components/common/filter-button'
 import LocaleSearchForm from '@/components/forms/locale-search-form'
-import AdvertisementCard from './_components/advertisement-card'
+import AdvertisementCard from '../../../../components/common/advertisement-card'
 import SearchResultSkeleton from './_components/search-result-skeleton'
 
 import { searchData } from '@/data/search-data'

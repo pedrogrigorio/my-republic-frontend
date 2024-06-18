@@ -1,20 +1,14 @@
 import SearchInput from '@/components/common/search-input'
 import { Skeleton } from '@/components/ui/skeleton'
 
-export default function MyAdsSkeleton() {
+export default function ApplicationsSkeleton() {
   return (
     <div className="h-screen px-12 py-10">
       <SearchInput placeholder="Buscar por nome do anúncio..." />
       <div className="mt-10 flex flex-col text-strong">
-        <div className="flex items-center justify-between">
-          <div>
-            <Skeleton className="h-6 w-48" />
-            <Skeleton className="mt-2 h-5 w-56" />
-          </div>
-          <Skeleton className="h-10 w-32" />
-        </div>
-        <div className="border-border-primary mt-4 border-b">
-          <div className="h-10" />
+        <div>
+          <Skeleton className="h-6 w-56" />
+          <Skeleton className="mt-2 h-5 w-48" />
         </div>
 
         {/* Advertisements */}
