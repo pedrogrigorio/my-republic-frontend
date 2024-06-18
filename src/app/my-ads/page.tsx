@@ -38,7 +38,7 @@ export default function MyAds() {
 
   return (
     <div className="h-screen px-12 py-10">
-      <SearchInput />
+      <SearchInput placeholder="Buscar por nome do anúncio..." />
       <div className="mt-10 flex flex-col text-strong">
         <div className="flex items-center justify-between">
           <div>
