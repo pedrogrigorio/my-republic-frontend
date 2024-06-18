@@ -1,3 +1,9 @@
+import Link from 'next/link'
+
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { IMenuItem } from '@/types/sidebar'
+import { CaretUp } from '@phosphor-icons/react/dist/ssr'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,31 +12,17 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { CaretUp } from '@phosphor-icons/react/dist/ssr'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { ReactNode, useEffect, useState } from 'react'
-
-interface SubmenuItem {
-  id: string
-  label: string
-  path: string
-}
-
 interface MenuItemProps {
-  label: string
-  icon: ReactNode
-  path: string
-  submenu?: SubmenuItem[]
-  redirectTo?: string
+  item: IMenuItem
   sidebarIsOpen: boolean
 }
 
-export default function MenuItem(item: MenuItemProps) {
+export default function MenuItem({ item, sidebarIsOpen }: MenuItemProps) {
+  // TO DO: Refactor
+
   const [isSubmenuActive, setIsSubmenuActive] = useState(false)
 
   const pathname = usePathname()
-  const { sidebarIsOpen } = item
 
   useEffect(() => {
     setIsSubmenuActive(false)

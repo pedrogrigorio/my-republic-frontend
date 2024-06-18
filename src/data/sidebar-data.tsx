@@ -44,17 +44,19 @@ export const mainMenu = [
   },
 ]
 
-export const settingsMenu = {
-  id: 'settings',
-  label: 'Configurações',
-  path: '/settings',
-  redirectTo: '/settings/account',
-  icon: <Gear size={24} />,
-  submenu: [
-    {
-      id: 'my-account',
-      label: 'Minha conta',
-      path: '/settings/account',
-    },
-  ],
-}
+export const systemMenu = [
+  {
+    id: 'settings',
+    label: 'Configurações',
+    path: '/settings',
+    redirectTo: '/settings/account',
+    icon: <Gear size={24} />,
+    submenu: [
+      {
+        id: 'my-account',
+        label: 'Minha conta',
+        path: '/settings/account',
+      },
+    ],
+  },
+]

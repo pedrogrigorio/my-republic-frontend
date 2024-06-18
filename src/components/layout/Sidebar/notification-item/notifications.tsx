@@ -1,13 +1,16 @@
-import { Notification } from '@/types/notification'
-import { Bell } from '@phosphor-icons/react/dist/ssr'
 import Image from 'next/image'
 import dayjs from '@/lib/dayjs'
+
+import { Notification } from '@/types/notification'
+import { Bell } from '@phosphor-icons/react/dist/ssr'
 
 interface NotificationsProps {
   notifications: Notification[]
 }
 
 export default function Notifications({ notifications }: NotificationsProps) {
+  // TO DO: Refactor
+
   return (
     <ul>
       {notifications.map((notification, index) => (

@@ -1,13 +1,15 @@
+import Notifications from './notifications'
+import dayjs from '@/lib/dayjs'
+
+import { notificationsGroupedByDate } from '@/data/notifications'
+import { Bell, Checks } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { Bell, Checks } from '@phosphor-icons/react/dist/ssr'
-import { notificationsGroupedByDate } from '@/data/notifications'
-import Notifications from './notifications'
-import dayjs from '@/lib/dayjs'
 
 interface NotificationItemProps {
   sidebarIsOpen: boolean
@@ -16,6 +18,8 @@ interface NotificationItemProps {
 export default function NotificationItem({
   sidebarIsOpen,
 }: NotificationItemProps) {
+  // TO DO: Refactor
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -25,7 +29,10 @@ export default function NotificationItem({
               <Bell size={24} />
             </div>
             <span
-              className={`${!sidebarIsOpen ? 'w-0 opacity-0' : 'opacity-100'} flex-1 whitespace-nowrap pl-3 transition-opacity duration-200`}
+              className={cn(
+                'flex-1 whitespace-nowrap pl-3 opacity-100 transition-opacity duration-200',
+                !sidebarIsOpen && 'w-0 opacity-0',
+              )}
             >
               Notificações
             </span>
