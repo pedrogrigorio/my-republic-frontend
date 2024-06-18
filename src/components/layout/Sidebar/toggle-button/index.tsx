@@ -12,7 +12,7 @@ export default function ToggleButton({
 }: ToggleButtonProps) {
   return (
     <button
-      className="absolute right-0 top-12 flex h-11 w-11 translate-x-1/2 items-center justify-center rounded-full bg-gray-100"
+      className="absolute right-0 top-12 z-10 flex h-11 w-11 translate-x-1/2 items-center justify-center rounded-full bg-gray-100"
       {...props}
     >
       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-black to-gray-400">
