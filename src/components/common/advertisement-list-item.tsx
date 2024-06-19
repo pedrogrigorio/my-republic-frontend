@@ -20,6 +20,7 @@ import {
   Pencil,
   TrashSimple,
 } from '@phosphor-icons/react/dist/ssr'
+import Link from 'next/link'
 
 interface AdvertisementListItemProps {
   advertisement: Advertisement
@@ -30,13 +31,15 @@ export default function AdvertisementListItem({
 }: AdvertisementListItemProps) {
   return (
     <div className="relative flex gap-3 py-3">
-      <Image
-        src={advertisement.img_url}
-        width={224}
-        height={128}
-        alt="ad_image"
-        className="h-32 w-56 rounded-xl"
-      />
+      <Link href={`/student-housing/${advertisement.id}`}>
+        <Image
+          src={advertisement.img_url}
+          width={224}
+          height={128}
+          alt="ad_image"
+          className="h-32 w-56 rounded-xl"
+        />
+      </Link>
       <div className="flex flex-col justify-between py-2">
         <div className="font-medium">
           <div className="flex items-center gap-3">

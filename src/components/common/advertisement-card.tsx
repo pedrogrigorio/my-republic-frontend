@@ -20,6 +20,7 @@ import {
   Toilet,
 } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
+import HouseTag from './house-tag'
 
 interface AdvertisementCardProps {
   ad: Advertisement
@@ -78,29 +79,23 @@ export default function AdvertisementCard({ ad }: AdvertisementCardProps) {
           </div>
 
           <div className="mt-6 flex justify-between">
-            <div className="flex w-fit items-center gap-2 rounded-[4px] border border-primary bg-gray-100 px-2 py-1">
-              <div className="flex items-center justify-center">
-                <GenderMale size={16} />
-                <GenderFemale size={16} />
-              </div>
-              <span className="text-xs font-medium">Misto</span>
-            </div>
+            <HouseTag text="Misto">
+              <GenderMale size={16} />
+              <GenderFemale size={16} />
+            </HouseTag>
 
             <div className="flex gap-2">
-              <div className="flex w-fit gap-1 rounded-[4px] border border-primary bg-gray-100 p-1">
+              <HouseTag text="1/3">
                 <Person size={16} />
-                <span className="text-xs font-medium">1/3</span>
-              </div>
+              </HouseTag>
 
-              <div className="flex w-fit gap-1 rounded-[4px] border border-primary bg-gray-100 p-1">
+              <HouseTag text="1/3">
                 <Bed size={16} />
-                <span className="text-xs font-medium">1/3</span>
-              </div>
+              </HouseTag>
 
-              <div className="flex w-fit gap-1 rounded-[4px] border border-primary bg-gray-100 p-1">
+              <HouseTag text="1/3">
                 <Toilet size={16} />
-                <span className="text-xs font-medium">1/3</span>
-              </div>
+              </HouseTag>
             </div>
           </div>
         </div>

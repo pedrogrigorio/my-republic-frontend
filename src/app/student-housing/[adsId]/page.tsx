@@ -1,6 +1,21 @@
 'use client'
 
+import BunkbedIcon from '@/components/icons/bunkbed-icon'
 import Image from 'next/image'
+
+import { useScrollArrows } from './_hooks/useScrollArrows'
+import { priceToCurrency } from '@/utils/priceToCurrency'
+import { advertisements } from '@/data/advertisements'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from '@/components/ui/breadcrumb'
 
 import {
   Armchair,
@@ -27,81 +42,17 @@ import {
   WifiHigh,
   X,
 } from '@phosphor-icons/react/dist/ssr'
-import { advertisements } from '@/data/advertisements'
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-  BreadcrumbPage,
-} from '@/components/ui/breadcrumb'
-import { priceToCurrency } from '@/utils/priceToCurrency'
-import { Button } from '@/components/ui/button'
-import BunkbedIcon from '@/components/icons/bunkbed-icon'
-import { useEffect, useRef, useState } from 'react'
-import { cn } from '@/lib/utils'
+import HouseTag from '@/components/common/house-tag'
 
 export default function Advertisement() {
   const ad = advertisements[0]
-  const scrollableContainer = useRef<HTMLDivElement>(null)
-  const [leftArrowActive, setLeftArrowActive] = useState(false)
-  const [rightArrowActive, setRightArrowActive] = useState(true)
-
-  useEffect(() => {
-    const container = scrollableContainer.current
-
-    if (container) {
-      container.addEventListener('scroll', manageArrows)
-      window.addEventListener('resize', manageArrows)
-      manageArrows()
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('scroll', manageArrows)
-        window.removeEventListener('resize', manageArrows)
-      }
-    }
-  }, [])
-
-  const manageArrows = () => {
-    if (scrollableContainer.current) {
-      const tags = scrollableContainer.current
-      console.log(tags.scrollWidth, tags.clientWidth)
-      const maxScrollValue = tags.scrollWidth - tags.clientWidth
-
-      if (maxScrollValue <= 0) {
-        setRightArrowActive(false)
-        setLeftArrowActive(false)
-        return
-      }
-
-      if (tags.scrollLeft >= 20) {
-        setLeftArrowActive(true)
-      } else {
-        setLeftArrowActive(false)
-      }
-
-      if (tags.scrollLeft >= maxScrollValue - 20) {
-        setRightArrowActive(false)
-      } else {
-        setRightArrowActive(true)
-      }
-    }
-  }
-
-  const scrollRight = () => {
-    if (scrollableContainer.current) {
-      scrollableContainer.current.scrollLeft += 200
-    }
-  }
-
-  const scrollLeft = () => {
-    if (scrollableContainer.current) {
-      scrollableContainer.current.scrollLeft -= 200
-    }
-  }
+  const {
+    scrollableContainer,
+    leftArrowActive,
+    rightArrowActive,
+    scrollRight,
+    scrollLeft,
+  } = useScrollArrows()
 
   return (
     <div className='className="h-screen px-12 py-10'>
@@ -165,41 +116,30 @@ export default function Advertisement() {
               className="absolute -bottom-8 flex w-full gap-2 overflow-hidden overflow-x-auto scroll-smooth whitespace-nowrap scrollbar-none"
               ref={scrollableContainer}
             >
-              <div className="flex items-center gap-2 rounded-[4px] border border-primary bg-gray-100 px-2 py-1">
-                <div className="flex items-center justify-center">
-                  <GenderMale size={16} />
-                  <GenderFemale size={16} />
-                </div>
-                <span className="text-xs font-medium">Misto</span>
-              </div>
-              <div className="flex gap-1 rounded-[4px] border border-primary bg-gray-100 p-1">
+              <HouseTag text="Misto">
+                <GenderMale size={16} />
+                <GenderFemale size={16} />
+              </HouseTag>
+
+              <HouseTag text="3 estudantes">
                 <Person size={16} />
-                <span className="text-xs font-medium">3 estudantes</span>
-              </div>
+              </HouseTag>
 
-              <div className="flex gap-1 rounded-[4px] border border-primary bg-gray-100 p-1">
+              <HouseTag text="2 quartos">
                 <Bed size={16} />
-                <span className="text-xs font-medium">2 quartos</span>
-              </div>
+              </HouseTag>
 
-              <div className="flex gap-1 rounded-[4px] border border-primary bg-gray-100 p-1">
+              <HouseTag text="3 banheiros">
                 <Toilet size={16} />
-                <span className="text-xs font-medium">3 banheiros</span>
-              </div>
+              </HouseTag>
 
-              <div className="flex gap-1 rounded-[4px] border border-primary bg-gray-100 p-1">
+              <HouseTag text="Quarto compartilhado">
                 <BunkbedIcon size={16} />
-                <span className="text-xs font-medium">
-                  Quarto compartilhado
-                </span>
-              </div>
+              </HouseTag>
 
-              <div className="flex gap-1 rounded-[4px] border border-primary bg-gray-100 p-1">
+              <HouseTag text="Possui animal de estimação">
                 <PawPrint size={16} />
-                <span className="text-xs font-medium">
-                  Possui animal de estimação
-                </span>
-              </div>
+              </HouseTag>
             </div>
           </div>
 
@@ -260,7 +200,7 @@ export default function Advertisement() {
         </div>
 
         {/* Seções */}
-        <section className="mt-12 flex flex-col gap-4 py-5 xl:mt-14">
+        <section className="mt-12 flex flex-col gap-4 pb-8 pt-5 xl:mt-14">
           <div className="flex flex-col">
             <h3 className="font-bold">Descrição</h3>
             <div className="h-1 w-16 bg-gray-800" />
@@ -280,7 +220,7 @@ export default function Advertisement() {
 
         <div className="h-[1px] w-full bg-divisor" />
 
-        <section className="flex flex-col gap-4 py-5">
+        <section className="flex flex-col gap-4 pb-8 pt-5">
           <div>
             <div className="flex flex-col">
               <h3 className="font-bold">Comodidades</h3>
@@ -323,7 +263,7 @@ export default function Advertisement() {
 
         <div className="h-[1px] w-full bg-divisor" />
 
-        <section className="flex flex-col gap-4 py-5">
+        <section className="flex flex-col gap-4 pb-8 pt-5">
           <div className="flex flex-col">
             <h3 className="font-bold">Regras</h3>
             <div className="h-1 w-16 bg-gray-800" />
