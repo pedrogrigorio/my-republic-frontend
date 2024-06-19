@@ -40,8 +40,8 @@ export default function Account() {
             <div className="relative">
               <Image
                 src={persona}
-                width={128}
-                height={128}
+                width={256}
+                height={256}
                 className="h-32 w-32 rounded-full border-[1px] border-gray-300"
                 alt="Profile image"
               />
