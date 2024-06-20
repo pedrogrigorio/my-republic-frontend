@@ -24,10 +24,12 @@ import Link from 'next/link'
 
 interface AdvertisementListItemProps {
   advertisement: Advertisement
+  variant?: 'applicant' | 'advertiser'
 }
 
 export default function AdvertisementListItem({
   advertisement,
+  variant = 'advertiser',
 }: AdvertisementListItemProps) {
   return (
     <div className="relative flex gap-3 py-3">
@@ -78,27 +80,39 @@ export default function AdvertisementListItem({
             <DotsThreeOutline size={32} weight="fill" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Eye className="mr-2 h-4 w-4" />
-                <span>Visualizar</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Pencil className="mr-2 h-4 w-4" />
-                <span>Editar</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Pause className="mr-2 h-4 w-4" />
-                <span>Pausar</span>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="text-danger">
-                <TrashSimple className="mr-2 h-4 w-4" />
-                <span>Excluir</span>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+            {variant === 'advertiser' ? (
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Eye className="mr-2 h-4 w-4" />
+                  <span>Visualizar</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Pencil className="mr-2 h-4 w-4" />
+                  <span>Editar</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Pause className="mr-2 h-4 w-4" />
+                  <span>Pausar</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="text-danger">
+                  <TrashSimple className="mr-2 h-4 w-4" />
+                  <span>Excluir</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            ) : (
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Eye className="mr-2 h-4 w-4" />
+                  <span>Visualizar anúncio</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="text-danger">
+                  <TrashSimple className="mr-2 h-4 w-4" />
+                  <span>Cancelar aplicação</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

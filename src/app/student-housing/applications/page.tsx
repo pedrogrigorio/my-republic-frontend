@@ -57,7 +57,7 @@ export default function Applications() {
         <ul>
           {data.ads.map((ad, index) => (
             <li key={ad.id}>
-              <AdvertisementListItem advertisement={ad} />
+              <AdvertisementListItem advertisement={ad} variant="applicant" />
 
               {/* Divisor */}
               {index !== data.ads.length - 1 && (
