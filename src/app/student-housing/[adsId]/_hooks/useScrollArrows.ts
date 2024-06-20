@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useScrollArrows() {
+export function useScrollArrows(isLoading: boolean) {
   const scrollableContainer = useRef<HTMLDivElement>(null)
   const [leftArrowActive, setLeftArrowActive] = useState(false)
   const [rightArrowActive, setRightArrowActive] = useState(true)
 
   useEffect(() => {
+    if (isLoading) {
+      return
+    }
+
     const container = scrollableContainer.current
 
     if (container) {
@@ -20,7 +24,7 @@ export function useScrollArrows() {
         window.removeEventListener('resize', manageArrows)
       }
     }
-  }, [])
+  }, [isLoading])
 
   const manageArrows = () => {
     if (scrollableContainer.current) {

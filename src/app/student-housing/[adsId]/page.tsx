@@ -7,7 +7,6 @@ import { useScrollArrows } from './_hooks/useScrollArrows'
 import { priceToCurrency } from '@/utils/priceToCurrency'
 import { advertisements } from '@/data/advertisements'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -45,16 +44,23 @@ import {
 import HouseTag from '@/components/common/house-tag'
 import ArrowButton from './_components/arrow-button'
 import DetailsSection from './_components/details-section'
+import { useMockFetch } from '@/hooks/useMockFetch'
+import AdvertisementSkeleton from './_components/advertisement-skeleton'
 
 export default function Advertisement() {
-  const ad = advertisements[0]
+  const { data: ad, isLoading } = useMockFetch(advertisements[0])
+
   const {
     scrollableContainer,
-    leftArrowActive,
     rightArrowActive,
+    leftArrowActive,
     scrollRight,
     scrollLeft,
-  } = useScrollArrows()
+  } = useScrollArrows(isLoading)
+
+  if (isLoading || !ad) {
+    return <AdvertisementSkeleton />
+  }
 
   return (
     <div className='className="h-screen px-12 py-10'>
@@ -73,9 +79,10 @@ export default function Advertisement() {
       </Breadcrumb>
 
       <div className="mt-10 flex flex-col text-strong">
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-2">
-          {/* Foto do anúncio */}
-          <div className="group relative xl:col-span-3 2xl:col-span-1">
+        {/* Main content */}
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+          {/* Image */}
+          <div className="group relative aspect-video">
             <Image
               src={ad.img_url}
               alt="advertisement_image"
@@ -93,14 +100,14 @@ export default function Advertisement() {
 
             <ArrowButton
               dir="left"
-              className={cn('left-0', leftArrowActive ? 'flex' : 'hidden')}
               onClick={scrollLeft}
+              active={leftArrowActive}
             />
 
             <ArrowButton
               dir="right"
-              className={cn('right-0', rightArrowActive ? 'flex' : 'hidden')}
               onClick={scrollRight}
+              active={rightArrowActive}
             />
 
             <div
@@ -134,8 +141,9 @@ export default function Advertisement() {
             </div>
           </div>
 
-          {/* Detalhes do anúncio */}
-          <div className="mt-8 flex flex-col gap-4 xl:col-span-2 xl:mt-0 2xl:col-span-1">
+          {/* Advertisement main informations */}
+          <div className="mt-8 flex flex-col gap-4 xl:mt-0">
+            {/* Title */}
             <div className="flex items-start justify-between gap-4">
               <h2 className="font-bold">{ad.title}</h2>
               <button>
@@ -143,11 +151,13 @@ export default function Advertisement() {
               </button>
             </div>
 
+            {/* Locale */}
             <div className="mt-1 flex items-center gap-2 font-medium">
               <MapPin weight="fill" size={24} />
               <span>{ad.locale}</span>
             </div>
 
+            {/* Price */}
             <div className="flex flex-col gap-4 rounded-xl border border-primary bg-white p-5">
               <h3 className="text-currency">{priceToCurrency(ad.price)}</h3>
               <span className="text-sm font-semibold">Incluso no valor:</span>
@@ -171,6 +181,7 @@ export default function Advertisement() {
               </ul>
             </div>
 
+            {/* Vacancies */}
             <div className="flex-1">
               <div className="flex items-center gap-4">
                 <div className="flex items-center justify-center gap-1 rounded-xl border border-primary bg-white px-2">
@@ -184,13 +195,14 @@ export default function Advertisement() {
               </div>
             </div>
 
+            {/* Apply button */}
             <Button className="bg-button-secondary hover:bg-button-secondary-hover">
               Tenho interesse
             </Button>
           </div>
         </div>
 
-        {/* Seções */}
+        {/* Details sections */}
         <div className="mt-12 xl:mt-14">
           <DetailsSection title="Descrição">
             <p>
