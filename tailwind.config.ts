@@ -30,6 +30,7 @@ const config = {
         tabActive: '#F28000',
       },
       colors: {
+        contrast: '#F28000',
         danger: '#A94442',
         warning: '#F28000',
         divisor: '#d9d9d9',

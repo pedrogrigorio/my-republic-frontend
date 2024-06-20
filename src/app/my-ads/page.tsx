@@ -9,6 +9,7 @@ import { useSelectedTab } from './_hooks/useSelectedTab'
 import { Advertisement } from '@/types/advertisement'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export default function MyAds() {
   const { data: ads, isLoading } = useMockFetch<Advertisement[]>(advertisements)
@@ -28,8 +29,11 @@ export default function MyAds() {
             <h2>Encontre pessoas e forme uma república.</h2>
           </div>
 
-          <Button className="hover:bg-button-primaryHover h-12 bg-button-primary px-6 font-semibold">
-            Criar anúncio
+          <Button
+            className="hover:bg-button-primaryHover h-12 bg-button-primary px-6 font-semibold"
+            asChild
+          >
+            <Link href="my-ads/create">Criar anúncio</Link>
           </Button>
         </div>
       </div>
@@ -45,8 +49,11 @@ export default function MyAds() {
             <h2 className="font-bold">Meus anúncios</h2>
             <span>10 resultados encontrados</span>
           </div>
-          <Button className="bg-button-primary hover:bg-button-primary-hover">
-            Criar anúncio
+          <Button
+            className="bg-button-primary hover:bg-button-primary-hover"
+            asChild
+          >
+            <Link href="my-ads/create">Criar anúncio</Link>
           </Button>
         </div>
 
