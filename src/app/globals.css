@@ -42,3 +42,7 @@ h4 {
   line-height: 1.5rem;
   font-weight: 500;
 }
+
+textarea {
+  resize: none;
+}

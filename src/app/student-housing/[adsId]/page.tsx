@@ -102,12 +102,14 @@ export default function Advertisement() {
               dir="left"
               onClick={scrollLeft}
               active={leftArrowActive}
+              className="-bottom-8"
             />
 
             <ArrowButton
               dir="right"
               onClick={scrollRight}
               active={rightArrowActive}
+              className="-bottom-8"
             />
 
             <div

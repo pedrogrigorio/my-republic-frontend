@@ -12,7 +12,7 @@ export default function StepNavigator({
   className,
 }: StepNavigatorProps) {
   return (
-    <div className={cn('flex items-center gap-6', className)}>
+    <div className={cn('flex items-center gap-4 xl:gap-6', className)}>
       {Array.from({ length: steps - 1 }, (v, i) => i + 1).map((step) => (
         <>
           <StepIndicator step={step} currentStep={currentStep} />
@@ -50,10 +50,10 @@ interface StepTrackProps {
 
 const StepTrack = ({ step, currentStep }: StepTrackProps) => {
   return (
-    <div className="relative h-2 w-24 rounded-full bg-gray-200">
+    <div className="relative h-2 w-16 rounded-full bg-gray-200 xl:w-24">
       <div
         className={cn(
-          'bg-contrast absolute h-full w-0 rounded-full transition-all duration-300',
+          'absolute h-full w-0 rounded-full bg-contrast transition-all duration-300',
           currentStep > step && 'w-full',
         )}
       />

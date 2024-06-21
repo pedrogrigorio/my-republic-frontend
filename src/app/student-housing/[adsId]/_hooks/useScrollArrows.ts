@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useScrollArrows(isLoading: boolean) {
+export function useScrollArrows(isLoading?: boolean) {
   const scrollableContainer = useRef<HTMLDivElement>(null)
   const [leftArrowActive, setLeftArrowActive] = useState(false)
   const [rightArrowActive, setRightArrowActive] = useState(true)
@@ -29,7 +29,6 @@ export function useScrollArrows(isLoading: boolean) {
   const manageArrows = () => {
     if (scrollableContainer.current) {
       const tags = scrollableContainer.current
-      console.log(tags.scrollWidth, tags.clientWidth)
       const maxScrollValue = tags.scrollWidth - tags.clientWidth
 
       if (maxScrollValue <= 0) {
@@ -52,13 +51,17 @@ export function useScrollArrows(isLoading: boolean) {
     }
   }
 
-  const scrollRight = () => {
+  const scrollRight = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.preventDefault()
+
     if (scrollableContainer.current) {
       scrollableContainer.current.scrollLeft += 200
     }
   }
 
-  const scrollLeft = () => {
+  const scrollLeft = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.preventDefault()
+
     if (scrollableContainer.current) {
       scrollableContainer.current.scrollLeft -= 200
     }
