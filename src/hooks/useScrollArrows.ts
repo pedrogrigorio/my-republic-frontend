@@ -28,8 +28,8 @@ export function useScrollArrows(isLoading?: boolean) {
 
   const manageArrows = () => {
     if (scrollableContainer.current) {
-      const tags = scrollableContainer.current
-      const maxScrollValue = tags.scrollWidth - tags.clientWidth
+      const container = scrollableContainer.current
+      const maxScrollValue = container.scrollWidth - container.clientWidth
 
       if (maxScrollValue <= 0) {
         setRightArrowActive(false)
@@ -37,13 +37,13 @@ export function useScrollArrows(isLoading?: boolean) {
         return
       }
 
-      if (tags.scrollLeft >= 20) {
+      if (container.scrollLeft >= 20) {
         setLeftArrowActive(true)
       } else {
         setLeftArrowActive(false)
       }
 
-      if (tags.scrollLeft >= maxScrollValue - 20) {
+      if (container.scrollLeft >= maxScrollValue - 20) {
         setRightArrowActive(false)
       } else {
         setRightArrowActive(true)

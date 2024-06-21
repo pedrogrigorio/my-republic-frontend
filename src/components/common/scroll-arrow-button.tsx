@@ -4,25 +4,33 @@ import { ButtonHTMLAttributes } from 'react'
 
 interface ArrowButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   dir: 'left' | 'right'
+  arrowSize: number
   active: boolean
 }
 
-export default function ArrowButton({
+export default function ScrollArrowButton({
   dir,
   active,
+  arrowSize,
+  className,
   ...props
 }: ArrowButtonProps) {
   return (
     <button
       {...props}
       className={cn(
-        'absolute -bottom-8 z-10 flex h-[26px] items-center justify-center  from-gray-100 from-75% to-transparent',
+        'absolute z-10 items-center justify-center from-gray-100 from-75% to-transparent',
         dir === 'left' ? 'left-0 bg-gradient-to-r' : 'right-0 bg-gradient-to-l',
         active ? 'flex' : 'hidden',
+        className,
       )}
     >
-      <div className="flex h-5 w-5 items-center justify-center rounded-full border border-primary bg-white text-strong">
-        {dir === 'left' ? <CaretLeft size={16} /> : <CaretRight size={16} />}
+      <div className="flex items-center justify-center rounded-full border border-primary bg-white p-1 text-strong">
+        {dir === 'left' ? (
+          <CaretLeft size={arrowSize} />
+        ) : (
+          <CaretRight size={arrowSize} />
+        )}
       </div>
     </button>
   )

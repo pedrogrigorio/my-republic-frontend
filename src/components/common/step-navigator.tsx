@@ -50,7 +50,7 @@ interface StepTrackProps {
 
 const StepTrack = ({ step, currentStep }: StepTrackProps) => {
   return (
-    <div className="relative h-2 w-16 rounded-full bg-gray-200 xl:w-24">
+    <div className="relative h-2 w-10 rounded-full bg-gray-200 lg:w-20 xl:w-24">
       <div
         className={cn(
           'absolute h-full w-0 rounded-full bg-contrast transition-all duration-300',

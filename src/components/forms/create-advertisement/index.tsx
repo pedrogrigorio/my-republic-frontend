@@ -1,18 +1,13 @@
+import ScrollArrowButton from '@/components/common/scroll-arrow-button'
 import apartment from '@/assets/img/apartment.jpg'
 import Image from 'next/image'
 
 import { useEffect, useRef } from 'react'
-import { useScrollArrows } from '@/app/student-housing/[adsId]/_hooks/useScrollArrows'
+import { useScrollArrows } from '@/hooks/useScrollArrows'
+import { Camera, X } from '@phosphor-icons/react/dist/ssr'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { cn } from '@/lib/utils'
-import {
-  Camera,
-  CaretLeft,
-  CaretRight,
-  X,
-} from '@phosphor-icons/react/dist/ssr'
 
 interface CreateAdvertisementFormProps {
   currentStep: number
@@ -119,25 +114,21 @@ export default function CreateAdvertisementForm({
               </div>
 
               <div className="relative mt-[52px] w-2 flex-1">
-                <button
+                <ScrollArrowButton
+                  dir="left"
                   onClick={scrollLeft}
-                  className={cn(
-                    'absolute left-0 top-1/2 z-10 h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-primary bg-white',
-                    leftArrowActive ? 'flex' : 'hidden',
-                  )}
-                >
-                  <CaretLeft size={24} />
-                </button>
+                  arrowSize={24}
+                  active={leftArrowActive}
+                  className="left-0 top-1/2 h-full -translate-y-1/2 from-0% to-75%"
+                />
 
-                <button
+                <ScrollArrowButton
+                  dir="right"
                   onClick={scrollRight}
-                  className={cn(
-                    'absolute right-0 top-1/2 z-10 h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-primary bg-white',
-                    rightArrowActive ? 'flex' : 'hidden',
-                  )}
-                >
-                  <CaretRight size={24} />
-                </button>
+                  arrowSize={24}
+                  active={rightArrowActive}
+                  className="right-0 top-1/2 h-full -translate-y-1/2 from-0% to-75%"
+                />
 
                 <div
                   className="grid grid-flow-col grid-rows-2 gap-4 overflow-x-auto scroll-smooth scrollbar-none"

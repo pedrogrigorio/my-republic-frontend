@@ -54,7 +54,7 @@ export default function CreateAdvertisement() {
       </div>
 
       {/* Flaoting button actions */}
-      <div className="absolute bottom-0 right-0 flex w-full justify-between border-t border-primary bg-gray-100 px-12 py-5">
+      <div className="absolute bottom-0 right-0 z-20 flex w-full justify-between border-t border-primary bg-gray-100 px-12 py-5">
         <div>
           {step > 1 && (
             <Button

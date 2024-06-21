@@ -1,11 +1,16 @@
 'use client'
 
+import AdvertisementSkeleton from './_components/advertisement-skeleton'
+import ScrollArrowButton from '../../../components/common/scroll-arrow-button'
+import DetailsSection from './_components/details-section'
 import BunkbedIcon from '@/components/icons/bunkbed-icon'
+import HouseTag from '@/components/common/house-tag'
 import Image from 'next/image'
 
-import { useScrollArrows } from './_hooks/useScrollArrows'
+import { useScrollArrows } from '@/hooks/useScrollArrows'
 import { priceToCurrency } from '@/utils/priceToCurrency'
 import { advertisements } from '@/data/advertisements'
+import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
 import {
   Breadcrumb,
@@ -41,11 +46,6 @@ import {
   WifiHigh,
   X,
 } from '@phosphor-icons/react/dist/ssr'
-import HouseTag from '@/components/common/house-tag'
-import ArrowButton from './_components/arrow-button'
-import DetailsSection from './_components/details-section'
-import { useMockFetch } from '@/hooks/useMockFetch'
-import AdvertisementSkeleton from './_components/advertisement-skeleton'
 
 export default function Advertisement() {
   const { data: ad, isLoading } = useMockFetch(advertisements[0])
@@ -98,18 +98,20 @@ export default function Advertisement() {
               <CaretRight size={24} className="text-white" />
             </button>
 
-            <ArrowButton
+            <ScrollArrowButton
               dir="left"
               onClick={scrollLeft}
+              arrowSize={16}
               active={leftArrowActive}
-              className="-bottom-8"
+              className="-bottom-8 h-[26px]"
             />
 
-            <ArrowButton
+            <ScrollArrowButton
               dir="right"
               onClick={scrollRight}
+              arrowSize={16}
               active={rightArrowActive}
-              className="-bottom-8"
+              className="-bottom-8 h-[26px]"
             />
 
             <div
