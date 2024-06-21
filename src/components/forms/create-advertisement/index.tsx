@@ -1,9 +1,8 @@
 import ScrollArrowButton from '@/components/common/scroll-arrow-button'
-import apartment from '@/assets/img/apartment.jpg'
 import Image from 'next/image'
 
-import { useEffect, useRef } from 'react'
 import { useScrollArrows } from '@/hooks/useScrollArrows'
+import { useFileInput } from '@/hooks/useFileInput'
 import { Camera, X } from '@phosphor-icons/react/dist/ssr'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
@@ -16,7 +15,7 @@ interface CreateAdvertisementFormProps {
 export default function CreateAdvertisementForm({
   currentStep,
 }: CreateAdvertisementFormProps) {
-  const inputImg = useRef<HTMLInputElement>(null)
+  const { inputRef, uploadedImages, removeImg } = useFileInput()
 
   const {
     scrollableContainer,
@@ -25,32 +24,6 @@ export default function CreateAdvertisementForm({
     scrollRight,
     scrollLeft,
   } = useScrollArrows()
-
-  const removeImg = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-  }
-
-  useEffect(() => {
-    const handleFileChange = (event: Event) => {
-      const target = event.target as HTMLInputElement
-      if (target.files) {
-        for (let i = 0; i < target.files.length; i++) {
-          console.log(target.files[i].name)
-        }
-      }
-    }
-
-    const inputElement = inputImg.current
-    if (inputElement) {
-      inputElement.addEventListener('change', handleFileChange)
-    }
-
-    return () => {
-      if (inputElement) {
-        inputElement.removeEventListener('change', handleFileChange)
-      }
-    }
-  }, [])
 
   return (
     <form className="py-5">
@@ -109,7 +82,7 @@ export default function CreateAdvertisementForm({
                   id="pictures"
                   multiple
                   className="hidden"
-                  ref={inputImg}
+                  ref={inputRef}
                 />
               </div>
 
@@ -137,9 +110,9 @@ export default function CreateAdvertisementForm({
                     gridTemplateColumns: 'repeat(auto-fill, 128px)',
                   }}
                 >
-                  {Array.from({ length: 10 }).map((_, index) => (
+                  {uploadedImages.map((imgUrl) => (
                     <div
-                      key={index}
+                      key={imgUrl}
                       className="group relative aspect-video h-[72px] rounded-xl"
                     >
                       <button
@@ -150,7 +123,7 @@ export default function CreateAdvertisementForm({
                       </button>
 
                       <Image
-                        src={apartment}
+                        src={imgUrl}
                         width={1920}
                         height={1080}
                         alt="image"
