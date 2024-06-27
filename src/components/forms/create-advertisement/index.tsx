@@ -1,9 +1,11 @@
 'use client'
 
 import FirstStep from './first-step'
+import SecondStep from './second-step'
 
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
 import { z } from 'zod'
 
 interface CreateAdvertisementFormProps {
@@ -18,6 +20,14 @@ const advertisementFormSchema = z.object({
   pictures: z
     .array(z.instanceof(File))
     .min(1, 'Pelo menos uma imagem é necessária'),
+  genre: z.string(),
+  allowOppositeGender: z.boolean(),
+  numPeople: z.string().transform((value) => parseInt(value)),
+  occupiedVacancies: z.string().transform((value) => parseInt(value)),
+  bedroomType: z.string(),
+  numRooms: z.string().transform((value) => parseInt(value)),
+  numBathrooms: z.string().transform((value) => parseInt(value)),
+  petsPresence: z.string().transform((v) => v === 'true'),
 })
 
 type AdvertisementFormData = z.infer<typeof advertisementFormSchema>
@@ -40,11 +50,7 @@ export default function CreateAdvertisementForm({
       <form onSubmit={handleSubmit(onSubmit)} className="py-5">
         {currentStep === 1 && <FirstStep />}
 
-        {currentStep === 2 && (
-          <div>
-            <div></div>
-          </div>
-        )}
+        {currentStep === 2 && <SecondStep />}
 
         {currentStep === 3 && (
           <div>
@@ -63,6 +69,7 @@ export default function CreateAdvertisementForm({
             <div></div>
           </div>
         )}
+        <Button type="submit">Submit test</Button>
       </form>
     </FormProvider>
   )

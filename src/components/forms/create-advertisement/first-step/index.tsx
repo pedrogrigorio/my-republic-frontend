@@ -1,16 +1,16 @@
-import { Button } from '@/components/ui/button'
+import ImagePicker from './image-picker'
+
+import { useFormContext } from 'react-hook-form'
+import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import ImagePicker from './image-picker'
-import { useFormContext } from 'react-hook-form'
 
 export default function FirstStep() {
   const { register } = useFormContext()
 
   return (
     <div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center text-center">
         <h3>Principais informações</h3>
         <span>Compartilhe algumas informações sobre sua república</span>
       </div>
@@ -58,7 +58,6 @@ export default function FirstStep() {
           <ImagePicker />
         </div>
       </div>
-      <Button type="submit">Submit test</Button>
     </div>
   )
 }
