@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 export function useFileInput() {
-  const [uploadedImages, setUploadedImages] = useState<string[]>([])
+  const [previewImages, setPreviewImages] = useState<string[]>([])
+  const [files, setFiles] = useState<File[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -22,21 +23,23 @@ export function useFileInput() {
     const target = event.target as HTMLInputElement
 
     if (target.files) {
-      const fileArray = Array.from(target.files).map((file) =>
-        URL.createObjectURL(file),
-      )
+      const fileArray = Array.from(target.files)
+      const previewArray = fileArray.map((file) => URL.createObjectURL(file))
 
-      setUploadedImages((prevImages) => prevImages.concat(fileArray))
+      setFiles((prevFiles) => prevFiles.concat(fileArray))
+      setPreviewImages((prevImages) => prevImages.concat(previewArray))
     }
   }
 
-  const removeImg = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
+  const removeImg = (index: number) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index))
+    setPreviewImages((prevImages) => prevImages.filter((_, i) => i !== index))
   }
 
   return {
     inputRef,
-    uploadedImages,
+    files,
+    previewImages,
     removeImg,
   }
 }

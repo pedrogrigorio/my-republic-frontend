@@ -1,3 +1,5 @@
+'use client'
+
 import ScrollArrowButton from '@/components/common/scroll-arrow-button'
 import Image from 'next/image'
 
@@ -7,15 +9,32 @@ import { Camera, X } from '@phosphor-icons/react/dist/ssr'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
+import { useEffect } from 'react'
 
 interface CreateAdvertisementFormProps {
   currentStep: number
 }
 
+const advertisementFormSchema = z.object({
+  title: z.string(),
+  price: z.string(),
+  description: z.string(),
+  cep: z.string(),
+  files: z
+    .array(z.instanceof(File))
+    .min(1, 'Pelo menos uma imagem é necessária'),
+})
+
+type AdvertisementFormData = z.infer<typeof advertisementFormSchema>
+
 export default function CreateAdvertisementForm({
   currentStep,
 }: CreateAdvertisementFormProps) {
-  const { inputRef, uploadedImages, removeImg } = useFileInput()
+  const { inputRef, files, previewImages, removeImg } = useFileInput()
 
   const {
     scrollableContainer,
@@ -25,8 +44,20 @@ export default function CreateAdvertisementForm({
     scrollLeft,
   } = useScrollArrows()
 
+  const { register, handleSubmit, setValue } = useForm<AdvertisementFormData>({
+    resolver: zodResolver(advertisementFormSchema),
+  })
+
+  const onSubmit = (data: AdvertisementFormData) => {
+    console.log(data)
+  }
+
+  useEffect(() => {
+    setValue('files', files)
+  }, [files, setValue])
+
   return (
-    <form className="py-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="py-5">
       {currentStep === 1 && (
         <div>
           <div className="flex flex-col items-center">
@@ -37,12 +68,21 @@ export default function CreateAdvertisementForm({
           <div className="mt-8 grid grid-cols-3 gap-4">
             <div className="col-span-3 lg:col-span-2">
               <Label htmlFor="title">Título do anúncio *</Label>
-              <Input placeholder="Digite o título..." id="title" />
+              <Input
+                placeholder="Digite o título..."
+                id="title"
+                {...register('title')}
+              />
             </div>
 
             <div className="col-span-3 lg:col-span-1">
               <Label htmlFor="price">Preço (R$) *</Label>
-              <Input placeholder="Digite o valor..." id="price" />
+              <Input
+                placeholder="Digite o valor..."
+                id="price"
+                type="number"
+                {...register('price')}
+              />
             </div>
 
             <div className="col-span-3">
@@ -50,12 +90,18 @@ export default function CreateAdvertisementForm({
               <Textarea
                 placeholder="Descreva melhor o seu anúncio..."
                 id="description"
+                {...register('description')}
               />
             </div>
 
             <div className="col-span-3 lg:col-span-1">
               <Label htmlFor="cep">CEP *</Label>
-              <Input placeholder="Digite o CEP..." id="cep" />
+              <Input
+                placeholder="Digite o CEP..."
+                id="cep"
+                type="number"
+                {...register('cep')}
+              />
             </div>
 
             <div className="col-span-3 flex gap-4">
@@ -72,7 +118,7 @@ export default function CreateAdvertisementForm({
                     <div className="flex flex-col items-center justify-center">
                       <Camera size={48} />
                       <h4>Adicionar fotos</h4>
-                      <span className="text-sm text-primary">JPG ou PNG</span>
+                      <span className="text-sm text-primary">JPEG ou PNG</span>
                     </div>
                   </div>
                 </Label>
@@ -82,6 +128,8 @@ export default function CreateAdvertisementForm({
                   id="pictures"
                   multiple
                   className="hidden"
+                  accept="image/png, image/jpeg"
+                  {...register('files')}
                   ref={inputRef}
                 />
               </div>
@@ -110,13 +158,13 @@ export default function CreateAdvertisementForm({
                     gridTemplateColumns: 'repeat(auto-fill, 128px)',
                   }}
                 >
-                  {uploadedImages.map((imgUrl) => (
+                  {previewImages.map((imgUrl, index) => (
                     <div
                       key={imgUrl}
                       className="group relative aspect-video h-[72px] rounded-xl"
                     >
                       <button
-                        onClick={removeImg}
+                        onClick={() => removeImg(index)}
                         className="absolute right-1 top-1 z-10 hidden h-6 w-6 items-center justify-center rounded-full bg-gray-800 group-hover:flex"
                       >
                         <X scale={16} className="text-white" />
@@ -133,6 +181,8 @@ export default function CreateAdvertisementForm({
                   ))}
                 </div>
               </div>
+
+              <Button type="submit">Submit test</Button>
             </div>
           </div>
         </div>

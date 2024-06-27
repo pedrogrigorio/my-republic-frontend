@@ -107,7 +107,7 @@ const config = {
         },
       },
       boxShadow: {
-        custom: '0 2px 18px -2px rgba(0, 0, 0, 0.1)', // Adiciona uma sombra personalizada
+        custom: '0 2px 18px -2px rgba(0, 0, 0, 0.1)',
       },
     },
   },
