@@ -2,15 +2,16 @@
 
 import FirstStep from './first-step'
 import SecondStep from './second-step'
+import ThirdStep from './third-step'
+import FourthStep from './fourth-step'
+import FifthStep from './fifth-step'
 
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/button'
-import { z } from 'zod'
 import { amenities } from '@/data/amenities'
 import { rules } from '@/data/rules'
-import ThirdStep from './third-step'
-import FourthStep from './fourth-step'
+import { z } from 'zod'
+import { useRouter } from 'next/navigation'
 
 interface CreateAdvertisementFormProps {
   currentStep: number
@@ -45,6 +46,7 @@ type AdvertisementFormData = z.infer<typeof advertisementFormSchema>
 export default function CreateAdvertisementForm({
   currentStep,
 }: CreateAdvertisementFormProps) {
+  const router = useRouter()
   const createAdForm = useForm<AdvertisementFormData>({
     resolver: zodResolver(advertisementFormSchema),
   })
@@ -53,6 +55,8 @@ export default function CreateAdvertisementForm({
 
   const onSubmit = (data: AdvertisementFormData) => {
     console.log(data)
+
+    router.replace('/my-ads')
   }
 
   return (
@@ -66,12 +70,7 @@ export default function CreateAdvertisementForm({
 
         {currentStep === 4 && <FourthStep />}
 
-        {currentStep === 5 && (
-          <div>
-            <div></div>
-          </div>
-        )}
-        <Button type="submit">Submit test</Button>
+        {currentStep === 5 && <FifthStep />}
       </form>
     </FormProvider>
   )

@@ -30,6 +30,8 @@ const config = {
         tabActive: '#F28000',
       },
       colors: {
+        primary: '#F28000',
+        secondary: '#43B682',
         contrast: '#F28000',
         danger: '#A94442',
         warning: '#F28000',
@@ -91,19 +93,17 @@ const config = {
           800: '#5D2524',
           900: '#471D1C',
         },
-      },
-      animation: {
-        marquee: 'marquee 5s linear infinite',
-        marquee2: 'marquee2 25s linear infinite',
-      },
-      keyframes: {
-        marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
-        },
-        marquee2: {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0%)' },
+        blue: {
+          50: '#f5f5ff',
+          100: '#f0efff',
+          200: '#e1deff',
+          300: '#9e96ff',
+          400: '#8e87e6',
+          500: '#7e78cc',
+          600: '#7771bf',
+          700: '#5f5a99',
+          800: '#474473',
+          900: '#373559',
         },
       },
       boxShadow: {
