@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} overflow-y-hidden`}>
-        <div className="flex h-screen">
+        <div className="flex h-screen min-w-[650px]">
           <Sidebar />
           <main className="flex-1 overflow-y-auto bg-gray-100 text-primary">
             {children}
