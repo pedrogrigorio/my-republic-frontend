@@ -10,6 +10,7 @@ import { z } from 'zod'
 import { amenities } from '@/data/amenities'
 import { rules } from '@/data/rules'
 import ThirdStep from './third-step'
+import FourthStep from './fourth-step'
 
 interface CreateAdvertisementFormProps {
   currentStep: number
@@ -33,6 +34,9 @@ const advertisementFormSchema = z.object({
   petsPresence: z.string().transform((v) => v === 'true'),
   amenities: z.object(
     Object.fromEntries(amenities.map((amenity) => [amenity.tag, z.boolean()])),
+  ),
+  rules: z.object(
+    Object.fromEntries(rules.map((rule) => [rule.tag, z.boolean()])),
   ),
 })
 
@@ -60,11 +64,7 @@ export default function CreateAdvertisementForm({
 
         {currentStep === 3 && <ThirdStep />}
 
-        {currentStep === 4 && (
-          <div>
-            <div></div>
-          </div>
-        )}
+        {currentStep === 4 && <FourthStep />}
 
         {currentStep === 5 && (
           <div>
