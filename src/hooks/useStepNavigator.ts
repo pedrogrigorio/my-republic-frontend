@@ -1,23 +1,23 @@
 import { useState } from 'react'
 
 export function useStepNavigator(totalSteps: number) {
-  const [step, setStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(1)
 
   const prevStep = () => {
-    if (step > 1) {
-      setStep(step - 1)
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1)
     }
   }
 
   const nextStep = () => {
-    if (step < totalSteps) {
-      setStep(step + 1)
+    if (currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1)
     }
   }
 
   return {
     totalSteps,
-    step,
+    currentStep,
     prevStep,
     nextStep,
   }

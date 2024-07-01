@@ -12,10 +12,10 @@ import { amenities } from '@/data/amenities'
 import { rules } from '@/data/rules'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
-
-interface CreateAdvertisementFormProps {
-  currentStep: number
-}
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import StepNavigator from '@/components/common/step-navigator'
+import { useStepNavigator } from '@/hooks/useStepNavigator'
 
 const advertisementFormSchema = z.object({
   title: z.string().min(5, 'O título deve ter pelo menos 5 caracteres'),
@@ -60,16 +60,16 @@ const advertisementFormSchema = z.object({
 
 type AdvertisementFormData = z.infer<typeof advertisementFormSchema>
 
-export default function CreateAdvertisementForm({
-  currentStep,
-}: CreateAdvertisementFormProps) {
+export default function CreateAdvertisementForm() {
+  const { currentStep, totalSteps, nextStep, prevStep } = useStepNavigator(5)
+
   const createAdForm = useForm<AdvertisementFormData>({
     resolver: zodResolver(advertisementFormSchema),
   })
 
-  const router = useRouter()
-
   const { handleSubmit } = createAdForm
+
+  const router = useRouter()
 
   const onSubmit = (data: AdvertisementFormData) => {
     console.log(data)
@@ -78,18 +78,60 @@ export default function CreateAdvertisementForm({
   }
 
   return (
-    <FormProvider {...createAdForm}>
-      <form onSubmit={handleSubmit(onSubmit)} className="py-5">
-        {currentStep === 1 && <FirstStep />}
+    <div>
+      <StepNavigator
+        steps={totalSteps}
+        currentStep={currentStep}
+        className="my-6 justify-center"
+      />
 
-        {currentStep === 2 && <SecondStep />}
+      <div className="h-[1px] w-full bg-divisor" />
 
-        {currentStep === 3 && <ThirdStep />}
+      <div className="flex-1">
+        <FormProvider {...createAdForm}>
+          <form onSubmit={handleSubmit(onSubmit)} className="py-5">
+            {currentStep === 1 && <FirstStep />}
 
-        {currentStep === 4 && <FourthStep />}
+            {currentStep === 2 && <SecondStep />}
 
-        {currentStep === 5 && <FifthStep />}
-      </form>
-    </FormProvider>
+            {currentStep === 3 && <ThirdStep />}
+
+            {currentStep === 4 && <FourthStep />}
+
+            {currentStep === 5 && <FifthStep />}
+          </form>
+        </FormProvider>
+
+        <div className="absolute bottom-0 right-0 z-20 flex w-full justify-between border-t border-primary bg-gray-100 px-12 py-5">
+          <div>
+            {currentStep > 1 && (
+              <Button
+                className="w-40 bg-button-primary hover:bg-button-primary-hover"
+                onClick={prevStep}
+              >
+                Passo anterior
+              </Button>
+            )}
+          </div>
+
+          <div className="flex gap-8">
+            {currentStep === 1 && (
+              <Button variant="ghost" asChild>
+                <Link href="/my-ads">Cancelar</Link>
+              </Button>
+            )}
+
+            {currentStep < 5 && (
+              <Button
+                className="w-40 bg-button-primary hover:bg-button-primary-hover"
+                onClick={nextStep}
+              >
+                Próximo passo
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
