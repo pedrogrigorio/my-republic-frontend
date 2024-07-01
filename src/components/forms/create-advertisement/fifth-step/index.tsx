@@ -5,7 +5,7 @@ export default function FifthStep() {
   return (
     <div className="mt-8 flex flex-col items-center gap-8 text-center">
       <div className="relative h-32 w-32">
-        <div className="bg-secondary absolute z-20 flex h-32 w-32 items-center justify-center rounded-full text-white">
+        <div className="absolute z-20 flex h-32 w-32 items-center justify-center rounded-full bg-secondary text-white">
           <Check size={96} />
         </div>
 

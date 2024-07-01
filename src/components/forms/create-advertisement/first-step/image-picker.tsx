@@ -19,7 +19,8 @@ export default function ImagePicker() {
     scrollLeft,
   } = useScrollArrows()
 
-  const { setValue, getValues, control } = useFormContext()
+  const { setValue, getValues, control, trigger, clearErrors } =
+    useFormContext()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target
@@ -33,6 +34,8 @@ export default function ImagePicker() {
       } else {
         setValue('pictures', fileArray)
       }
+
+      clearErrors('pictures')
     }
   }
 
@@ -41,6 +44,9 @@ export default function ImagePicker() {
     const newFilesArray = prevFiles.filter((_, i) => i !== index)
 
     setValue('pictures', newFilesArray)
+    if (newFilesArray.length === 0) {
+      trigger('pictures')
+    }
   }
 
   return (

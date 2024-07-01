@@ -4,9 +4,13 @@ import { useFormContext } from 'react-hook-form'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import InputError from '@/components/ui/input-error'
 
 export default function FirstStep() {
-  const { register } = useFormContext()
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext()
 
   return (
     <div>
@@ -23,6 +27,7 @@ export default function FirstStep() {
             id="title"
             {...register('title')}
           />
+          <InputError error={errors.title?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -33,15 +38,17 @@ export default function FirstStep() {
             type="number"
             {...register('price')}
           />
+          <InputError error={errors.price?.message?.toString()} />
         </div>
 
         <div className="col-span-3">
-          <Label htmlFor="description">Descrição</Label>
+          <Label htmlFor="description">Descrição *</Label>
           <Textarea
             placeholder="Descreva melhor o seu anúncio..."
             id="description"
             {...register('description')}
           />
+          <InputError error={errors.description?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -52,10 +59,12 @@ export default function FirstStep() {
             type="number"
             {...register('cep')}
           />
+          <InputError error={errors.cep?.message?.toString()} />
         </div>
 
         <div className="col-span-3">
           <ImagePicker />
+          <InputError error={errors.pictures?.message?.toString()} />
         </div>
       </div>
     </div>
