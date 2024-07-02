@@ -5,6 +5,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import InputError from '@/components/ui/input-error'
+import { currencyMask } from '@/utils/currencyMask'
+import { zipCodeMask } from '@/utils/zipCodeMask'
 
 export default function FirstStep() {
   const {
@@ -35,8 +37,9 @@ export default function FirstStep() {
           <Input
             placeholder="Digite o valor..."
             id="price"
-            type="number"
-            {...register('price')}
+            {...register('price', {
+              onChange: currencyMask,
+            })}
           />
           <InputError error={errors.price?.message?.toString()} />
         </div>
@@ -56,8 +59,7 @@ export default function FirstStep() {
           <Input
             placeholder="Digite o CEP..."
             id="cep"
-            type="number"
-            {...register('cep')}
+            {...register('cep', { onChange: zipCodeMask })}
           />
           <InputError error={errors.cep?.message?.toString()} />
         </div>

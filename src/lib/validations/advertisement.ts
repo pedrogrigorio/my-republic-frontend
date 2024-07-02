@@ -4,14 +4,22 @@ import { z } from 'zod'
 
 export const advertisementFormSchema = z.object({
   // Step 1
-  title: z
-    .string({ message: 'Campo obrigatório' })
-    .min(5, 'O título deve ter pelo menos 5 caracteres'),
-  price: z.string({ message: 'Campo obrigatório' }),
+  title: z.string().min(5, 'O título deve ter pelo menos 5 caracteres'),
+  price: z
+    .string()
+    .transform((value) => {
+      value = value
+        .replace(/R\$\s?/, '')
+        .replace(/\./g, '')
+        .replace(',', '.')
+
+      return parseFloat(value)
+    })
+    .refine((value) => value > 0, { message: 'O valor deve ser maior que 0' }),
   description: z
-    .string({ message: 'Campo obrigatório' })
+    .string()
     .min(10, 'A descrição deve ter pelo menos 10 caracteres'),
-  cep: z.string({ message: 'Campo obrigatório' }),
+  cep: z.string().min(9, { message: 'CEP inválido' }),
   pictures: z
     .array(z.instanceof(File))
     .min(1, 'Pelo menos uma imagem é necessária'),
