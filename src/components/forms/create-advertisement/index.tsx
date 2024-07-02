@@ -1,20 +1,19 @@
 'use client'
 
+import ActionButtons from './action-buttons'
+import StepNavigator from '../common/step-navigator'
 import FirstStep from './first-step'
 import SecondStep from './second-step'
 import ThirdStep from './third-step'
 import FourthStep from './fourth-step'
 import FifthStep from './fifth-step'
 
-import { FormProvider, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-
-import { z } from 'zod'
-import { useRouter } from 'next/navigation'
-import StepNavigator from '../common/step-navigator'
-import { useRef, useState } from 'react'
 import { advertisementFormSchema } from '@/lib/validations/advertisement'
-import ActionButtons from './action-buttons'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useRef, useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { z } from 'zod'
 
 type AdvertisementFormData = z.infer<typeof advertisementFormSchema>
 type FieldName = keyof AdvertisementFormData
@@ -52,22 +51,15 @@ const steps = [
 ]
 
 export default function CreateAdvertisementForm() {
-  const formRef = useRef<HTMLFormElement>(null)
   const [currentStep, setCurrentStep] = useState(1)
+  const formRef = useRef<HTMLFormElement>(null)
+  const router = useRouter()
 
   const createAdForm = useForm<AdvertisementFormData>({
     resolver: zodResolver(advertisementFormSchema),
   })
 
-  const { handleSubmit, trigger } = createAdForm
-
-  const router = useRouter()
-
-  const onSubmit = (data: AdvertisementFormData) => {
-    console.log(data)
-
-    router.replace('/my-ads')
-  }
+  const { handleSubmit, trigger, clearErrors } = createAdForm
 
   const nextStep = async () => {
     const fields = steps[currentStep - 1].fields
@@ -78,6 +70,8 @@ export default function CreateAdvertisementForm() {
       return
     }
 
+    clearErrors()
+
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1)
     }
@@ -87,6 +81,12 @@ export default function CreateAdvertisementForm() {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     }
+  }
+
+  const onSubmit = (data: AdvertisementFormData) => {
+    console.log(data)
+
+    router.replace('/my-ads')
   }
 
   return (

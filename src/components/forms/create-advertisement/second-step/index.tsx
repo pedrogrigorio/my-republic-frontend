@@ -8,9 +8,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import InputError from '@/components/ui/input-error'
 
 export default function SecondStep() {
-  const { register, control } = useFormContext()
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext()
 
   return (
     <div>
@@ -40,7 +45,8 @@ export default function SecondStep() {
                 </SelectContent>
               </Select>
             )}
-          ></Controller>
+          />
+          <InputError error={errors.genre?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -51,6 +57,7 @@ export default function SecondStep() {
             type="number"
             {...register('numPeople')}
           />
+          <InputError error={errors.numPeople?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -61,6 +68,7 @@ export default function SecondStep() {
             type="number"
             {...register('occupiedVacancies')}
           />
+          <InputError error={errors.occupiedVacancies?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -84,6 +92,7 @@ export default function SecondStep() {
               </Select>
             )}
           />
+          <InputError error={errors.bedroomType?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -94,6 +103,7 @@ export default function SecondStep() {
             type="number"
             {...register('numRooms')}
           />
+          <InputError error={errors.numRooms?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -104,6 +114,7 @@ export default function SecondStep() {
             type="number"
             {...register('numBathrooms')}
           />
+          <InputError error={errors.numBathrooms?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -118,7 +129,7 @@ export default function SecondStep() {
                 onValueChange={field.onChange}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione o tipo de quarto" />
+                  <SelectValue placeholder="Selecione uma opção" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="true">Possui</SelectItem>
@@ -127,6 +138,7 @@ export default function SecondStep() {
               </Select>
             )}
           />
+          <InputError error={errors.petsPresence?.message?.toString()} />
         </div>
 
         <div className="col-span-3">
