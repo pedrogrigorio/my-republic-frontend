@@ -29,6 +29,11 @@ export default function ImagePicker() {
       const fileArray = Array.from(target.files)
       const prevFiles = getValues('pictures')
 
+      if (prevFiles.length + fileArray.length > 10) {
+        alert('Máximo de 10 arquivos permitidos')
+        return
+      }
+
       if (prevFiles) {
         setValue('pictures', prevFiles.concat(fileArray))
       } else {
@@ -60,7 +65,7 @@ export default function ImagePicker() {
             {/* Label with style */}
             <Label htmlFor="pictures" className="flex w-fit flex-col">
               <div>
-                <h4>Fotos</h4>
+                <h4>Fotos *</h4>
                 <span className="text-sm font-normal text-primary">
                   No máximo 10 fotos
                 </span>
