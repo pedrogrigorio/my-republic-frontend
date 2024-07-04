@@ -23,20 +23,18 @@ export default function MyAds() {
 
   if (ads.length === 0) {
     return (
-      <div className="relative h-full w-full">
-        <div className="absolute top-64 flex w-full flex-col items-center gap-4">
-          <div className="flex flex-col items-center gap-2">
-            <h1>Você ainda não possui anúncios</h1>
-            <h2>Encontre pessoas e forme uma república.</h2>
-          </div>
-
-          <Button
-            className="hover:bg-button-primaryHover h-12 bg-button-primary px-6 font-semibold"
-            asChild
-          >
-            <Link href="my-ads/create">Criar anúncio</Link>
-          </Button>
+      <div className="absolute top-64 flex w-full flex-col items-center gap-4 px-8 text-center">
+        <div className="flex flex-col items-center gap-2">
+          <h1>Você ainda não possui anúncios</h1>
+          <h2>Encontre pessoas e forme uma república.</h2>
         </div>
+
+        <Button
+          className="hover:bg-button-primaryHover h-12 bg-button-primary px-6 font-semibold"
+          asChild
+        >
+          <Link href="my-ads/create">Criar anúncio</Link>
+        </Button>
       </div>
     )
   }
