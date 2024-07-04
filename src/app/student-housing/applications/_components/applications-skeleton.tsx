@@ -1,11 +1,16 @@
 import SearchInput from '@/components/common/search-input'
+
 import { Skeleton } from '@/components/ui/skeleton'
+import { Page } from '@/components/layout/page'
 
 export default function ApplicationsSkeleton() {
   return (
-    <div className="h-screen px-12 py-10">
-      <SearchInput placeholder="Buscar por nome do anúncio..." />
-      <div className="mt-10 flex flex-col text-strong">
+    <Page.Container>
+      <Page.Header>
+        <SearchInput placeholder="Buscar por nome do anúncio..." />
+      </Page.Header>
+
+      <Page.Content>
         <div>
           <Skeleton className="h-6 w-56" />
           <Skeleton className="mt-2 h-5 w-48" />
@@ -30,7 +35,7 @@ export default function ApplicationsSkeleton() {
             </div>
           ))}
         </ul>
-      </div>
-    </div>
+      </Page.Content>
+    </Page.Container>
   )
 }

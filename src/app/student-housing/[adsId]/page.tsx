@@ -46,6 +46,7 @@ import {
   WifiHigh,
   X,
 } from '@phosphor-icons/react/dist/ssr'
+import { Page } from '@/components/layout/page'
 
 export default function Advertisement() {
   const { data: ad, isLoading } = useMockFetch(advertisements[0])
@@ -63,22 +64,24 @@ export default function Advertisement() {
   }
 
   return (
-    <div className='className="h-screen px-12 py-10'>
-      <Breadcrumb className="flex h-14 items-center">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/settings/account">
-              Buscar repúblicas
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Título da república</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <Page.Container>
+      <Page.Header>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/settings/account">
+                Buscar repúblicas
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Título da república</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </Page.Header>
 
-      <div className="mt-10 flex flex-col text-strong">
+      <Page.Content>
         {/* Main content */}
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
           {/* Image */}
@@ -276,7 +279,7 @@ export default function Advertisement() {
             </ul>
           </DetailsSection>
         </div>
-      </div>
-    </div>
+      </Page.Content>
+    </Page.Container>
   )
 }

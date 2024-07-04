@@ -9,6 +9,7 @@ import { searchData } from '@/data/search-data'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { SearchResult } from '@/types/search-result'
 import { useParams } from 'next/navigation'
+import { Page } from '@/components/layout/page'
 import {
   Pagination,
   PaginationContent,
@@ -29,9 +30,12 @@ export default function SearchByCity() {
 
   if (data) {
     return (
-      <div className="h-screen px-12 py-10">
-        <LocaleSearchForm />
-        <div className="mt-10 flex flex-col pb-8 text-strong">
+      <Page.Container>
+        <Page.Header>
+          <LocaleSearchForm />
+        </Page.Header>
+
+        <Page.Content>
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-bold">Buscar repúblicas</h2>
@@ -77,8 +81,8 @@ export default function SearchByCity() {
               </PaginationItem>
             </PaginationContent>
           </Pagination>
-        </div>
-      </div>
+        </Page.Content>
+      </Page.Container>
     )
   }
 }

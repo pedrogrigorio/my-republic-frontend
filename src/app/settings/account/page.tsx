@@ -16,24 +16,28 @@ import {
   CaretRight,
   PencilSimple,
 } from '@phosphor-icons/react/dist/ssr'
+import { Page } from '@/components/layout/page'
 
 export default function Account() {
   return (
-    <div className='className="h-screen px-12 py-10'>
-      <Breadcrumb className="flex h-14 items-center">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/settings/account">
-              Configurações
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Minha conta</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-      <div className="mt-10 flex flex-col text-strong">
+    <Page.Container>
+      <Page.Header>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/settings/account">
+                Configurações
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Minha conta</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </Page.Header>
+      s
+      <Page.Content>
         <section className="pb-8">
           <h2 className="font-bold">Minha conta</h2>
           <div className="mt-6 flex gap-8">
@@ -97,7 +101,7 @@ export default function Account() {
             <CaretRight size={24} />
           </div>
         </section>
-      </div>
-    </div>
+      </Page.Content>
+    </Page.Container>
   )
 }

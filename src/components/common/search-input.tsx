@@ -14,7 +14,7 @@ export default function SearchInput(props: SearchBoxProps) {
 
   return (
     <div
-      className={`${className} flex h-14 flex-1 items-center rounded-xl border border-primary bg-white px-3`}
+      className={`${className} flex h-full flex-1 items-center rounded-xl border border-primary bg-white px-3`}
     >
       <MagnifyingGlass size={32} className="text-placeholder" />
       <Input

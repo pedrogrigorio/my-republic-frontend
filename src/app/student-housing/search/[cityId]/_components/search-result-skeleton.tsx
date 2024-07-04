@@ -1,11 +1,16 @@
 import LocaleSearchForm from '@/components/forms/locale-search-form'
+
 import { Skeleton } from '@/components/ui/skeleton'
+import { Page } from '@/components/layout/page'
 
 export default function SearchResultSkeleton() {
   return (
-    <div className="h-screen px-12 py-10">
-      <LocaleSearchForm />
-      <div className="mt-10 flex flex-col pb-8">
+    <Page.Container>
+      <Page.Header>
+        <LocaleSearchForm />
+      </Page.Header>
+
+      <Page.Content>
         <div className="flex items-center justify-between">
           <div>
             <Skeleton className="h-6 w-48" />
@@ -26,7 +31,7 @@ export default function SearchResultSkeleton() {
             </li>
           ))}
         </ul>
-      </div>
-    </div>
+      </Page.Content>
+    </Page.Container>
   )
 }

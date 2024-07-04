@@ -1,12 +1,12 @@
 import ImagePicker from './image-picker'
+import InputError from '@/components/ui/input-error'
 
 import { useFormContext } from 'react-hook-form'
+import { currencyMask } from '@/utils/currencyMask'
+import { zipCodeMask } from '@/utils/zipCodeMask'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import InputError from '@/components/ui/input-error'
-import { currencyMask } from '@/utils/currencyMask'
-import { zipCodeMask } from '@/utils/zipCodeMask'
 
 export default function FirstStep() {
   const {

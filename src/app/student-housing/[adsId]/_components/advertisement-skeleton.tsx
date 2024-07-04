@@ -1,13 +1,14 @@
+import { Page } from '@/components/layout/page'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default function AdvertisementSkeleton() {
   return (
-    <div className='className="h-screen px-12 py-10'>
-      <div className="flex h-14 items-center">
+    <Page.Container>
+      <Page.Header>
         <Skeleton className="h-6 w-1/4" />
-      </div>
+      </Page.Header>
 
-      <div className="mt-10 flex flex-col text-strong">
+      <Page.Content>
         {/* Main content */}
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-5 2xl:grid-cols-2">
           {/* Image */}
@@ -89,7 +90,7 @@ export default function AdvertisementSkeleton() {
             </ul>
           </section>
         </div>
-      </div>
-    </div>
+      </Page.Content>
+    </Page.Container>
   )
 }

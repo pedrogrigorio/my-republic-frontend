@@ -9,6 +9,7 @@ import { ApplicationsList } from '@/types/applications-list'
 import { applicationsList } from '@/data/applications-list'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
+import { Page } from '@/components/layout/page'
 import {
   Pagination,
   PaginationContent,
@@ -46,9 +47,12 @@ export default function Applications() {
   }
 
   return (
-    <div className="h-screen px-12 py-10">
-      <SearchInput placeholder="Buscar por nome do anúncio..." />
-      <div className="mt-10 flex flex-col pb-8 text-strong">
+    <Page.Container>
+      <Page.Header>
+        <SearchInput placeholder="Buscar por nome do anúncio..." />
+      </Page.Header>
+
+      <Page.Content>
         <div>
           <h2 className="font-bold">Minhas aplicações</h2>
           <span>{data.total} resultados encontrados</span>
@@ -91,7 +95,7 @@ export default function Applications() {
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-      </div>
-    </div>
+      </Page.Content>
+    </Page.Container>
   )
 }

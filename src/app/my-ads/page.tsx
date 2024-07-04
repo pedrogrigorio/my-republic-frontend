@@ -10,6 +10,7 @@ import { Advertisement } from '@/types/advertisement'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { Page } from '@/components/layout/page'
 
 export default function MyAds() {
   const { data: ads, isLoading } = useMockFetch<Advertisement[]>(advertisements)
@@ -41,9 +42,12 @@ export default function MyAds() {
   }
 
   return (
-    <div className="h-screen px-12 py-10">
-      <SearchInput placeholder="Buscar por nome do anúncio..." />
-      <div className="mt-10 flex flex-col text-strong">
+    <Page.Container>
+      <Page.Header>
+        <SearchInput placeholder="Buscar por nome do anúncio..." />
+      </Page.Header>
+
+      <Page.Content>
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-bold">Meus anúncios</h2>
@@ -116,7 +120,7 @@ export default function MyAds() {
                 </li>
               ))}
         </ul>
-      </div>
-    </div>
+      </Page.Content>
+    </Page.Container>
   )
 }

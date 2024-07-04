@@ -1,11 +1,15 @@
 import SearchInput from '@/components/common/search-input'
+import { Page } from '@/components/layout/page'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default function MyAdsSkeleton() {
   return (
-    <div className="h-screen px-12 py-10">
-      <SearchInput placeholder="Buscar por nome do anúncio..." />
-      <div className="mt-10 flex flex-col text-strong">
+    <Page.Container>
+      <Page.Header>
+        <SearchInput placeholder="Buscar por nome do anúncio..." />
+      </Page.Header>
+
+      <Page.Content>
         <div className="flex items-center justify-between">
           <div>
             <Skeleton className="h-6 w-48" />
@@ -36,7 +40,7 @@ export default function MyAdsSkeleton() {
             </div>
           ))}
         </ul>
-      </div>
-    </div>
+      </Page.Content>
+    </Page.Container>
   )
 }
