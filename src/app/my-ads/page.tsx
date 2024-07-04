@@ -3,13 +3,13 @@
 import AdvertisementListItem from '../../components/common/advertisement-list-item'
 import MyAdsSkeleton from './_components/my-ads-skeleton'
 import SearchInput from '@/components/common/search-input'
+import Link from 'next/link'
 
 import { advertisements } from '@/data/advertisements'
 import { useSelectedTab } from './_hooks/useSelectedTab'
 import { Advertisement } from '@/types/advertisement'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import { Page } from '@/components/layout/page'
 
 export default function MyAds() {

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { priceToCurrency } from '@/utils/priceToCurrency'
 import { Advertisement } from '@/types/advertisement'
@@ -20,7 +21,6 @@ import {
   Pencil,
   TrashSimple,
 } from '@phosphor-icons/react/dist/ssr'
-import Link from 'next/link'
 
 interface AdvertisementListItemProps {
   advertisement: Advertisement
@@ -82,13 +82,17 @@ export default function AdvertisementListItem({
           <DropdownMenuContent className="w-48">
             {variant === 'advertiser' ? (
               <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Eye className="mr-2 h-4 w-4" />
-                  <span>Visualizar</span>
+                <DropdownMenuItem asChild>
+                  <Link href={`/student-housing/${advertisement.id}`}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    <span>Visualizar</span>
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Pencil className="mr-2 h-4 w-4" />
-                  <span>Editar</span>
+                <DropdownMenuItem asChild>
+                  <Link href={`/my-ads/edit/${advertisement.id}`}>
+                    <Pencil className="mr-2 h-4 w-4" />
+                    <span>Editar</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Pause className="mr-2 h-4 w-4" />
@@ -102,9 +106,11 @@ export default function AdvertisementListItem({
               </DropdownMenuGroup>
             ) : (
               <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Eye className="mr-2 h-4 w-4" />
-                  <span>Visualizar anúncio</span>
+                <DropdownMenuItem asChild>
+                  <Link href={`/student-housing/${advertisement.id}`}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    <span>Visualizar anúncio</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-danger">

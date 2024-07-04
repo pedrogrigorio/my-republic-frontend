@@ -4,6 +4,7 @@ import AdvertisementSkeleton from './_components/advertisement-skeleton'
 import ScrollArrowButton from '../../../components/common/scroll-arrow-button'
 import DetailsSection from './_components/details-section'
 import BunkbedIcon from '@/components/icons/bunkbed-icon'
+import Breadcrumb from '@/components/common/breadcrumb'
 import HouseTag from '@/components/common/house-tag'
 import Image from 'next/image'
 
@@ -12,7 +13,7 @@ import { priceToCurrency } from '@/utils/priceToCurrency'
 import { advertisements } from '@/data/advertisements'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
-
+import { Page } from '@/components/layout/page'
 import {
   Armchair,
   Barbell,
@@ -38,8 +39,6 @@ import {
   WifiHigh,
   X,
 } from '@phosphor-icons/react/dist/ssr'
-import { Page } from '@/components/layout/page'
-import Breadcrumb from '@/components/common/breadcrumb'
 
 export default function Advertisement() {
   const { data: ad, isLoading } = useMockFetch(advertisements[0])

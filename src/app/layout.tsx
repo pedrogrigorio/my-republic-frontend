@@ -1,9 +1,10 @@
-import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
 import './globals.css'
-import Sidebar from '@/components/layout/sidebar'
 import '@/lib/dayjs'
+
+import Sidebar from '@/components/layout/sidebar'
+import { Poppins } from 'next/font/google'
 import { Toaster } from '@/components/ui/toaster'
+import type { Metadata } from 'next'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
