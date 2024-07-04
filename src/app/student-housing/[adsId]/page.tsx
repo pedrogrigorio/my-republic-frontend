@@ -12,14 +12,6 @@ import { priceToCurrency } from '@/utils/priceToCurrency'
 import { advertisements } from '@/data/advertisements'
 import { useMockFetch } from '@/hooks/useMockFetch'
 import { Button } from '@/components/ui/button'
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-  BreadcrumbPage,
-} from '@/components/ui/breadcrumb'
 
 import {
   Armchair,
@@ -47,6 +39,7 @@ import {
   X,
 } from '@phosphor-icons/react/dist/ssr'
 import { Page } from '@/components/layout/page'
+import Breadcrumb from '@/components/common/breadcrumb'
 
 export default function Advertisement() {
   const { data: ad, isLoading } = useMockFetch(advertisements[0])
@@ -66,19 +59,10 @@ export default function Advertisement() {
   return (
     <Page.Container>
       <Page.Header>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/settings/account">
-                Buscar repúblicas
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Título da república</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumb
+          currentPage="Título da república"
+          parents={[{ name: 'Buscar repúblicas', path: '/student-housing' }]}
+        />
       </Page.Header>
 
       <Page.Content>

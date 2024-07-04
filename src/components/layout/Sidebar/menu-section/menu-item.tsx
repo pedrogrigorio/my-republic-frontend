@@ -31,7 +31,7 @@ export default function MenuItem({ item, sidebarIsOpen }: MenuItemProps) {
 
         {sidebarIsOpen || !item.submenu ? (
           <Link
-            href={item.redirectTo ? item.redirectTo : item.path}
+            href={item.path}
             className={cn(
               'z-10 flex h-full items-center',
               isActive && 'text-black',

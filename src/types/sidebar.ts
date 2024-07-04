@@ -12,5 +12,4 @@ export interface IMenuItem {
   icon: ReactNode
   path: string
   submenu?: ISubmenuItem[]
-  redirectTo?: string
 }

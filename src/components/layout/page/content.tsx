@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 interface ContentProps {
-  children: React.ReactNode
+  children?: React.ReactNode
   className?: string
 }
 

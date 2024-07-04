@@ -1,42 +1,25 @@
+import Breadcrumb from '@/components/common/breadcrumb'
 import persona from '@/assets/img/persona.png'
 import Image from 'next/image'
 
 import { Button } from '@/components/ui/button'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
-
+import { Page } from '@/components/layout/page'
 import {
   Camera,
   CaretRight,
   PencilSimple,
 } from '@phosphor-icons/react/dist/ssr'
-import { Page } from '@/components/layout/page'
 
 export default function Account() {
   return (
     <Page.Container>
       <Page.Header>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/settings/account">
-                Configurações
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Minha conta</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumb
+          currentPage="Minha conta"
+          parents={[{ name: 'Configurações', path: '/settings' }]}
+        />
       </Page.Header>
-      s
+
       <Page.Content>
         <section className="pb-8">
           <h2 className="font-bold">Minha conta</h2>

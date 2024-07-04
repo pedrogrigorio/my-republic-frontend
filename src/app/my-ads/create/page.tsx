@@ -1,33 +1,17 @@
 'use client'
 
+import Breadcrumb from '@/components/common/breadcrumb'
 import CreateAdvertisementForm from '@/components/forms/create-advertisement'
 import { Page } from '@/components/layout/page'
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-  BreadcrumbPage,
-} from '@/components/ui/breadcrumb'
 
 export default function CreateAdvertisement() {
   return (
     <Page.Container className="pb-20">
       <Page.Header>
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/settings/account">
-                Configurações
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Minha conta</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumb
+          currentPage="Criar anúncio"
+          parents={[{ name: 'Buscar repúblicas', path: '/student-housing' }]}
+        />
       </Page.Header>
 
       <Page.Content>

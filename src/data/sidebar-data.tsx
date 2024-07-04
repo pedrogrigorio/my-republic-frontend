@@ -22,7 +22,6 @@ export const mainMenu = [
     id: 'search',
     label: 'Buscar repúblicas',
     path: '/student-housing',
-    redirectTo: '/student-housing/search',
     icon: <MagnifyingGlass size={24} />,
     submenu: [
       {
@@ -49,7 +48,6 @@ export const systemMenu = [
     id: 'settings',
     label: 'Configurações',
     path: '/settings',
-    redirectTo: '/settings/account',
     icon: <Gear size={24} />,
     submenu: [
       {
