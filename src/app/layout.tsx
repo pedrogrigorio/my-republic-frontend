@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import Sidebar from '@/components/layout/sidebar'
 import '@/lib/dayjs'
+import { Toaster } from '@/components/ui/toaster'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -27,6 +28,7 @@ export default function RootLayout({
           <main className="relative flex-1 bg-gray-100 text-primary">
             {children}
           </main>
+          <Toaster />
         </div>
       </body>
     </html>

@@ -9,13 +9,15 @@ import FourthStep from './fourth-step'
 import FifthStep from './fifth-step'
 
 import { advertisementFormSchema } from '@/lib/validations/advertisement'
+import { AdvertisementFormData } from '@/types/validation-types'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useRef, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
-import { z } from 'zod'
 
-type AdvertisementFormData = z.infer<typeof advertisementFormSchema>
+interface AdvertisementFormProps {
+  onSubmit: (data: AdvertisementFormData) => void
+}
+
 type FieldName = keyof AdvertisementFormData
 
 const steps = [
@@ -50,16 +52,17 @@ const steps = [
   },
 ]
 
-export default function CreateAdvertisementForm() {
+export default function AdvertisementForm({
+  onSubmit,
+}: AdvertisementFormProps) {
   const [currentStep, setCurrentStep] = useState(1)
   const formRef = useRef<HTMLFormElement>(null)
-  const router = useRouter()
 
-  const createAdForm = useForm<AdvertisementFormData>({
+  const advertisementForm = useForm<AdvertisementFormData>({
     resolver: zodResolver(advertisementFormSchema),
   })
 
-  const { handleSubmit, trigger, clearErrors } = createAdForm
+  const { handleSubmit, trigger, clearErrors } = advertisementForm
 
   const nextStep = async () => {
     const fields = steps[currentStep - 1].fields
@@ -83,12 +86,6 @@ export default function CreateAdvertisementForm() {
     }
   }
 
-  const onSubmit = (data: AdvertisementFormData) => {
-    console.log(data)
-
-    router.replace('/my-ads')
-  }
-
   return (
     <div>
       <StepNavigator
@@ -100,7 +97,7 @@ export default function CreateAdvertisementForm() {
       <div className="h-[1px] w-full bg-divisor" />
 
       <div className="flex-1">
-        <FormProvider {...createAdForm}>
+        <FormProvider {...advertisementForm}>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="py-5"
