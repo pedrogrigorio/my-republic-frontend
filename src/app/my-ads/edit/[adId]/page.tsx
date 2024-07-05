@@ -7,6 +7,7 @@ import { AdvertisementFormData } from '@/types/validation-types'
 import { useRouter } from 'next/navigation'
 import { toast } from '@/components/ui/use-toast'
 import { Page } from '@/components/layout/page'
+import { ad } from '@/data/ad'
 
 export default function EditAdvertisement() {
   const router = useRouter()
@@ -37,7 +38,7 @@ export default function EditAdvertisement() {
 
       <Page.Content>
         <h2 className="font-bold">Editar anúncio</h2>
-        <AdvertisementForm onSubmit={onSubmit} />
+        <AdvertisementForm onSubmit={onSubmit} initialValues={ad} />
       </Page.Content>
     </Page.Container>
   )

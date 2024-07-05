@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 interface AdvertisementFormProps {
   onSubmit: (data: AdvertisementFormData) => void
+  initialValues?: AdvertisementFormData
 }
 
 type FieldName = keyof AdvertisementFormData
@@ -54,12 +55,14 @@ const steps = [
 
 export default function AdvertisementForm({
   onSubmit,
+  initialValues,
 }: AdvertisementFormProps) {
   const [currentStep, setCurrentStep] = useState(1)
   const formRef = useRef<HTMLFormElement>(null)
 
   const advertisementForm = useForm<AdvertisementFormData>({
     resolver: zodResolver(advertisementFormSchema),
+    defaultValues: initialValues,
   })
 
   const { handleSubmit, trigger, clearErrors } = advertisementForm

@@ -1,0 +1,37 @@
+import { AdvertisementFormData } from '@/types/validation-types'
+
+export const ad: AdvertisementFormData = {
+  title: 'República teste',
+  price: 1000,
+  description: 'Descrição da república',
+  cep: '12345-000',
+  pictures: [],
+  genre: 'mixed',
+  allowOppositeGender: false,
+  numPeople: 1,
+  occupiedVacancies: 1,
+  bedroomType: 'individual',
+  numRooms: 1,
+  numBathrooms: 1,
+  petsPresence: true,
+  amenities: {
+    furnishedResidence: true,
+    garage: false,
+    airConditioning: false,
+    swimmingPool: false,
+    gym: false,
+    nearbyMarket: false,
+    laundry: false,
+    publicTransportNearby: false,
+  },
+  rules: {
+    noSmoking: false,
+    noAlcohol: true,
+    noParties: false,
+    noPets: false,
+    noNoiseAfter10: false,
+    noUncleanAreas: false,
+    noSharingKeys: false,
+    noOvernightGuests: false,
+  },
+}
