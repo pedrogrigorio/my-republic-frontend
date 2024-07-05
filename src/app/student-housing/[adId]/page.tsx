@@ -39,6 +39,7 @@ import {
   WifiHigh,
   X,
 } from '@phosphor-icons/react/dist/ssr'
+import ApplyModal from '@/components/modals/apply-modal'
 
 export default function Advertisement() {
   const { data: ad, isLoading } = useMockFetch(advertisements[0])
@@ -186,9 +187,11 @@ export default function Advertisement() {
             </div>
 
             {/* Apply button */}
-            <Button className="bg-button-secondary hover:bg-button-secondary-hover">
-              Tenho interesse
-            </Button>
+            <ApplyModal>
+              <Button className="bg-button-secondary hover:bg-button-secondary-hover">
+                Tenho interesse
+              </Button>
+            </ApplyModal>
           </div>
         </div>
 

@@ -21,6 +21,8 @@ import {
   Pencil,
   TrashSimple,
 } from '@phosphor-icons/react/dist/ssr'
+import DeleteAdvertisementModal from '../modals/delete-advertisement-modal'
+import PauseAdvertisementModal from '../modals/pause-advertisement-modal'
 
 interface AdvertisementListItemProps {
   advertisement: Advertisement
@@ -94,15 +96,22 @@ export default function AdvertisementListItem({
                     <span>Editar</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Pause className="mr-2 h-4 w-4" />
-                  <span>Pausar</span>
-                </DropdownMenuItem>
+                <PauseAdvertisementModal>
+                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                    <Pause className="mr-2 h-4 w-4" />
+                    <span>Pausar</span>
+                  </DropdownMenuItem>
+                </PauseAdvertisementModal>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-danger">
-                  <TrashSimple className="mr-2 h-4 w-4" />
-                  <span>Excluir</span>
-                </DropdownMenuItem>
+                <DeleteAdvertisementModal>
+                  <DropdownMenuItem
+                    onSelect={(e) => e.preventDefault()}
+                    className="text-danger"
+                  >
+                    <TrashSimple className="mr-2 h-4 w-4" />
+                    <span>Excluir</span>
+                  </DropdownMenuItem>
+                </DeleteAdvertisementModal>
               </DropdownMenuGroup>
             ) : (
               <DropdownMenuGroup>
