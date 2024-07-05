@@ -1,3 +1,4 @@
+import ChangeEmailModal from '@/components/modals/change-email-modal'
 import Breadcrumb from '@/components/common/breadcrumb'
 import persona from '@/assets/img/persona.png'
 import Image from 'next/image'
@@ -9,6 +10,9 @@ import {
   CaretRight,
   PencilSimple,
 } from '@phosphor-icons/react/dist/ssr'
+import DeleteAccountModal from '@/components/modals/delete-account-modal'
+import ChangePasswordModal from '@/components/modals/change-password-modal'
+import ChangeNameModal from '@/components/modals/change-name-modal'
 
 export default function Account() {
   return (
@@ -39,9 +43,11 @@ export default function Account() {
 
             <div className="mt-6 flex h-fit gap-4">
               <h3>Rafael Gonçalves</h3>
-              <button>
-                <PencilSimple size={24} />
-              </button>
+              <ChangeNameModal>
+                <button>
+                  <PencilSimple size={24} />
+                </button>
+              </ChangeNameModal>
             </div>
           </div>
         </section>
@@ -56,7 +62,9 @@ export default function Account() {
                 <h4>E-mail</h4>
                 <span className="text-primary">teste@gmail.com</span>
               </div>
-              <Button variant="outline">Alterar e-mail</Button>
+              <ChangeEmailModal>
+                <Button variant="outline">Alterar e-mail</Button>
+              </ChangeEmailModal>
             </div>
             <div className="flex justify-between">
               <div>
@@ -65,7 +73,9 @@ export default function Account() {
                   Troque de senha regularmente
                 </span>
               </div>
-              <Button variant="outline">Alterar senha</Button>
+              <ChangePasswordModal>
+                <Button variant="outline">Alterar senha</Button>
+              </ChangePasswordModal>
             </div>
           </div>
         </section>
@@ -74,15 +84,17 @@ export default function Account() {
 
         <section className="py-8">
           <h2 className="font-bold">Excluir conta</h2>
-          <div className="mt-8 flex justify-between">
-            <div>
-              <h4 className="text-danger">Excluir minha conta</h4>
-              <span className="text-primary">
-                Esse processo não poderá ser desfeito
-              </span>
+          <DeleteAccountModal>
+            <div className="mt-8 flex cursor-pointer items-center justify-between">
+              <div>
+                <h4 className="text-danger">Excluir minha conta</h4>
+                <span className="text-primary">
+                  Esse processo não poderá ser desfeito
+                </span>
+              </div>
+              <CaretRight size={24} />
             </div>
-            <CaretRight size={24} />
-          </div>
+          </DeleteAccountModal>
         </section>
       </Page.Content>
     </Page.Container>
