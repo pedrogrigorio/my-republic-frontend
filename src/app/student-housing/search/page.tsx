@@ -1,7 +1,6 @@
 'use client'
 
 import LocaleSearchForm from '@/components/forms/locale-search-form'
-import { Button } from '@/components/ui/button'
 
 export default function Search() {
   return (
@@ -11,16 +10,7 @@ export default function Search() {
         <h2>Onde deseja morar?</h2>
       </div>
 
-      <div className="mt-8 flex justify-center gap-3">
-        <LocaleSearchForm className="max-w-128" />
-        <Button
-          type="submit"
-          form="localeForm"
-          className="h-14 rounded-xl bg-button-primary px-10 text-lg font-semibold hover:bg-button-primary-hover"
-        >
-          Buscar
-        </Button>
-      </div>
+      <LocaleSearchForm className="max-w-128" showButton />
     </div>
   )
 }
