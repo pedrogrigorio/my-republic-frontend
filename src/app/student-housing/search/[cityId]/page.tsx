@@ -1,8 +1,8 @@
 'use client'
 
-import FilterButton from '@/components/common/filter-button'
+import FilterButton from '@/components/ui/filter-button'
 import LocaleSearchForm from '@/components/forms/locale-search-form'
-import AdvertisementCard from '../../../../components/common/advertisement-card'
+import AdvertisementCard from '../../../../components/ui/advertisement-card'
 import SearchResultSkeleton from './_components/search-result-skeleton'
 
 import { searchData } from '@/data/search-data'
@@ -18,7 +18,7 @@ import {
   PaginationLink,
   PaginationEllipsis,
   PaginationNext,
-} from '@/components/ui/pagination'
+} from '@/components/shadcnui/pagination'
 
 export default function SearchByCity() {
   const { cityId } = useParams()

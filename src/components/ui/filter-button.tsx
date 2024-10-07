@@ -1,6 +1,6 @@
 import { Faders } from '@phosphor-icons/react/dist/ssr'
-import { Button } from '../ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import { Button } from '../shadcnui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '../shadcnui/popover'
 import FilterForm from '../forms/filter-form'
 
 export default function FilterButton() {

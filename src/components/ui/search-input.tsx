@@ -1,4 +1,4 @@
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/shadcnui/input'
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 import { ChangeEvent } from 'react'
 

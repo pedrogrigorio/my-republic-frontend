@@ -1,5 +1,5 @@
-import { Textarea } from '../ui/textarea'
-import { Button } from '../ui/button'
+import { Textarea } from '../shadcnui/textarea'
+import { Button } from '../shadcnui/button'
 import {
   Dialog,
   DialogClose,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from '@/components/shadcnui/dialog'
 
 interface ApplyModalProps {
   children: React.ReactNode

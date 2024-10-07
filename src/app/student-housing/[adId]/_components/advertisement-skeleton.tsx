@@ -1,5 +1,5 @@
 import { Page } from '@/components/layout/page'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/shadcnui/skeleton'
 
 export default function AdvertisementSkeleton() {
   return (

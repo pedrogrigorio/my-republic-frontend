@@ -9,8 +9,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
+} from '@/components/shadcnui/dropdown-menu'
+import { Button } from '@/components/shadcnui/button'
 import SignUpModal from '@/components/modals/sign-up-modal'
 import LoginModal from '@/components/modals/login-modal'
 

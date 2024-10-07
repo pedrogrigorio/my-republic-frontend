@@ -10,7 +10,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/components/shadcnui/dropdown-menu'
 
 interface MenuItemProps {
   item: IMenuItem

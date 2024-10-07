@@ -1,6 +1,6 @@
-import { Button } from '../ui/button'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+import { Button } from '../shadcnui/button'
+import { Label } from '@/components/shadcnui/label'
+import { Input } from '@/components/shadcnui/input'
 import {
   Dialog,
   DialogClose,
@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from '@/components/shadcnui/dialog'
 
 interface ChangePasswordModalProps {
   children: React.ReactNode

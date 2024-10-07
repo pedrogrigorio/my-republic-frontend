@@ -1,6 +1,6 @@
-import SearchInput from '@/components/common/search-input'
+import SearchInput from '@/components/ui/search-input'
 
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/shadcnui/skeleton'
 import { Page } from '@/components/layout/page'
 
 export default function ApplicationsSkeleton() {

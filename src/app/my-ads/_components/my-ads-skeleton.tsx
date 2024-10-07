@@ -1,6 +1,6 @@
-import SearchInput from '@/components/common/search-input'
+import SearchInput from '@/components/ui/search-input'
 import { Page } from '@/components/layout/page'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/shadcnui/skeleton'
 
 export default function MyAdsSkeleton() {
   return (

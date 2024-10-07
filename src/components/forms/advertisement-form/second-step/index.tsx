@@ -1,15 +1,15 @@
-import InputError from '@/components/ui/input-error'
+import InputError from '@/components/shadcnui/input-error'
 
 import { Controller, useFormContext } from 'react-hook-form'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Input } from '@/components/shadcnui/input'
+import { Label } from '@/components/shadcnui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/shadcnui/select'
 
 export default function SecondStep() {
   const {

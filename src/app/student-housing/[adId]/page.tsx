@@ -1,18 +1,18 @@
 'use client'
 
 import AdvertisementSkeleton from './_components/advertisement-skeleton'
-import ScrollArrowButton from '../../../components/common/scroll-arrow-button'
+import ScrollArrowButton from '../../../components/ui/scroll-arrow-button'
 import DetailsSection from './_components/details-section'
 import BunkbedIcon from '@/components/icons/bunkbed-icon'
-import Breadcrumb from '@/components/common/breadcrumb'
-import HouseTag from '@/components/common/house-tag'
+import Breadcrumb from '@/components/ui/breadcrumb'
+import HouseTag from '@/components/ui/house-tag'
 import Image from 'next/image'
 
 import { useScrollArrows } from '@/hooks/useScrollArrows'
 import { priceToCurrency } from '@/utils/priceToCurrency'
 import { advertisements } from '@/data/advertisements'
 import { useMockFetch } from '@/hooks/useMockFetch'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/shadcnui/button'
 import { Page } from '@/components/layout/page'
 import {
   Armchair,

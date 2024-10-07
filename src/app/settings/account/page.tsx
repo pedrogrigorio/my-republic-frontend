@@ -1,9 +1,9 @@
 import ChangeEmailModal from '@/components/modals/change-email-modal'
-import Breadcrumb from '@/components/common/breadcrumb'
+import Breadcrumb from '@/components/ui/breadcrumb'
 import persona from '@/assets/img/persona.png'
 import Image from 'next/image'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/shadcnui/button'
 import { Page } from '@/components/layout/page'
 import {
   Camera,

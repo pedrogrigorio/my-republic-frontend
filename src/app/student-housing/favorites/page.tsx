@@ -1,13 +1,13 @@
 'use client'
 
-import AdvertisementCard from '../../../components/common/advertisement-card'
+import AdvertisementCard from '../../../components/ui/advertisement-card'
 import FavoritesSkeleton from './_components/favorites-skeleton'
-import SearchInput from '@/components/common/search-input'
+import SearchInput from '@/components/ui/search-input'
 
 import { FavoritesList } from '@/types/favorites-list'
 import { favoritesList } from '@/data/favorites-list'
 import { useMockFetch } from '@/hooks/useMockFetch'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/shadcnui/button'
 import { Page } from '@/components/layout/page'
 import {
   Pagination,
@@ -17,7 +17,7 @@ import {
   PaginationLink,
   PaginationEllipsis,
   PaginationNext,
-} from '@/components/ui/pagination'
+} from '@/components/shadcnui/pagination'
 import Link from 'next/link'
 
 export default function Favorites() {

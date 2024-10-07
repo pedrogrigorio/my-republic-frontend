@@ -1,14 +1,14 @@
 'use client'
 
-import ScrollArrowButton from '@/components/common/scroll-arrow-button'
+import ScrollArrowButton from '@/components/ui/scroll-arrow-button'
 import Image from 'next/image'
 
 import { Controller, useFormContext } from 'react-hook-form'
 import { useScrollArrows } from '@/hooks/useScrollArrows'
 import { ChangeEvent } from 'react'
 import { Camera, X } from '@phosphor-icons/react/dist/ssr'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Input } from '@/components/shadcnui/input'
+import { Label } from '@/components/shadcnui/label'
 
 export default function ImagePicker() {
   const {

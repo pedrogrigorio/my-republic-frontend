@@ -7,8 +7,8 @@ import { priceToCurrency } from '@/utils/priceToCurrency'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { amenities } from '@/data/amenities'
 import { rules } from '@/data/rules'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Input } from '@/components/shadcnui/input'
+import { Label } from '@/components/shadcnui/label'
 import { z } from 'zod'
 
 const filterFormSchema = z.object({

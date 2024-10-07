@@ -7,8 +7,8 @@ import { useDebounce } from '@/hooks/useDebounce'
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { Spinner } from '@nextui-org/spinner'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from '@/components/shadcnui/button'
+import { Input } from '@/components/shadcnui/input'
 import { City } from '@/types/city'
 import { cn } from '@/lib/utils'
 
@@ -16,7 +16,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from '@/components/shadcnui/popover'
 
 interface LocaleSearchFormProps {
   className?: string

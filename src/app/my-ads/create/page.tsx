@@ -1,11 +1,11 @@
 'use client'
 
 import AdvertisementForm from '@/components/forms/advertisement-form'
-import Breadcrumb from '@/components/common/breadcrumb'
+import Breadcrumb from '@/components/ui/breadcrumb'
 
 import { AdvertisementFormData } from '@/types/validation-types'
 import { useRouter } from 'next/navigation'
-import { toast } from '@/components/ui/use-toast'
+import { toast } from '@/components/shadcnui/use-toast'
 import { Page } from '@/components/layout/page'
 
 export default function CreateAdvertisement() {

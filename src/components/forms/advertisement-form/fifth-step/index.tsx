@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/shadcnui/button'
 import { Check } from 'lucide-react'
 
 export default function FifthStep() {

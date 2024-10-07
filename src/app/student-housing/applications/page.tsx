@@ -1,14 +1,14 @@
 'use client'
 
-import AdvertisementListItem from '@/components/common/advertisement-list-item'
+import AdvertisementListItem from '@/components/ui/advertisement-list-item'
 import ApplicationsSkeleton from './_components/applications-skeleton'
-import SearchInput from '@/components/common/search-input'
+import SearchInput from '@/components/ui/search-input'
 import Link from 'next/link'
 
 import { ApplicationsList } from '@/types/applications-list'
 import { applicationsList } from '@/data/applications-list'
 import { useMockFetch } from '@/hooks/useMockFetch'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/shadcnui/button'
 import { Page } from '@/components/layout/page'
 import {
   Pagination,
@@ -18,7 +18,7 @@ import {
   PaginationLink,
   PaginationEllipsis,
   PaginationNext,
-} from '@/components/ui/pagination'
+} from '@/components/shadcnui/pagination'
 
 export default function Applications() {
   const { data, isLoading } = useMockFetch<ApplicationsList>(applicationsList)

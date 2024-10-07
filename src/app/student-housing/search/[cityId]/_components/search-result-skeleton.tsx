@@ -1,6 +1,6 @@
 import LocaleSearchForm from '@/components/forms/locale-search-form'
 
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/shadcnui/skeleton'
 import { Page } from '@/components/layout/page'
 
 export default function SearchResultSkeleton() {

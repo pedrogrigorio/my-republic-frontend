@@ -3,13 +3,13 @@ import dayjs from '@/lib/dayjs'
 
 import { notificationsGroupedByDate } from '@/data/notifications'
 import { Bell, Checks } from '@phosphor-icons/react/dist/ssr'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/shadcnui/button'
 import { cn } from '@/lib/utils'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from '@/components/shadcnui/popover'
 
 interface NotificationItemProps {
   sidebarIsOpen: boolean

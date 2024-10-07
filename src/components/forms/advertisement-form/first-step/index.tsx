@@ -1,12 +1,12 @@
 import ImagePicker from './image-picker'
-import InputError from '@/components/ui/input-error'
+import InputError from '@/components/shadcnui/input-error'
 
 import { useFormContext } from 'react-hook-form'
 import { currencyMask } from '@/utils/currencyMask'
 import { zipCodeMask } from '@/utils/zipCodeMask'
-import { Textarea } from '@/components/ui/textarea'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/shadcnui/textarea'
+import { Input } from '@/components/shadcnui/input'
+import { Label } from '@/components/shadcnui/label'
 
 export default function FirstStep() {
   const {
