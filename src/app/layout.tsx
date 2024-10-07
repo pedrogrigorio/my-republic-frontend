@@ -1,10 +1,12 @@
 import './globals.css'
 import '@/lib/dayjs'
 
+import Providers from '@/components/layout/providers'
 import Sidebar from '@/components/layout/sidebar'
+
+import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import { Toaster } from '@/components/ui/toaster'
-import type { Metadata } from 'next'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -27,7 +29,7 @@ export default function RootLayout({
         <div className="flex h-screen min-w-[650px]">
           <Sidebar />
           <main className="relative flex-1 bg-gray-100 text-primary">
-            {children}
+            <Providers>{children}</Providers>
           </main>
           <Toaster />
         </div>

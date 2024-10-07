@@ -2,12 +2,13 @@
 
 import { ChangeEvent, useState } from 'react'
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
-import { useFetchCities } from '@/hooks/useFetchCities'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { getCities } from '@/services/locale-service'
 import { useRouter } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
-import { City } from '@/types/locale'
+import { City } from '@/types/city'
 import { z } from 'zod'
 import {
   Popover,
@@ -27,7 +28,12 @@ interface LocaleSearchFormProps {
 
 export default function LocaleSearchForm({ className }: LocaleSearchFormProps) {
   const router = useRouter()
-  const { cities } = useFetchCities()
+
+  const { data: cities } = useQuery<City[]>({
+    queryKey: ['cities'],
+    queryFn: getCities,
+  })
+
   const [search, setSearch] = useState('')
 
   const { register, handleSubmit, reset } = useForm<localeSearchFormData>({
@@ -43,10 +49,12 @@ export default function LocaleSearchForm({ className }: LocaleSearchFormProps) {
     reset()
   }
 
-  const handleCityClick = (city: City) => {
-    setSearch(`${city.municipioNome} - ${city.UFSigla}`)
-    router.push(`/student-housing/search/${city.municipioId}`)
+  const handleItemClick = (city: City) => {
+    setSearch(`${city.name} - ${city.state.uf}`)
+    router.push(`/student-housing/search/${city.id}`)
   }
+
+  if (!cities) return null
 
   const filteredCities =
     search.length > 0
@@ -56,7 +64,7 @@ export default function LocaleSearchForm({ className }: LocaleSearchFormProps) {
               .toLowerCase()
               .normalize('NFD')
               .replace(/[\u0300-\u036f]/g, '')
-            const cityName = city.municipioNome
+            const cityName = city.name
               .toLowerCase()
               .normalize('NFD')
               .replace(/[\u0300-\u036f]/g, '')
@@ -94,16 +102,16 @@ export default function LocaleSearchForm({ className }: LocaleSearchFormProps) {
           <ul>
             {filteredCities.map((city) => (
               <li
-                key={city.municipioId}
+                key={city.id}
                 className="h-10 rounded-md hover:bg-gray-100 hover:text-black"
               >
                 <button
                   className="flex h-full items-center px-2 text-sm text-strong"
                   onClick={() => {
-                    handleCityClick(city)
+                    handleItemClick(city)
                   }}
                 >
-                  {city.municipioNome} - {city.UFSigla}
+                  {city.name} - {city.state.uf}
                 </button>
               </li>
             ))}
