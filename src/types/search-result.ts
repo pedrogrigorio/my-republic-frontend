@@ -1,6 +1,8 @@
 import { Advertisement } from './advertisement'
+import { City } from './city'
 
 export interface SearchResult {
   total: number
-  ads: Advertisement[]
+  city: City
+  advertisements: Advertisement[]
 }

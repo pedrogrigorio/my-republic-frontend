@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { searchCitiesByTerm } from '@/services/locale-service'
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr'
 import { useDebounce } from '@/hooks/useDebounce'
@@ -35,6 +35,7 @@ export default function LocaleSearchForm({
   const { data: cities, isLoading } = useQuery<City[]>({
     queryKey: ['search-cities', debounceSearch],
     queryFn: () => searchCitiesByTerm(search),
+    enabled: debounceSearch !== '',
   })
 
   const isButtonDisabled = isLoading || search !== debounceSearch
@@ -43,7 +44,9 @@ export default function LocaleSearchForm({
     setSearch(event.target.value)
   }
 
-  const onSearch = () => {
+  const onSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+
     if (cities && cities.length > 0) {
       router.push(`/student-housing/search/${cities[0].id}`)
     }
@@ -72,35 +75,37 @@ export default function LocaleSearchForm({
             </div>
           </PopoverTrigger>
 
-          <PopoverContent
-            className="max-h-[--radix-popover-content-available-height] w-[--radix-popover-trigger-width] p-1"
-            onOpenAutoFocus={(e) => e.preventDefault()}
-          >
-            <ul>
-              {cities?.map((city) => (
-                <li
-                  key={city.id}
-                  className="h-10 rounded-md hover:bg-gray-100 hover:text-black"
-                >
-                  <button
-                    className="flex h-full items-center px-2 text-sm text-strong"
-                    onClick={() => {
-                      handleItemClick(city)
-                    }}
+          {cities && (
+            <PopoverContent
+              className="max-h-[--radix-popover-content-available-height] w-[--radix-popover-trigger-width] p-1"
+              onOpenAutoFocus={(e) => e.preventDefault()}
+            >
+              <ul>
+                {cities.map((city) => (
+                  <li
+                    key={city.id}
+                    className="h-10 rounded-md hover:bg-gray-100 hover:text-black"
                   >
-                    {city.name} - {city.state.uf}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </PopoverContent>
+                    <button
+                      className="flex h-full items-center px-2 text-sm text-strong"
+                      onClick={() => {
+                        handleItemClick(city)
+                      }}
+                    >
+                      {city.name} - {city.state.uf}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </PopoverContent>
+          )}
         </Popover>
       </div>
 
       {showButton && (
         <Button
           type="submit"
-          disabled={isButtonDisabled}
+          disabled={isButtonDisabled || !cities}
           className="flex h-14 gap-2 rounded-xl bg-button-primary px-10 text-lg font-semibold hover:bg-button-primary-hover"
         >
           {isButtonDisabled && <Spinner color="default" size="sm" />}

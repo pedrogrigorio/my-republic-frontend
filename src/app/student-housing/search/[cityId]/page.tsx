@@ -2,27 +2,32 @@
 
 import FilterButton from '@/components/ui/filter-button'
 import LocaleSearchForm from '@/components/forms/locale-search-form'
-import AdvertisementCard from '../../../../components/ui/advertisement-card'
 import SearchResultSkeleton from './_components/search-result-skeleton'
-
-import { searchData } from '@/data/search-data'
-import { useMockFetch } from '@/hooks/useMockFetch'
-import { SearchResult } from '@/types/search-result'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { Page } from '@/components/layout/page'
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationLink,
-  PaginationEllipsis,
-  PaginationNext,
-} from '@/components/shadcnui/pagination'
+import { useQuery } from '@tanstack/react-query'
+import { searchAdvertisementsByCity } from '@/services/advertisement-sevice'
+import { SearchResult } from '@/types/search-result'
+import CustomPagination from '@/components/ui/custom-pagination'
+import AdvertisementGalery from '@/components/ui/advertisement-galery'
 
 export default function SearchByCity() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
   const { cityId } = useParams()
-  const { data, isLoading } = useMockFetch<SearchResult>(searchData, !!cityId)
+
+  const page = Number(searchParams.get('page') ?? '1')
+  const pageSize = 12
+
+  const { data, isLoading } = useQuery<SearchResult>({
+    queryKey: ['get-advertisement', page],
+    queryFn: () => searchAdvertisementsByCity(cityId as string, page),
+  })
+
+  if (!data || !data.advertisements) return null
+
+  const totalPages = Math.ceil(data.total / Number(pageSize))
 
   if (isLoading) {
     return <SearchResultSkeleton />
@@ -39,48 +44,28 @@ export default function SearchByCity() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-bold">Buscar repúblicas</h2>
-              <span>{data.total} resultados encontrados em São Paulo, SP</span>
+              <span>
+                {data.total} resultados encontrados em {data.city.name},{' '}
+                {data.city.state.uf.toUpperCase()}
+              </span>
             </div>
             <FilterButton />
           </div>
 
-          <ul
-            className="mt-8 grid gap-4"
-            style={{
-              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-            }}
-          >
-            {data.ads.map((ad) => (
-              <li key={ad.id}>
-                <AdvertisementCard ad={ad} />
-              </li>
-            ))}
-          </ul>
+          <AdvertisementGalery advertisements={data.advertisements} />
 
-          <Pagination className="mt-8">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive>
-                  2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <CustomPagination
+            firstPage={() => router.push('?page=1')}
+            lastPage={() => router.push('?page=1')}
+            nextPage={() => router.push(`?page=${Number(page) + 1}`)}
+            previousPage={() => router.push(`?page=${Number(page) - 1}`)}
+            setPageIndex={(p) => router.push(`?page=${p + 1}`)}
+            pageIndex={Number(page) - 1}
+            totalPages={totalPages}
+            canNextPage={Number(page) < totalPages}
+            canPreviousPage={Number(page) > 1}
+            className="mt-4"
+          />
         </Page.Content>
       </Page.Container>
     )
