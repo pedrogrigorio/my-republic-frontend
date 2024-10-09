@@ -1,26 +1,26 @@
 import HouseTag from './house-tag'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { priceToCurrency } from '@/utils/priceToCurrency'
 import { Advertisement } from '@/types/advertisement'
 import { Gender } from '@/types/gender'
 import {
-  Bed,
-  CaretLeft,
-  CaretRight,
   GenderFemale,
+  CaretRight,
   GenderMale,
+  CaretLeft,
+  Toilet,
   MapPin,
   Person,
-  Toilet,
+  Bed,
 } from '@phosphor-icons/react/dist/ssr'
 
 import {
-  Tooltip,
-  TooltipContent,
   TooltipProvider,
+  TooltipContent,
   TooltipTrigger,
+  Tooltip,
 } from '@/components/shadcnui/tooltip'
 
 interface AdvertisementCardProps {

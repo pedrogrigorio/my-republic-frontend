@@ -34,11 +34,6 @@ export const mainMenu = [
         label: 'Minhas aplicações',
         path: '/student-housing/applications',
       },
-      {
-        id: 'favorites',
-        label: 'Favoritos',
-        path: '/student-housing/favorites',
-      },
     ],
   },
 ]
