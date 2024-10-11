@@ -4,45 +4,43 @@ import AdvertisementSkeleton from './_components/advertisement-skeleton'
 import ScrollArrowButton from '../../../components/ui/scroll-arrow-button'
 import DetailsSection from './_components/details-section'
 import BunkbedIcon from '@/components/icons/bunkbed-icon'
+import ApplyModal from '@/components/modals/apply-modal'
 import Breadcrumb from '@/components/ui/breadcrumb'
 import HouseTag from '@/components/ui/house-tag'
 import Image from 'next/image'
 
+import { Advertisement as TAdvertisement } from '@/types/advertisement'
+import { getAdvertisementById } from '@/services/advertisement-sevice'
 import { useScrollArrows } from '@/hooks/useScrollArrows'
 import { priceToCurrency } from '@/utils/priceToCurrency'
-import { advertisements } from '@/data/advertisements'
-import { useMockFetch } from '@/hooks/useMockFetch'
+import { getIconByTag } from '@/utils/getIconByTag'
+import { BedroomType } from '@/types/bedroomtype'
+import { useParams } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/shadcnui/button'
+import { Gender } from '@/types/gender'
 import { Page } from '@/components/layout/page'
 import {
-  Armchair,
-  Barbell,
-  Bed,
-  CaretLeft,
-  CaretRight,
-  Check,
-  Drop,
-  Fan,
-  Garage,
   GenderFemale,
+  CaretRight,
   GenderMale,
-  Heart,
-  House,
-  Lightning,
-  MapPin,
+  CaretLeft,
   PawPrint,
-  Person,
-  ShoppingCart,
-  SwimmingPool,
-  Toilet,
   Warning,
-  WifiHigh,
+  MapPin,
+  Person,
+  Toilet,
+  Bed,
   X,
 } from '@phosphor-icons/react/dist/ssr'
-import ApplyModal from '@/components/modals/apply-modal'
 
 export default function Advertisement() {
-  const { data: ad, isLoading } = useMockFetch(advertisements[0])
+  const { adId } = useParams()
+
+  const { data: ad, isLoading } = useQuery<TAdvertisement>({
+    queryKey: ['get-advertisement'],
+    queryFn: () => getAdvertisementById(adId as string),
+  })
 
   const {
     scrollableContainer,
@@ -71,12 +69,14 @@ export default function Advertisement() {
           {/* Image */}
           <div className="group relative aspect-video">
             <Image
-              src={ad.img_url}
+              // src={ad.img_url}
+              src="/images/apartment.jpg"
               alt="advertisement_image"
               width={1920}
               height={1080}
               className="h-full w-full rounded-xl"
             />
+
             <button className="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black bg-opacity-75 opacity-0 transition duration-300 group-hover:opacity-100 hover:bg-gray-800">
               <CaretLeft size={24} className="text-white" />
             </button>
@@ -105,30 +105,51 @@ export default function Advertisement() {
               className="absolute -bottom-8 flex w-full gap-2 overflow-hidden overflow-x-auto scroll-smooth whitespace-nowrap scrollbar-none"
               ref={scrollableContainer}
             >
-              <HouseTag text="Misto">
-                <GenderMale size={16} />
-                <GenderFemale size={16} />
+              <HouseTag
+                text={
+                  ad.genderPreference === Gender.MIXED
+                    ? 'Misto'
+                    : ad.genderPreference === Gender.FEMALE
+                      ? 'Feminino'
+                      : 'Masculino'
+                }
+              >
+                {ad.genderPreference !== Gender.FEMALE && (
+                  <GenderMale size={16} />
+                )}
+
+                {ad.genderPreference !== Gender.MALE && (
+                  <GenderFemale size={16} />
+                )}
               </HouseTag>
 
-              <HouseTag text="3 estudantes">
+              <HouseTag text={`${ad.totalSlots} estudantes`}>
                 <Person size={16} />
               </HouseTag>
 
-              <HouseTag text="2 quartos">
+              <HouseTag text={`${ad.numBedroom} quarto(s)`}>
                 <Bed size={16} />
               </HouseTag>
 
-              <HouseTag text="3 banheiros">
+              <HouseTag text={`${ad.numBathroom} banheiro(s)`}>
                 <Toilet size={16} />
               </HouseTag>
 
-              <HouseTag text="Quarto compartilhado">
-                <BunkbedIcon size={16} />
-              </HouseTag>
+              {ad.bedroomType === BedroomType.INDIVIDUAL ? (
+                <HouseTag text="Quarto individual">
+                  <Bed size={16} />
+                </HouseTag>
+              ) : (
+                <HouseTag text="Quarto compartilhado">
+                  <BunkbedIcon size={16} />
+                </HouseTag>
+              )}
 
-              <HouseTag text="Possui animal de estimação">
-                <PawPrint size={16} />
-              </HouseTag>
+              {ad.hasPet && (
+                <HouseTag text="Possui animal de estimação">
+                  <PawPrint size={16} />
+                </HouseTag>
+              )}
             </div>
           </div>
 
@@ -137,39 +158,20 @@ export default function Advertisement() {
             {/* Title */}
             <div className="flex items-start justify-between gap-4">
               <h2 className="font-bold">{ad.title}</h2>
-              <button>
-                <Heart size={32} className="text-red-500" weight="fill" />
-              </button>
             </div>
 
             {/* Locale */}
             <div className="mt-1 flex items-center gap-2 font-medium">
               <MapPin weight="fill" size={24} />
-              <span>{ad.locale}</span>
+              <span>
+                {ad.city.name}, {ad.state.uf.toUpperCase()}
+              </span>
             </div>
 
             {/* Price */}
-            <div className="flex flex-col gap-4 rounded-xl border border-primary bg-white p-5">
+            <div className="flex flex-col gap-4 rounded-xl border border-primary bg-white p-5 py-8">
+              <span className="text-sm font-semibold">Aluguel:</span>
               <h3 className="text-currency">{priceToCurrency(ad.price)}</h3>
-              <span className="text-sm font-semibold">Incluso no valor:</span>
-              <ul className="text-sm">
-                <li className="flex items-center gap-2">
-                  <House size={16} />
-                  <span>Aluguel</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <WifiHigh size={16} />
-                  <span>Internet</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Drop size={16} />
-                  <span>Água</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Lightning size={16} />
-                  <span>Luz</span>
-                </li>
-              </ul>
             </div>
 
             {/* Vacancies */}
@@ -177,12 +179,14 @@ export default function Advertisement() {
               <div className="flex items-center gap-4">
                 <div className="flex items-center justify-center gap-1 rounded-xl border border-primary bg-white px-2">
                   <Person size={16} />
-                  1/3
+                  {ad.occupiedSlots} / {ad.totalSlots}
                 </div>
-                <div className="flex items-center gap-1 text-warning">
-                  <Warning weight="fill" />
-                  <span className="text-sm font-medium">Restam 2 vagas</span>
-                </div>
+                {ad.totalSlots - ad.occupiedSlots < 3 && (
+                  <div className="flex items-center gap-1 text-warning">
+                    <Warning weight="fill" />
+                    <span className="text-sm font-medium">Restam 2 vagas</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -197,21 +201,14 @@ export default function Advertisement() {
 
         {/* Details sections */}
         <div className="mt-12 xl:mt-14">
+          {/* Description */}
           <DetailsSection title="Descrição">
-            <p>
-              Este quarto que estamos anunciando tem 9 m2 e conta com Cama de
-              casal , Armário 2 portas, e banheiro exclusivo. Ele fica em um
-              apartamento espaçoso, de 90 m2, e está bem pertinho do metrô Campo
-              Belo - linha lilas e de locais como Flavour Lab e Pizzaria do
-              Baldoíno. Você poderá morar com até mais 1 pessoa, mas, não se
-              preocupe: o valor da sua mensalidade será sempre o mesmo. Para
-              facilitar ainda mais a sua vida, você paga todas as contas do mês
-              juntas, num boleto único.
-            </p>
+            <p>{ad.description}</p>
           </DetailsSection>
 
           <div className="h-[1px] w-full bg-divisor" />
 
+          {/* Amenities */}
           <DetailsSection title="Comodidades">
             <div
               className="grid grid-cols-3 gap-y-8"
@@ -219,49 +216,26 @@ export default function Advertisement() {
                 gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr)',
               }}
             >
-              <div className="flex items-center gap-2">
-                <Armchair size={20} />
-                Residência mobiliada
-              </div>
-              <div className="flex items-center gap-2">
-                <Garage size={20} />
-                Vaga em garagem
-              </div>
-              <div className="flex items-center gap-2">
-                <Fan size={20} />
-                Ar condicionado
-              </div>
-              <div className="flex items-center gap-2">
-                <SwimmingPool size={20} />
-                Piscina
-              </div>
-              <div className="flex items-center gap-2">
-                <Barbell size={20} />
-                Academia
-              </div>
-              <div className="flex items-center gap-2">
-                <ShoppingCart size={20} />
-                Mercado próximo
-              </div>
+              {ad.amenities.map((amenity) => (
+                <div key={amenity.id} className="flex items-center gap-2">
+                  {getIconByTag(amenity.tag)}
+                  {amenity.value}
+                </div>
+              ))}
             </div>
           </DetailsSection>
 
           <div className="h-[1px] w-full bg-divisor" />
 
+          {/* Rules */}
           <DetailsSection title="Regras">
             <ul>
-              <li className="flex gap-2">
-                <Check weight="bold" size={24} className="text-gray-500" />
-                <span>Moradores podem receber visitas</span>
-              </li>
-              <li className="flex gap-2">
-                <X weight="bold" size={24} className="text-danger" />
-                <span>Proibido fumar</span>
-              </li>
-              <li className="flex gap-2">
-                <X weight="bold" size={24} className="text-danger" />
-                <span>Proibido bebidas alcóolicas</span>
-              </li>
+              {ad.rules.map((rule) => (
+                <li key={rule.id} className="flex gap-2">
+                  <X weight="bold" size={24} className="text-danger" />
+                  <span>{rule.value}</span>
+                </li>
+              ))}
             </ul>
           </DetailsSection>
         </div>

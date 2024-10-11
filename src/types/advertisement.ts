@@ -1,6 +1,8 @@
 import { BedroomType } from './bedroomtype'
+import { Amenity } from './amenity'
 import { Gender } from './gender'
 import { State } from './state'
+import { Rule } from './rule'
 
 export interface Advertisement {
   id: number
@@ -21,5 +23,7 @@ export interface Advertisement {
     stateId: number
   }
   state: State
+  rules: Rule[]
+  amenities: Amenity[]
   // owner: OwnerResponseDto
 }

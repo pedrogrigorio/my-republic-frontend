@@ -22,7 +22,7 @@ export default function ThirdStep() {
               htmlFor={amenity.tag}
               className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              {amenity.name}
+              {amenity.value}
             </label>
           </div>
         ))}

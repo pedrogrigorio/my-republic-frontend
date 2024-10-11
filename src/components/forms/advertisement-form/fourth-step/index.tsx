@@ -22,7 +22,7 @@ export default function FourthStep() {
               htmlFor={rule.tag}
               className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              {rule.name}
+              {rule.value}
             </label>
           </div>
         ))}

@@ -11,3 +11,9 @@ export async function searchAdvertisementsByCity(
 
   return response.data
 }
+
+export async function getAdvertisementById(advertisementId: string) {
+  const response = await api.get(`advertisements/${advertisementId}`)
+
+  return response.data
+}

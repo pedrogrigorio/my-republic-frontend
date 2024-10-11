@@ -212,7 +212,7 @@ export default function FilterForm() {
                 htmlFor={amenity.tag}
                 className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                {amenity.name}
+                {amenity.value}
               </label>
             </div>
           ))}
@@ -234,7 +234,7 @@ export default function FilterForm() {
                 htmlFor={rule.tag}
                 className="text-sm peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                {rule.name}
+                {rule.value}
               </label>
             </div>
           ))}
