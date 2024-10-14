@@ -1,14 +1,14 @@
+import LoginForm from '../forms/login-form'
+
 import { Button } from '../shadcnui/button'
-import { Label } from '@/components/shadcnui/label'
-import { Input } from '@/components/shadcnui/input'
 import {
-  Dialog,
-  DialogClose,
+  DialogTrigger,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogClose,
+  Dialog,
 } from '@/components/shadcnui/dialog'
 
 interface LoginModalProps {
@@ -20,28 +20,30 @@ export default function LoginModal({ children }: LoginModalProps) {
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
+        {/* Header */}
         <DialogHeader className="px-6">
           <DialogTitle>Bem-vindo de volta!</DialogTitle>
         </DialogHeader>
+
+        {/* Divisor */}
         <div className="h-[1px] w-full bg-divisor" />
-        <div className="flex flex-col gap-2 px-6 py-4">
-          <div>
-            <Label htmlFor="password">E-mail *</Label>
-            <Input id="password" />
-          </div>
-          <div>
-            <Label htmlFor="password">Senha *</Label>
-            <Input type="password" id="password" />
-          </div>
-        </div>
+
+        {/* Form */}
+        <LoginForm />
+
+        {/* Footer */}
         <DialogFooter className="px-6">
+          {/* Close button */}
           <DialogClose asChild>
             <Button type="button" variant="ghost">
               Cancelar
             </Button>
           </DialogClose>
+
+          {/* Confirm button */}
           <Button
             type="submit"
+            form="login-form"
             className="bg-button-primary px-8 hover:bg-button-primary-hover"
           >
             Entrar

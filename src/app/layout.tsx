@@ -26,13 +26,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} overflow-y-hidden`}>
-        <div className="flex h-screen min-w-[650px]">
-          <Sidebar />
-          <main className="relative flex-1 bg-gray-100 text-primary">
-            <Providers>{children}</Providers>
-          </main>
-          <Toaster />
-        </div>
+        <Providers>
+          <div className="flex h-screen min-w-[650px]">
+            <Sidebar />
+            <main className="relative flex-1 bg-gray-100 text-primary">
+              {children}
+            </main>
+            <Toaster />
+          </div>
+        </Providers>
       </body>
     </html>
   )
