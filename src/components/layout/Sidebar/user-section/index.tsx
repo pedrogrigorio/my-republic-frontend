@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useSession } from '@/hooks/useSession'
 import { SignOut } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/shadcnui/button'
+import { logout } from '@/lib/auth'
 import { cn } from '@/lib/utils'
 import {
   DropdownMenuContent,
@@ -14,7 +15,6 @@ import {
   DropdownMenuItem,
   DropdownMenu,
 } from '@/components/shadcnui/dropdown-menu'
-import { logout } from '@/lib/auth'
 
 interface UserSectionProps {
   sidebarIsOpen: boolean

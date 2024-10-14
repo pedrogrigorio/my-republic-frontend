@@ -1,5 +1,6 @@
 'use server'
 
+import { redirect } from 'next/navigation'
 import { Session } from '@/types/session'
 import { cookies } from 'next/headers'
 
@@ -13,6 +14,7 @@ export async function saveSession(session: Session) {
 
 export async function logout() {
   cookies().set('session', '', { expires: new Date(0) })
+  redirect('/')
 }
 
 export async function getSession(): Promise<Session | null> {
