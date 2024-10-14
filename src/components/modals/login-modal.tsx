@@ -1,3 +1,4 @@
+import { useDialog } from '@/hooks/useDialog'
 import LoginForm from '../forms/login-form'
 
 import { Button } from '../shadcnui/button'
@@ -13,11 +14,22 @@ import {
 
 interface LoginModalProps {
   children: React.ReactNode
+  onLoginSuccess: () => void
 }
 
-export default function LoginModal({ children }: LoginModalProps) {
+export default function LoginModal({
+  children,
+  onLoginSuccess,
+}: LoginModalProps) {
+  const loginDialog = useDialog()
+
+  const onConclude = () => {
+    onLoginSuccess()
+    loginDialog.dismiss()
+  }
+
   return (
-    <Dialog>
+    <Dialog {...loginDialog.props}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         {/* Header */}
@@ -29,7 +41,7 @@ export default function LoginModal({ children }: LoginModalProps) {
         <div className="h-[1px] w-full bg-divisor" />
 
         {/* Form */}
-        <LoginForm />
+        <LoginForm onSubmit={onConclude} />
 
         {/* Footer */}
         <DialogFooter className="px-6">

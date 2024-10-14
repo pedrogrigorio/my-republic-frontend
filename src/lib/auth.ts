@@ -15,10 +15,10 @@ export async function logout() {
   cookies().set('session', '', { expires: new Date(0) })
 }
 
-export async function getSession() {
+export async function getSession(): Promise<Session | null> {
   const session = cookies().get('session')?.value
 
   if (!session) return null
 
-  return session
+  return JSON.parse(session)
 }

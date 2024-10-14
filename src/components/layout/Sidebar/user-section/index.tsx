@@ -1,27 +1,34 @@
+import SignUpModal from '@/components/modals/sign-up-modal'
+import LoginModal from '@/components/modals/login-modal'
 import persona from '@/assets/img/persona.png'
 import Image from 'next/image'
 
+import { useSession } from '@/hooks/useSession'
 import { SignOut } from '@phosphor-icons/react/dist/ssr'
+import { Button } from '@/components/shadcnui/button'
 import { cn } from '@/lib/utils'
 import {
-  DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuTrigger,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenu,
 } from '@/components/shadcnui/dropdown-menu'
-import { Button } from '@/components/shadcnui/button'
-import SignUpModal from '@/components/modals/sign-up-modal'
-import LoginModal from '@/components/modals/login-modal'
+import { logout } from '@/lib/auth'
 
 interface UserSectionProps {
   sidebarIsOpen: boolean
 }
 
 export default function UserSection({ sidebarIsOpen }: UserSectionProps) {
-  const isLoggedIn = false
+  const { session, refreshSession } = useSession()
 
-  if (isLoggedIn) {
+  const handleLogout = async () => {
+    await logout()
+    await refreshSession()
+  }
+
+  if (session) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -48,7 +55,7 @@ export default function UserSection({ sidebarIsOpen }: UserSectionProps) {
           className="max-h-[--radix-dropdown-menu-content-available-height] w-[--radix-dropdown-menu-trigger-width]"
         >
           <DropdownMenuGroup>
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem asChild onClick={handleLogout}>
               <div className="flex gap-3 text-gray-800">
                 <SignOut size={24} />
                 <span>Sair</span>
@@ -68,7 +75,7 @@ export default function UserSection({ sidebarIsOpen }: UserSectionProps) {
         </Button>
       </SignUpModal>
 
-      <LoginModal>
+      <LoginModal onLoginSuccess={async () => await refreshSession()}>
         <Button variant="outline">Entrar</Button>
       </LoginModal>
     </div>

@@ -14,12 +14,17 @@ import { Input } from '@/components/shadcnui/input'
 import { Label } from '@/components/shadcnui/label'
 import { login } from '@/services/auth-service'
 
-export default function LoginForm() {
+interface LoginFormProps {
+  onSubmit: () => void
+}
+
+export default function LoginForm({ onSubmit }: LoginFormProps) {
   const [loginError, setLoginError] = useState<string | null>(null)
   const { mutate } = useMutation({
     mutationFn: login,
     onSuccess: async (data) => {
       await saveSession(data)
+      onSubmit()
     },
     onError: (e: AxiosError) => {
       if (e.response && e.response.status === 401) {
@@ -38,15 +43,11 @@ export default function LoginForm() {
     resolver: zodResolver(loginFormSchema),
   })
 
-  const onSubmit = async (data: LoginFormData) => {
-    mutate(data)
-  }
-
   return (
     <form
       id="login-form"
       className="flex flex-col gap-2 px-6 py-4"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((data) => mutate(data))}
     >
       <div>
         <Label htmlFor="email">E-mail *</Label>
