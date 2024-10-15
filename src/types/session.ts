@@ -1,8 +1,6 @@
+import { User } from './user'
+
 export interface Session {
-  user: {
-    id: number
-    name: string
-    email: string
-  }
+  user: User
   access_token: string
 }

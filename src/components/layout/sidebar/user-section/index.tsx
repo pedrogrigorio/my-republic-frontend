@@ -1,12 +1,13 @@
 import SignUpModal from '@/components/modals/sign-up-modal'
 import LoginModal from '@/components/modals/login-modal'
-import persona from '@/assets/img/persona.png'
-import Image from 'next/image'
 
+import { getUserBySession } from '@/services/user-service'
+import { useQuery } from '@tanstack/react-query'
 import { Session } from '@/types/session'
 import { SignOut } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/shadcnui/button'
 import { logout } from '@/lib/auth'
+import { User } from '@/types/user'
 import { cn } from '@/lib/utils'
 import {
   DropdownMenuContent,
@@ -15,6 +16,11 @@ import {
   DropdownMenuItem,
   DropdownMenu,
 } from '@/components/shadcnui/dropdown-menu'
+import {
+  AvatarFallback,
+  AvatarImage,
+  Avatar,
+} from '@/components/shadcnui/avatar'
 
 interface UserSectionProps {
   sidebarIsOpen: boolean
@@ -27,30 +33,33 @@ export default function UserSection({
   session,
   refreshSession,
 }: UserSectionProps) {
+  const { data: user } = useQuery<User>({
+    queryKey: ['get-user-by-session'],
+    queryFn: () => getUserBySession(session),
+    enabled: !!session,
+  })
+
   const handleLogout = async () => {
     await logout()
     refreshSession()
   }
 
-  if (session) {
+  if (user && session) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 hover:bg-gray-50">
-            <Image
-              src={persona}
-              width={32}
-              height={32}
-              className="h-8 w-8 rounded-full border-[1px] border-gray-300"
-              alt="Profile image"
-            />
+            <Avatar>
+              <AvatarImage src={user.imgSrc} alt="Foto de perfil" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
             <h3
               className={cn(
                 'whitespace-nowrap text-sm font-semibold text-gray-800 opacity-100 transition-opacity duration-200',
                 !sidebarIsOpen && 'pointer-events-none opacity-0',
               )}
             >
-              {session.user.name}
+              {user.name}
             </h3>
           </div>
         </DropdownMenuTrigger>
@@ -79,7 +88,7 @@ export default function UserSection({
         </Button>
       </SignUpModal>
 
-      <LoginModal onLoginSuccess={async () => await refreshSession()}>
+      <LoginModal onLoginSuccess={refreshSession}>
         <Button variant="outline">Entrar</Button>
       </LoginModal>
     </div>
