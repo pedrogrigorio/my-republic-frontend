@@ -2,6 +2,7 @@ import useSubmenuState from '@/hooks/useSubmenuState'
 import Link from 'next/link'
 
 import { IMenuItem } from '@/types/sidebar'
+import { Session } from '@/types/session'
 import { CaretUp } from '@phosphor-icons/react/dist/ssr'
 import { cn } from '@/lib/utils'
 import {
@@ -15,9 +16,14 @@ import {
 interface MenuItemProps {
   item: IMenuItem
   sidebarIsOpen: boolean
+  session: Session | null
 }
 
-export default function MenuItem({ item, sidebarIsOpen }: MenuItemProps) {
+export default function MenuItem({
+  item,
+  sidebarIsOpen,
+  session,
+}: MenuItemProps) {
   const { isSubmenuActive, isActive, pathname, toggleSubmenu } =
     useSubmenuState(item, sidebarIsOpen)
 
@@ -118,23 +124,28 @@ export default function MenuItem({ item, sidebarIsOpen }: MenuItemProps) {
             </div>
 
             <ul className="flex flex-1 flex-col gap-1">
-              {item.submenu?.map((subitem) => (
-                <li key={subitem.id} className="h-8">
-                  <Link
-                    href={subitem.path}
-                    className={cn(
-                      'flex h-full items-center rounded-xl px-4 text-xs hover:text-black',
-                      pathname.includes(subitem.path) && 'bg-gray-50',
-                    )}
-                  >
-                    <span
-                      className={`${pathname.includes(subitem.path) && 'text-black'}`}
+              {item.submenu
+                ?.filter(
+                  (subitem) =>
+                    !subitem.protected || (subitem.protected && session),
+                )
+                .map((subitem) => (
+                  <li key={subitem.id} className="h-8">
+                    <Link
+                      href={subitem.path}
+                      className={cn(
+                        'flex h-full items-center rounded-xl px-4 text-xs hover:text-black',
+                        pathname.includes(subitem.path) && 'bg-gray-50',
+                      )}
                     >
-                      {subitem.label}
-                    </span>
-                  </Link>
-                </li>
-              ))}
+                      <span
+                        className={`${pathname.includes(subitem.path) && 'text-black'}`}
+                      >
+                        {subitem.label}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

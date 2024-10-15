@@ -1,7 +1,9 @@
 import MenuItem from './menu-item'
+
 import { IMenuItem } from '@/types/sidebar'
 import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import { Session } from '@/types/session'
 
 interface MenuSectionProps {
   sidebarIsOpen: boolean
@@ -9,6 +11,7 @@ interface MenuSectionProps {
   menu?: IMenuItem[]
   children?: ReactNode
   className?: string
+  session: Session | null
 }
 
 export default function MenuSection({
@@ -17,6 +20,7 @@ export default function MenuSection({
   menu,
   children,
   className,
+  session,
 }: MenuSectionProps) {
   return (
     <div className={cn('flex flex-col font-medium', className)}>
@@ -30,11 +34,17 @@ export default function MenuSection({
       </span>
       <ul className="flex flex-col gap-3 text-sm text-sidebar">
         {children}
-        {menu?.map((item) => (
-          <li key={item.id}>
-            <MenuItem item={item} sidebarIsOpen={sidebarIsOpen} />
-          </li>
-        ))}
+        {menu
+          ?.filter((item) => !item.protected || (item.protected && session))
+          .map((item) => (
+            <li key={item.id}>
+              <MenuItem
+                item={item}
+                sidebarIsOpen={sidebarIsOpen}
+                session={session}
+              />
+            </li>
+          ))}
       </ul>
     </div>
   )

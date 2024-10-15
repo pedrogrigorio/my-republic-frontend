@@ -3,7 +3,7 @@ import LoginModal from '@/components/modals/login-modal'
 import persona from '@/assets/img/persona.png'
 import Image from 'next/image'
 
-import { useSession } from '@/hooks/useSession'
+import { Session } from '@/types/session'
 import { SignOut } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/shadcnui/button'
 import { logout } from '@/lib/auth'
@@ -18,11 +18,15 @@ import {
 
 interface UserSectionProps {
   sidebarIsOpen: boolean
+  session: Session | null
+  refreshSession: () => void
 }
 
-export default function UserSection({ sidebarIsOpen }: UserSectionProps) {
-  const { session, refreshSession } = useSession()
-
+export default function UserSection({
+  sidebarIsOpen,
+  session,
+  refreshSession,
+}: UserSectionProps) {
   const handleLogout = async () => {
     await logout()
     await refreshSession()
@@ -46,7 +50,7 @@ export default function UserSection({ sidebarIsOpen }: UserSectionProps) {
                 !sidebarIsOpen && 'pointer-events-none opacity-0',
               )}
             >
-              John Doe
+              {session.user.name}
             </h3>
           </div>
         </DropdownMenuTrigger>

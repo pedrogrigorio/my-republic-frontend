@@ -4,6 +4,7 @@ export interface ISubmenuItem {
   id: string
   label: string
   path: string
+  protected?: boolean
 }
 
 export interface IMenuItem {
@@ -12,4 +13,5 @@ export interface IMenuItem {
   icon: ReactNode
   path: string
   submenu?: ISubmenuItem[]
+  protected?: boolean
 }

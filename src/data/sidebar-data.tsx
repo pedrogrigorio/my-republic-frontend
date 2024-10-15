@@ -1,11 +1,12 @@
+import { IMenuItem } from '@/types/sidebar'
 import {
   Gear,
   House,
-  MagnifyingGlass,
   Megaphone,
+  MagnifyingGlass,
 } from '@phosphor-icons/react/dist/ssr'
 
-export const mainMenu = [
+export const mainMenu: IMenuItem[] = [
   {
     id: 'home',
     label: 'Início',
@@ -17,6 +18,7 @@ export const mainMenu = [
     label: 'Meus anúncios',
     path: '/my-ads',
     icon: <Megaphone size={24} />,
+    protected: true,
   },
   {
     id: 'search',
@@ -33,6 +35,7 @@ export const mainMenu = [
         id: 'my-applications',
         label: 'Minhas aplicações',
         path: '/student-housing/applications',
+        protected: true,
       },
     ],
   },
@@ -44,6 +47,7 @@ export const systemMenu = [
     label: 'Configurações',
     path: '/settings',
     icon: <Gear size={24} />,
+    protected: true,
     submenu: [
       {
         id: 'my-account',

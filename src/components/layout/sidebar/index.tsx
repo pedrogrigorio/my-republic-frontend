@@ -9,9 +9,11 @@ import MenuSection from './menu-section'
 import { mainMenu, systemMenu } from '@/data/sidebar-data'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { useSession } from '@/hooks/useSession'
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true)
+  const { session, refreshSession } = useSession()
 
   return (
     <div
@@ -33,22 +35,30 @@ export default function Sidebar() {
             title="PRINCIPAL"
             sidebarIsOpen={isOpen}
             menu={mainMenu}
+            session={session}
           />
 
-          <MenuSection
-            title="SISTEMA"
-            sidebarIsOpen={isOpen}
-            menu={systemMenu}
-            className="mt-6"
-          >
-            <li className="cursor-pointer">
-              <NotificationItem sidebarIsOpen={isOpen} />
-            </li>
-          </MenuSection>
+          {session && (
+            <MenuSection
+              title="SISTEMA"
+              sidebarIsOpen={isOpen}
+              menu={systemMenu}
+              session={session}
+              className="mt-6"
+            >
+              <li className="cursor-pointer">
+                <NotificationItem sidebarIsOpen={isOpen} />
+              </li>
+            </MenuSection>
+          )}
         </div>
 
         {/* Perfil */}
-        <UserSection sidebarIsOpen={isOpen} />
+        <UserSection
+          sidebarIsOpen={isOpen}
+          refreshSession={refreshSession}
+          session={session}
+        />
       </div>
     </div>
   )
