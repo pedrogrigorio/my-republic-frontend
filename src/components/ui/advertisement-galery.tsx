@@ -1,5 +1,6 @@
+import AdvertisementCard from './advertisement-card'
+
 import { Advertisement } from '@/types/advertisement'
-import AdvertisementCard from '../advertisement-card'
 
 interface AdvertisementGaleryProps {
   advertisements: Advertisement[]

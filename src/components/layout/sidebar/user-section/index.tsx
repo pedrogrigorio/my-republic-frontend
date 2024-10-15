@@ -1,5 +1,6 @@
 import SignUpModal from '@/components/modals/sign-up-modal'
 import LoginModal from '@/components/modals/login-modal'
+import Avatar from '@/components/ui/avatar'
 
 import { getUserBySession } from '@/services/user-service'
 import { useQuery } from '@tanstack/react-query'
@@ -16,11 +17,6 @@ import {
   DropdownMenuItem,
   DropdownMenu,
 } from '@/components/shadcnui/dropdown-menu'
-import {
-  AvatarFallback,
-  AvatarImage,
-  Avatar,
-} from '@/components/shadcnui/avatar'
 
 interface UserSectionProps {
   sidebarIsOpen: boolean
@@ -34,7 +30,7 @@ export default function UserSection({
   refreshSession,
 }: UserSectionProps) {
   const { data: user } = useQuery<User>({
-    queryKey: ['get-user-by-session'],
+    queryKey: ['get-user-profile'],
     queryFn: () => getUserBySession(session),
     enabled: !!session,
   })
@@ -49,10 +45,7 @@ export default function UserSection({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 hover:bg-gray-50">
-            <Avatar>
-              <AvatarImage src={user.imgSrc} alt="Foto de perfil" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            <Avatar user={user} />
             <h3
               className={cn(
                 'whitespace-nowrap text-sm font-semibold text-gray-800 opacity-100 transition-opacity duration-200',

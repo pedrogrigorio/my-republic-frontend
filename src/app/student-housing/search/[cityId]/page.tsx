@@ -7,8 +7,8 @@ import LocaleSearchForm from '@/components/forms/locale-search-form'
 import FilterButton from '@/components/ui/filter-button'
 
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { SearchResult } from '@/types/search-result'
 import { searchAdvertisementsByCity } from '@/services/advertisement-sevice'
+import { SearchResult } from '@/types/search-result'
 import { useQuery } from '@tanstack/react-query'
 import { Page } from '@/components/layout/page'
 
