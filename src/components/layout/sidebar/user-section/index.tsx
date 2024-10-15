@@ -2,13 +2,10 @@ import SignUpModal from '@/components/modals/sign-up-modal'
 import LoginModal from '@/components/modals/login-modal'
 import Avatar from '@/components/ui/avatar'
 
-import { getUserBySession } from '@/services/user-service'
-import { useQuery } from '@tanstack/react-query'
-import { Session } from '@/types/session'
+import { useUser } from '@/context/user-context'
 import { SignOut } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/shadcnui/button'
 import { logout } from '@/lib/auth'
-import { User } from '@/types/user'
 import { cn } from '@/lib/utils'
 import {
   DropdownMenuContent,
@@ -17,30 +14,37 @@ import {
   DropdownMenuItem,
   DropdownMenu,
 } from '@/components/shadcnui/dropdown-menu'
+import { useQuery } from '@tanstack/react-query'
+import { User } from '@/types/user'
+import { getUserBySession } from '@/services/user-service'
+import { useSession } from '@/hooks/useSession'
 
 interface UserSectionProps {
   sidebarIsOpen: boolean
-  session: Session | null
-  refreshSession: () => void
 }
 
-export default function UserSection({
-  sidebarIsOpen,
-  session,
-  refreshSession,
-}: UserSectionProps) {
-  const { data: user } = useQuery<User>({
+export default function UserSection({ sidebarIsOpen }: UserSectionProps) {
+  const { user, setUser } = useUser()
+  const { session } = useSession()
+
+  useQuery<User | null>({
     queryKey: ['get-user-profile'],
-    queryFn: () => getUserBySession(session),
+    queryFn: async () => {
+      const response = await getUserBySession(session)
+
+      setUser(response)
+
+      return response
+    },
     enabled: !!session,
   })
 
   const handleLogout = async () => {
     await logout()
-    refreshSession()
+    setUser(null)
   }
 
-  if (user && session) {
+  if (user) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -81,7 +85,7 @@ export default function UserSection({
         </Button>
       </SignUpModal>
 
-      <LoginModal onLoginSuccess={refreshSession}>
+      <LoginModal>
         <Button variant="outline">Entrar</Button>
       </LoginModal>
     </div>

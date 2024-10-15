@@ -2,7 +2,6 @@ import useSubmenuState from '@/hooks/useSubmenuState'
 import Link from 'next/link'
 
 import { IMenuItem } from '@/types/sidebar'
-import { Session } from '@/types/session'
 import { CaretUp } from '@phosphor-icons/react/dist/ssr'
 import { cn } from '@/lib/utils'
 import {
@@ -12,18 +11,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/shadcnui/dropdown-menu'
+import { useUser } from '@/context/user-context'
 
 interface MenuItemProps {
   item: IMenuItem
   sidebarIsOpen: boolean
-  session: Session | null
 }
 
-export default function MenuItem({
-  item,
-  sidebarIsOpen,
-  session,
-}: MenuItemProps) {
+export default function MenuItem({ item, sidebarIsOpen }: MenuItemProps) {
+  const { user: authenticatedUser } = useUser()
   const { isSubmenuActive, isActive, pathname, toggleSubmenu } =
     useSubmenuState(item, sidebarIsOpen)
 
@@ -127,7 +123,8 @@ export default function MenuItem({
               {item.submenu
                 ?.filter(
                   (subitem) =>
-                    !subitem.protected || (subitem.protected && session),
+                    !subitem.protected ||
+                    (subitem.protected && authenticatedUser),
                 )
                 .map((subitem) => (
                   <li key={subitem.id} className="h-8">

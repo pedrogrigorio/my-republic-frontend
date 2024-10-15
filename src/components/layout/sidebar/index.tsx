@@ -1,19 +1,19 @@
 'use client'
 
 import NotificationItem from './notification-item'
-import UserSection from './user-section'
 import ToggleButton from './toggle-button'
+import UserSection from './user-section'
 import LogoSection from './logo-section'
 import MenuSection from './menu-section'
 
 import { mainMenu, systemMenu } from '@/data/sidebar-data'
 import { useState } from 'react'
+import { useUser } from '@/context/user-context'
 import { cn } from '@/lib/utils'
-import { useSession } from '@/hooks/useSession'
 
 export default function Sidebar() {
+  const { user: authenticatedUser } = useUser()
   const [isOpen, setIsOpen] = useState(true)
-  const { session, refreshSession } = useSession()
 
   return (
     <div
@@ -35,15 +35,13 @@ export default function Sidebar() {
             title="PRINCIPAL"
             sidebarIsOpen={isOpen}
             menu={mainMenu}
-            session={session}
           />
 
-          {session && (
+          {authenticatedUser && (
             <MenuSection
               title="SISTEMA"
               sidebarIsOpen={isOpen}
               menu={systemMenu}
-              session={session}
               className="mt-6"
             >
               <li className="cursor-pointer">
@@ -54,11 +52,7 @@ export default function Sidebar() {
         </div>
 
         {/* Perfil */}
-        <UserSection
-          sidebarIsOpen={isOpen}
-          refreshSession={refreshSession}
-          session={session}
-        />
+        <UserSection sidebarIsOpen={isOpen} />
       </div>
     </div>
   )

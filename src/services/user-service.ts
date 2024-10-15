@@ -1,11 +1,16 @@
 import { Session } from '@/types/session'
+import { User } from '@/types/user'
 import { api } from '@/lib/axios'
 
 export async function getUserBySession(session: Session | null) {
   if (!session) return null
 
-  console.log('buscou')
-  const response = await api.get(`users/${session.user.id}`)
+  const response = await api.get<User>(`users/${session.user.id}`)
 
   return response.data
+}
+
+export async function deleteUser(userId: number) {
+  console.log(`deletando user com id ${userId}`)
+  // await api.delete(`users/${userId}`)
 }

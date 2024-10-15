@@ -14,19 +14,10 @@ import {
 
 interface LoginModalProps {
   children: React.ReactNode
-  onLoginSuccess: () => void
 }
 
-export default function LoginModal({
-  children,
-  onLoginSuccess,
-}: LoginModalProps) {
+export default function LoginModal({ children }: LoginModalProps) {
   const loginDialog = useDialog()
-
-  const onConclude = () => {
-    onLoginSuccess()
-    loginDialog.dismiss()
-  }
 
   return (
     <Dialog {...loginDialog.props}>
@@ -41,7 +32,7 @@ export default function LoginModal({
         <div className="h-[1px] w-full bg-divisor" />
 
         {/* Form */}
-        <LoginForm onSubmit={onConclude} />
+        <LoginForm onSubmit={() => loginDialog.dismiss()} />
 
         {/* Footer */}
         <DialogFooter className="px-6">

@@ -10,6 +10,7 @@ import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useUser } from '@/context/user-context'
 import { Input } from '@/components/shadcnui/input'
 import { Label } from '@/components/shadcnui/label'
 import { login } from '@/services/auth-service'
@@ -19,12 +20,15 @@ interface LoginFormProps {
 }
 
 export default function LoginForm({ onSubmit }: LoginFormProps) {
+  const { setUser } = useUser()
+
   const [loginError, setLoginError] = useState<string | null>(null)
   const { mutate } = useMutation({
     mutationFn: login,
     onSuccess: async (data) => {
       setLoginError(null)
       await saveSession(data)
+      setUser(data.user)
       onSubmit()
     },
     onError: (e: AxiosError) => {

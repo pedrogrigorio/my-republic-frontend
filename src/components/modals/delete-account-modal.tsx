@@ -11,10 +11,12 @@ import {
 
 interface DeleteAccountModalProps {
   children: React.ReactNode
+  onConclude: () => void
 }
 
 export default function DeleteAccountModal({
   children,
+  onConclude,
 }: DeleteAccountModalProps) {
   return (
     <Dialog>
@@ -34,8 +36,12 @@ export default function DeleteAccountModal({
               Cancelar
             </Button>
           </DialogClose>
-          <Button type="submit" className="bg-danger px-8 hover:bg-red-600">
-            Aplicar
+          <Button
+            type="submit"
+            className="bg-danger px-8 hover:bg-red-600"
+            onClick={onConclude}
+          >
+            Apagar conta
           </Button>
         </DialogFooter>
       </DialogContent>
