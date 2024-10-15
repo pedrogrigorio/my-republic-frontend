@@ -1,6 +1,7 @@
 import Logo from '@/components/icons/logo'
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
+
+import { cn } from '@/lib/utils'
 
 interface LogoSectionProps {
   sidebarIsOpen: boolean

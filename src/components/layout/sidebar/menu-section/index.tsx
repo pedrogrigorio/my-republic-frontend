@@ -2,8 +2,8 @@ import MenuItem from './menu-item'
 
 import { IMenuItem } from '@/types/sidebar'
 import { ReactNode } from 'react'
-import { cn } from '@/lib/utils'
 import { Session } from '@/types/session'
+import { cn } from '@/lib/utils'
 
 interface MenuSectionProps {
   sidebarIsOpen: boolean

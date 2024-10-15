@@ -29,7 +29,7 @@ export default function UserSection({
 }: UserSectionProps) {
   const handleLogout = async () => {
     await logout()
-    await refreshSession()
+    refreshSession()
   }
 
   if (session) {
