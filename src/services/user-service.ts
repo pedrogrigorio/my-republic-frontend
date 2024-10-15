@@ -11,6 +11,5 @@ export async function getUserBySession(session: Session | null) {
 }
 
 export async function deleteUser(userId: number) {
-  console.log(`deletando user com id ${userId}`)
-  // await api.delete(`users/${userId}`)
+  await api.delete(`users/${userId}`)
 }

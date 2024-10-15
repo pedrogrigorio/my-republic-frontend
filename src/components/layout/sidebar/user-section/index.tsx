@@ -2,10 +2,14 @@ import SignUpModal from '@/components/modals/sign-up-modal'
 import LoginModal from '@/components/modals/login-modal'
 import Avatar from '@/components/ui/avatar'
 
+import { getUserBySession } from '@/services/user-service'
+import { useSession } from '@/hooks/useSession'
+import { useQuery } from '@tanstack/react-query'
 import { useUser } from '@/context/user-context'
 import { SignOut } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/shadcnui/button'
 import { logout } from '@/lib/auth'
+import { User } from '@/types/user'
 import { cn } from '@/lib/utils'
 import {
   DropdownMenuContent,
@@ -14,10 +18,6 @@ import {
   DropdownMenuItem,
   DropdownMenu,
 } from '@/components/shadcnui/dropdown-menu'
-import { useQuery } from '@tanstack/react-query'
-import { User } from '@/types/user'
-import { getUserBySession } from '@/services/user-service'
-import { useSession } from '@/hooks/useSession'
 
 interface UserSectionProps {
   sidebarIsOpen: boolean
