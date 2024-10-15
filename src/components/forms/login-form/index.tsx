@@ -23,6 +23,7 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
   const { mutate } = useMutation({
     mutationFn: login,
     onSuccess: async (data) => {
+      setLoginError(null)
       await saveSession(data)
       onSubmit()
     },
@@ -49,6 +50,11 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
       className="flex flex-col gap-2 px-6 py-4"
       onSubmit={handleSubmit((data) => mutate(data))}
     >
+      {loginError && (
+        <div className="rounded-xl bg-red-500 bg-opacity-25 p-6">
+          <p className="text-sm">{loginError}</p>
+        </div>
+      )}
       <div>
         <Label htmlFor="email">E-mail *</Label>
         <Input id="email" {...register('email')} />
@@ -59,8 +65,6 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
         <Input type="password" id="password" {...register('password')} />
         <InputError error={errors.password?.message?.toString()} />
       </div>
-
-      {loginError && <p className="text-sm text-red-500">{loginError}</p>}
     </form>
   )
 }

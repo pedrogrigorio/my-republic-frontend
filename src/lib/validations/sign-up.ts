@@ -23,7 +23,9 @@ export const signUpFormSchema = z
         message: 'A senha precisa ter pelo menos 1 símbolo',
       }),
     passwordConfirm: z.string(),
-    gender: z.enum([Gender.MALE, Gender.FEMALE]),
+    gender: z.enum([Gender.MALE, Gender.FEMALE], {
+      message: 'Campo obrigatório',
+    }),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     message: 'As senhas precisam ser iguais',
