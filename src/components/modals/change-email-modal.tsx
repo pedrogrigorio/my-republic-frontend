@@ -1,6 +1,7 @@
+import ChangeEmailForm from '../forms/change-email-form'
+
+import { useDialog } from '@/hooks/useDialog'
 import { Button } from '../shadcnui/button'
-import { Label } from '@/components/shadcnui/label'
-import { Input } from '@/components/shadcnui/input'
 import {
   Dialog,
   DialogClose,
@@ -16,18 +17,22 @@ interface ChangeEmailModalProps {
 }
 
 export default function ChangeEmailModal({ children }: ChangeEmailModalProps) {
+  const changeEmailDialog = useDialog()
+
   return (
-    <Dialog>
+    <Dialog {...changeEmailDialog.props}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
+        {/* Cabeçalho */}
         <DialogHeader className="px-6">
           <DialogTitle>Alterar e-mail</DialogTitle>
         </DialogHeader>
         <div className="h-[1px] w-full bg-divisor" />
-        <div className="flex flex-col gap-2 px-6 py-4">
-          <Label htmlFor="email">Novo e-mail</Label>
-          <Input id="email" />
-        </div>
+
+        {/* Conteúdo */}
+        <ChangeEmailForm onSubmit={changeEmailDialog.dismiss} />
+
+        {/* Botões */}
         <DialogFooter className="px-6">
           <DialogClose asChild>
             <Button type="button" variant="ghost">
@@ -36,9 +41,10 @@ export default function ChangeEmailModal({ children }: ChangeEmailModalProps) {
           </DialogClose>
           <Button
             type="submit"
+            form="change-email-form"
             className="bg-button-primary px-8 hover:bg-button-primary-hover"
           >
-            Aplicar
+            Confirmar
           </Button>
         </DialogFooter>
       </DialogContent>

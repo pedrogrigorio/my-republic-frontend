@@ -1,14 +1,15 @@
+import ChangePasswordForm from '../forms/change-password-form'
+
+import { useDialog } from '@/hooks/useDialog'
 import { Button } from '../shadcnui/button'
-import { Label } from '@/components/shadcnui/label'
-import { Input } from '@/components/shadcnui/input'
 import {
-  Dialog,
-  DialogClose,
+  DialogTrigger,
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogClose,
   DialogTitle,
-  DialogTrigger,
+  Dialog,
 } from '@/components/shadcnui/dialog'
 
 interface ChangePasswordModalProps {
@@ -18,28 +19,19 @@ interface ChangePasswordModalProps {
 export default function ChangePasswordModal({
   children,
 }: ChangePasswordModalProps) {
+  const changePasswordDialog = useDialog()
+
   return (
-    <Dialog>
+    <Dialog {...changePasswordDialog.props}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader className="px-6">
           <DialogTitle>Alterar senha</DialogTitle>
         </DialogHeader>
         <div className="h-[1px] w-full bg-divisor" />
-        <div className="flex flex-col gap-2 px-6 py-4">
-          <div>
-            <Label htmlFor="password">Senha antiga *</Label>
-            <Input id="password" />
-          </div>
-          <div>
-            <Label htmlFor="password">Nova senha *</Label>
-            <Input id="password" />
-          </div>
-          <div>
-            <Label htmlFor="password">Repetir senha *</Label>
-            <Input id="password" />
-          </div>
-        </div>
+
+        <ChangePasswordForm onSubmit={changePasswordDialog.dismiss} />
+
         <DialogFooter className="px-6">
           <DialogClose asChild>
             <Button type="button" variant="ghost">
@@ -48,6 +40,7 @@ export default function ChangePasswordModal({
           </DialogClose>
           <Button
             type="submit"
+            form="change-password-form"
             className="bg-button-primary px-8 hover:bg-button-primary-hover"
           >
             Aplicar

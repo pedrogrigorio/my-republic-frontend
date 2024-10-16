@@ -1,34 +1,29 @@
-import { changeNameFormSchema } from '@/lib/validations/change-name'
-import { ChangeNameFormData } from '@/types/validation-types'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { changeEmailFormSchema } from '@/lib/validations/change-email'
+import { ChangeEmailFormData } from '@/types/validation-types'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { changeEmail } from '@/services/user-service'
 import { useForm } from 'react-hook-form'
+import { useUser } from '@/context/user-context'
 import { Input } from '@/components/shadcnui/input'
 import { Label } from '@/components/shadcnui/label'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { changeName } from '@/services/user-service'
-import { useUser } from '@/context/user-context'
-import InputError from '@/components/shadcnui/input-error'
 
-interface ChangeNameFormProps {
+interface ChangeEmailFormProps {
   onSubmit: () => void
 }
 
-export default function ChangeNameForm({ onSubmit }: ChangeNameFormProps) {
+export default function ChangeEmailForm({ onSubmit }: ChangeEmailFormProps) {
   const queryClient = useQueryClient()
   const { user } = useUser()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ChangeNameFormData>({
-    resolver: zodResolver(changeNameFormSchema),
+  const { register, handleSubmit } = useForm<ChangeEmailFormData>({
+    resolver: zodResolver(changeEmailFormSchema),
     defaultValues: {
-      newName: user?.name,
+      newEmail: user?.email,
     },
   })
 
   const { mutate, isError } = useMutation({
-    mutationFn: changeName,
+    mutationFn: changeEmail,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['get-user-profile'],
@@ -40,7 +35,7 @@ export default function ChangeNameForm({ onSubmit }: ChangeNameFormProps) {
   return (
     <form
       className="flex flex-col gap-2 px-6 py-4"
-      id="change-name-form"
+      id="change-email-form"
       onSubmit={handleSubmit((data) => mutate(data))}
     >
       {isError && (
@@ -50,9 +45,10 @@ export default function ChangeNameForm({ onSubmit }: ChangeNameFormProps) {
           </p>
         </div>
       )}
-      <Label htmlFor="name">Novo nome</Label>
-      <Input id="name" {...register('newName')} />
-      <InputError error={errors.newName?.message?.toString()} />
+      <div className="flex flex-col gap-2 px-6 py-4">
+        <Label htmlFor="email">Novo e-mail</Label>
+        <Input id="email" {...register('newEmail')} />
+      </div>
     </form>
   )
 }

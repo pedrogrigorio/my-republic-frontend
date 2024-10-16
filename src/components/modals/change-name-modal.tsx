@@ -46,7 +46,7 @@ export default function ChangeNameModal({ children }: ChangeNameModalProps) {
             form="change-name-form"
             className="bg-button-primary px-8 hover:bg-button-primary-hover"
           >
-            Aplicar
+            Confirmar
           </Button>
         </DialogFooter>
       </DialogContent>
