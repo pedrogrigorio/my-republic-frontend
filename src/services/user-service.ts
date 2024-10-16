@@ -43,3 +43,14 @@ export async function changePassword(data: ChangePasswordFormData) {
 
   await api.patch(`users/${session.user.id}/update-password`, data)
 }
+
+export async function changePhoto(file: File) {
+  const session = await getSession()
+
+  if (!session) return null
+
+  const formData = new FormData()
+  formData.append('file', file)
+
+  await api.patch(`users/${session.user.id}/update-photo`, formData)
+}

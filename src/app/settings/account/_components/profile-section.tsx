@@ -1,8 +1,9 @@
 import ChangeNameModal from '@/components/modals/change-name-modal'
 import Avatar from '@/components/ui/avatar'
 
-import { Camera, PencilSimple } from '@phosphor-icons/react/dist/ssr'
+import { PencilSimple } from '@phosphor-icons/react/dist/ssr'
 import { User } from '@/types/user'
+import ChangePhotoForm from '@/components/forms/change-photo-form'
 
 interface ProfileSectionProps {
   user: User
@@ -18,9 +19,10 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
             user={user}
             className="h-32 w-32 rounded-full border-[1px] border-gray-300 text-3xl"
           />
-          <button className="absolute bottom-0 right-0 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-black to-gray-400">
+          <ChangePhotoForm />
+          {/* <button className="absolute bottom-0 right-0 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-black to-gray-400">
             <Camera size={32} className="text-white" />
-          </button>
+          </button> */}
         </div>
 
         <div className="mt-6 flex h-fit gap-4">
