@@ -1,14 +1,15 @@
+import ChangeNameForm from '../forms/change-name-form'
+
+import { useDialog } from '@/hooks/useDialog'
 import { Button } from '../shadcnui/button'
-import { Label } from '@/components/shadcnui/label'
-import { Input } from '@/components/shadcnui/input'
 import {
-  Dialog,
-  DialogClose,
+  DialogTrigger,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogClose,
+  Dialog,
 } from '@/components/shadcnui/dialog'
 
 interface ChangeNameModalProps {
@@ -16,26 +17,33 @@ interface ChangeNameModalProps {
 }
 
 export default function ChangeNameModal({ children }: ChangeNameModalProps) {
+  const changeNameDialog = useDialog()
+
   return (
-    <Dialog>
+    <Dialog {...changeNameDialog.props}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
+        {/* Cabeçalho */}
         <DialogHeader className="px-6">
           <DialogTitle>Alterar nome</DialogTitle>
         </DialogHeader>
+
         <div className="h-[1px] w-full bg-divisor" />
-        <div className="flex flex-col gap-2 px-6 py-4">
-          <Label htmlFor="name">Novo nome</Label>
-          <Input id="name" />
-        </div>
+
+        {/* Conteúdo */}
+        <ChangeNameForm onSubmit={changeNameDialog.dismiss} />
+
+        {/* Botões */}
         <DialogFooter className="px-6">
           <DialogClose asChild>
             <Button type="button" variant="ghost">
               Cancelar
             </Button>
           </DialogClose>
+
           <Button
             type="submit"
+            form="change-name-form"
             className="bg-button-primary px-8 hover:bg-button-primary-hover"
           >
             Aplicar

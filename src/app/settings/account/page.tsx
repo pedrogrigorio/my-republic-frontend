@@ -10,14 +10,23 @@ import { useSession } from '@/hooks/useSession'
 import { useQuery } from '@tanstack/react-query'
 import { Page } from '@/components/layout/page'
 import { User } from '@/types/user'
+import { useUser } from '@/context/user-context'
 
 export default function Account() {
   const { session } = useSession()
+  const { setUser } = useUser()
 
-  const { data: user } = useQuery<User>({
+  const { data: user } = useQuery<User | null>({
     queryKey: ['get-user-profile'],
-    queryFn: () => getUserBySession(session),
-    enabled: !!session,
+    queryFn: async () => {
+      console.log('buscou na pagina')
+      const user = await getUserBySession(session)
+
+      if (!user) return null
+
+      setUser(user)
+      return user
+    },
   })
 
   if (!user) return null

@@ -36,7 +36,6 @@ export default function UserSection({ sidebarIsOpen }: UserSectionProps) {
 
       return response
     },
-    enabled: !!session,
   })
 
   const handleLogout = async () => {
