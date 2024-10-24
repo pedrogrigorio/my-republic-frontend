@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/shadcnui/select'
+import { Gender } from '@/types/gender'
 
 export default function SecondStep() {
   const {
@@ -28,7 +29,7 @@ export default function SecondStep() {
         <div className="col-span-3 lg:col-span-1">
           <Label>Preferência de gênero *</Label>
           <Controller
-            name="genre"
+            name="genderPreference"
             control={control}
             render={({ field }) => (
               <Select
@@ -40,36 +41,36 @@ export default function SecondStep() {
                   <SelectValue placeholder="Selecione o gênero" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="mixed">Misto</SelectItem>
-                  <SelectItem value="male">Masculino</SelectItem>
-                  <SelectItem value="female">Feminino</SelectItem>
+                  <SelectItem value={Gender.MIXED}>Misto</SelectItem>
+                  <SelectItem value={Gender.MALE}>Masculino</SelectItem>
+                  <SelectItem value={Gender.FEMALE}>Feminino</SelectItem>
                 </SelectContent>
               </Select>
             )}
           />
-          <InputError error={errors.genre?.message?.toString()} />
+          <InputError error={errors.genderPreference?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
-          <Label htmlFor="numPeople">Quantidade total de moradores *</Label>
+          <Label htmlFor="totalSlots">Quantidade total de moradores *</Label>
           <Input
             placeholder="Insira a quantidade total de moradores"
-            id="numPeople"
+            id="totalSlots"
             type="number"
-            {...register('numPeople')}
+            {...register('totalSlots')}
           />
-          <InputError error={errors.numPeople?.message?.toString()} />
+          <InputError error={errors.totalSlots?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
-          <Label htmlFor="occupiedVacancies">Vagas ocupadas *</Label>
+          <Label htmlFor="occupiedSlots">Vagas ocupadas *</Label>
           <Input
             placeholder="Insira a quantidade de vagas ocupadas"
-            id="occupiedVacancies"
+            id="occupiedSlots"
             type="number"
-            {...register('occupiedVacancies')}
+            {...register('occupiedSlots')}
           />
-          <InputError error={errors.occupiedVacancies?.message?.toString()} />
+          <InputError error={errors.occupiedSlots?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
@@ -97,31 +98,31 @@ export default function SecondStep() {
         </div>
 
         <div className="col-span-3 lg:col-span-1">
-          <Label htmlFor="numRooms">Quantidade de quartos *</Label>
+          <Label htmlFor="numBedroom">Quantidade de quartos *</Label>
           <Input
             placeholder="Ex: 3"
-            id="numRooms"
+            id="numBedroom"
             type="number"
-            {...register('numRooms')}
+            {...register('numBedroom')}
           />
-          <InputError error={errors.numRooms?.message?.toString()} />
+          <InputError error={errors.numBedroom?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
-          <Label htmlFor="numBathrooms">Quantidade de banheiros *</Label>
+          <Label htmlFor="numBathroom">Quantidade de banheiros *</Label>
           <Input
             placeholder="Ex: 2"
-            id="numBathrooms"
+            id="numBathroom"
             type="number"
-            {...register('numBathrooms')}
+            {...register('numBathroom')}
           />
-          <InputError error={errors.numBathrooms?.message?.toString()} />
+          <InputError error={errors.numBathroom?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">
           <Label>Possui pet? *</Label>
           <Controller
-            name="petsPresence"
+            name="hasPet"
             control={control}
             render={({ field }) => (
               <Select
@@ -139,7 +140,7 @@ export default function SecondStep() {
               </Select>
             )}
           />
-          <InputError error={errors.petsPresence?.message?.toString()} />
+          <InputError error={errors.hasPet?.message?.toString()} />
         </div>
 
         <div className="col-span-3">

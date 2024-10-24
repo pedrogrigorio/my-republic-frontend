@@ -1,18 +1,43 @@
 import ImagePicker from './image-picker'
 import InputError from '@/components/shadcnui/input-error'
 
-import { useFormContext } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { currencyMask } from '@/utils/currencyMask'
-import { zipCodeMask } from '@/utils/zipCodeMask'
 import { Textarea } from '@/components/shadcnui/textarea'
 import { Input } from '@/components/shadcnui/input'
 import { Label } from '@/components/shadcnui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/shadcnui/select'
+import { useQuery } from '@tanstack/react-query'
+import { getCitiesByStateId, getStates } from '@/services/locale-service'
+import { State } from '@/types/state'
+import { City } from '@/types/city'
+import { useState } from 'react'
 
 export default function FirstStep() {
   const {
+    control,
     register,
     formState: { errors },
   } = useFormContext()
+
+  const { data: states, isLoading } = useQuery({
+    queryKey: ['get-states'],
+    queryFn: getStates,
+  })
+
+  const [selectedStateId, setSelectedStateId] = useState<number | null>(null)
+
+  const { data: cities, isLoading: isLoadingCities } = useQuery({
+    queryKey: ['get-cities', selectedStateId],
+    queryFn: () => getCitiesByStateId(selectedStateId as number),
+    enabled: !!selectedStateId,
+  })
 
   return (
     <div>
@@ -54,7 +79,7 @@ export default function FirstStep() {
           <InputError error={errors.description?.message?.toString()} />
         </div>
 
-        <div className="col-span-3 lg:col-span-1">
+        {/* <div className="col-span-3 lg:col-span-1">
           <Label htmlFor="cep">CEP *</Label>
           <Input
             placeholder="Digite o CEP..."
@@ -62,11 +87,83 @@ export default function FirstStep() {
             {...register('cep', { onChange: zipCodeMask })}
           />
           <InputError error={errors.cep?.message?.toString()} />
+        </div> */}
+        <div className="col-span-3 lg:col-span-1">
+          <Label>Estado *</Label>
+          <Controller
+            name="stateId"
+            control={control}
+            render={({ field }) => (
+              <Select
+                name={field.name}
+                defaultValue={field.value}
+                onValueChange={(value) => {
+                  field.onChange(value)
+                  setSelectedStateId(Number(value))
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  {isLoading || !states ? (
+                    <SelectItem value="none" disabled>
+                      Carregando...
+                    </SelectItem>
+                  ) : (
+                    states
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map((state: State) => (
+                        <SelectItem key={state.id} value={state.id.toString()}>
+                          {state.name}
+                        </SelectItem>
+                      ))
+                  )}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          <InputError error={errors.stateId?.message?.toString()} />
+        </div>
+
+        <div className="col-span-3 lg:col-span-1">
+          <Label>Cidade *</Label>
+          <Controller
+            name="cityId"
+            control={control}
+            render={({ field }) => (
+              <Select
+                name={field.name}
+                defaultValue={field.value}
+                onValueChange={field.onChange}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione a cidade" />
+                </SelectTrigger>
+                <SelectContent>
+                  {!cities || isLoadingCities ? (
+                    <SelectItem value="none" disabled>
+                      Selecione um estado...
+                    </SelectItem>
+                  ) : (
+                    cities
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map((city: City) => (
+                        <SelectItem key={city.id} value={city.id.toString()}>
+                          {city.name}
+                        </SelectItem>
+                      ))
+                  )}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          <InputError error={errors.cityId?.message?.toString()} />
         </div>
 
         <div className="col-span-3">
           <ImagePicker />
-          <InputError error={errors.pictures?.message?.toString()} />
+          <InputError error={errors.picture?.message?.toString()} />
         </div>
       </div>
     </div>

@@ -53,6 +53,7 @@ export default function ChangePhotoForm() {
 
       {file && (
         <PhotoPreviewModal
+          aspect={1}
           file={file}
           onConfirm={onConfirm}
           {...photoPreviewDialog.props}

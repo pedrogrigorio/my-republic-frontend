@@ -4,26 +4,28 @@ import AdvertisementForm from '@/components/forms/advertisement-form'
 import Breadcrumb from '@/components/ui/breadcrumb'
 
 import { AdvertisementFormData } from '@/types/validation-types'
+import { createAdvertisement } from '@/services/advertisement-sevice'
 import { useRouter } from 'next/navigation'
-import { toast } from '@/components/shadcnui/use-toast'
 import { Page } from '@/components/layout/page'
 
 export default function CreateAdvertisement() {
   const router = useRouter()
 
-  const onSubmit = (data: AdvertisementFormData) => {
+  const onSubmit = async (data: AdvertisementFormData) => {
     console.log(data)
+    const { picture, ...createAdvertisementDto } = data
 
-    toast({
-      title: 'Submit:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    const formData = new FormData()
+    formData.append('file', picture)
+    formData.append(
+      'createAdvertisementDto',
+      JSON.stringify(createAdvertisementDto),
+    )
 
-    router.replace('/my-ads')
+    console.log(formData)
+
+    await createAdvertisement(formData)
+    // router.replace('/my-ads')
   }
 
   return (

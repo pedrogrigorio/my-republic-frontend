@@ -24,19 +24,19 @@ type FieldName = keyof AdvertisementFormData
 const steps = [
   {
     step: 1,
-    fields: ['title', 'price', 'description', 'cep', 'pictures'],
+    fields: ['title', 'price', 'description', 'cep', 'picture'],
   },
   {
     step: 2,
     fields: [
-      'genre',
+      'genderPreference',
       'allowOppositeGender',
-      'numPeople',
-      'occupiedVacancies',
+      'totalSlots',
+      'occupiedSlots',
       'bedroomType',
-      'numRooms',
-      'numBathrooms',
-      'petsPresence',
+      'numBedroom',
+      'numBathroom',
+      'hasPet',
     ],
   },
   {

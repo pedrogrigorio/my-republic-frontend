@@ -1,5 +1,6 @@
 import { amenities } from '@/data/amenities'
 import { rules } from '@/data/rules'
+import { Gender } from '@/types/gender'
 import { z } from 'zod'
 
 export const advertisementFormSchema = z.object({
@@ -20,18 +21,19 @@ export const advertisementFormSchema = z.object({
     .string()
     .min(10, 'A descrição deve ter pelo menos 10 caracteres'),
   cep: z.string().min(9, { message: 'CEP inválido' }),
-  pictures: z
-    .array(z.instanceof(File))
-    .min(1, 'Pelo menos uma imagem é necessária'),
+  stateId: z.string(),
+  picture: z.instanceof(File, { message: 'Campo obrigatório.' }),
 
   // Step 2
-  genre: z.enum(['mixed', 'male', 'female'], { message: 'Campo obrigatório' }),
+  genderPreference: z.enum([Gender.MALE, Gender.FEMALE, Gender.MIXED], {
+    message: 'Campo obrigatório',
+  }),
   allowOppositeGender: z.boolean(),
-  numPeople: z
+  totalSlots: z
     .string({ message: 'Campo obrigatório' })
     .transform((value) => parseInt(value))
     .refine((val) => val > 0, 'O número de pessoas deve ser maior que 0'),
-  occupiedVacancies: z
+  occupiedSlots: z
     .string({ message: 'Campo obrigatório' })
     .transform((value) => parseInt(value))
     .refine(
@@ -41,15 +43,15 @@ export const advertisementFormSchema = z.object({
   bedroomType: z.enum(['individual', 'shared'], {
     message: 'Campo obrigatório',
   }),
-  numRooms: z
+  numBedroom: z
     .string({ message: 'Campo obrigatório' })
     .transform((value) => parseInt(value))
     .refine((val) => val > 0, 'O número de quartos deve ser maior que 0'),
-  numBathrooms: z
+  numBathroom: z
     .string({ message: 'Campo obrigatório' })
     .transform((value) => parseInt(value))
     .refine((val) => val > 0, 'O número de banheiros deve ser maior que 0'),
-  petsPresence: z
+  hasPet: z
     .enum(['true', 'false'], { message: 'Campo obrigatório' })
     .transform((v) => v === 'true'),
 

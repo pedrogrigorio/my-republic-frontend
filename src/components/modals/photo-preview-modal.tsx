@@ -1,19 +1,20 @@
-import { Button } from '../shadcnui/button'
 import Cropper, { Area } from 'react-easy-crop'
+import { getCroppedImg } from '@/utils/getCroppedImg'
+import { useState } from 'react'
+import { Button } from '../shadcnui/button'
 import {
-  Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogClose,
+  Dialog,
 } from '@/components/shadcnui/dialog'
-import { useState } from 'react'
-import { getCroppedImg } from '@/utils/getCroppedImg'
 
 interface PhotoPreviewModalProps {
   open: boolean
   file: string
+  aspect: number
   onOpenChange: (value: boolean) => void
   onConfirm: (croppedImage: File) => void
 }
@@ -21,6 +22,7 @@ interface PhotoPreviewModalProps {
 export default function PhotoPreviewModal({
   open,
   file,
+  aspect,
   onConfirm,
   onOpenChange,
 }: PhotoPreviewModalProps) {
@@ -62,7 +64,7 @@ export default function PhotoPreviewModal({
             image={file}
             crop={crop}
             zoom={zoom}
-            aspect={1}
+            aspect={aspect}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
