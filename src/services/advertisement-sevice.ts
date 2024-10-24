@@ -17,3 +17,11 @@ export async function getAdvertisementById(advertisementId: string) {
 
   return response.data
 }
+
+export async function createAdvertisement(data: FormData) {
+  await api.post('advertisements/', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+}

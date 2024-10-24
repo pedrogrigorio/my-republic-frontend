@@ -8,18 +8,17 @@ import Breadcrumb from '@/components/ui/breadcrumb'
 import { getUserBySession } from '@/services/user-service'
 import { useSession } from '@/hooks/useSession'
 import { useQuery } from '@tanstack/react-query'
+import { useUser } from '@/context/user-context'
 import { Page } from '@/components/layout/page'
 import { User } from '@/types/user'
-import { useUser } from '@/context/user-context'
 
 export default function Account() {
   const { session } = useSession()
   const { setUser } = useUser()
 
   const { data: user } = useQuery<User | null>({
-    queryKey: ['get-user-profile'],
+    queryKey: ['get-user-profile', session],
     queryFn: async () => {
-      console.log('buscou na pagina')
       const user = await getUserBySession(session)
 
       if (!user) return null

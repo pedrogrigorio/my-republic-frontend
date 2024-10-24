@@ -20,9 +20,6 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
             className="h-32 w-32 rounded-full border-[1px] border-gray-300 text-3xl"
           />
           <ChangePhotoForm />
-          {/* <button className="absolute bottom-0 right-0 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-black to-gray-400">
-            <Camera size={32} className="text-white" />
-          </button> */}
         </div>
 
         <div className="mt-6 flex h-fit gap-4">

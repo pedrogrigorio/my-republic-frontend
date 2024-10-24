@@ -28,7 +28,7 @@ export default function UserSection({ sidebarIsOpen }: UserSectionProps) {
   const { session } = useSession()
 
   useQuery<User | null>({
-    queryKey: ['get-user-profile'],
+    queryKey: ['get-user-profile', session],
     queryFn: async () => {
       const response = await getUserBySession(session)
 
