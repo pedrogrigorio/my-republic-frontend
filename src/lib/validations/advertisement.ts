@@ -1,5 +1,6 @@
 import { amenities } from '@/data/amenities'
 import { rules } from '@/data/rules'
+import { BedroomType } from '@/types/bedroomtype'
 import { Gender } from '@/types/gender'
 import { z } from 'zod'
 
@@ -20,8 +21,12 @@ export const advertisementFormSchema = z.object({
   description: z
     .string()
     .min(10, 'A descrição deve ter pelo menos 10 caracteres'),
-  cep: z.string().min(9, { message: 'CEP inválido' }),
-  stateId: z.string(),
+  stateId: z
+    .string({ message: 'Campo obrigatório.' })
+    .transform((value) => parseInt(value, 10)),
+  cityId: z
+    .string({ message: 'Campo obrigatório.' })
+    .transform((value) => parseInt(value, 10)),
   picture: z.instanceof(File, { message: 'Campo obrigatório.' }),
 
   // Step 2
@@ -40,7 +45,7 @@ export const advertisementFormSchema = z.object({
       (val) => val >= 0,
       'O número de vagas ocupadas deve ser maior ou igual a 0',
     ),
-  bedroomType: z.enum(['individual', 'shared'], {
+  bedroomType: z.enum([BedroomType.INDIVIDUAL, BedroomType.SHARED], {
     message: 'Campo obrigatório',
   }),
   numBedroom: z

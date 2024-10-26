@@ -42,6 +42,7 @@ export default function FirstStep() {
   return (
     <div>
       <div className="flex flex-col items-center text-center">
+        <p>{errors.root?.message?.toString()}</p>
         <h3>Principais informações</h3>
         <span>Compartilhe algumas informações sobre sua república</span>
       </div>
@@ -79,15 +80,6 @@ export default function FirstStep() {
           <InputError error={errors.description?.message?.toString()} />
         </div>
 
-        {/* <div className="col-span-3 lg:col-span-1">
-          <Label htmlFor="cep">CEP *</Label>
-          <Input
-            placeholder="Digite o CEP..."
-            id="cep"
-            {...register('cep', { onChange: zipCodeMask })}
-          />
-          <InputError error={errors.cep?.message?.toString()} />
-        </div> */}
         <div className="col-span-3 lg:col-span-1">
           <Label>Estado *</Label>
           <Controller
@@ -96,7 +88,7 @@ export default function FirstStep() {
             render={({ field }) => (
               <Select
                 name={field.name}
-                defaultValue={field.value}
+                value={field.value}
                 onValueChange={(value) => {
                   field.onChange(value)
                   setSelectedStateId(Number(value))
@@ -134,8 +126,11 @@ export default function FirstStep() {
             render={({ field }) => (
               <Select
                 name={field.name}
-                defaultValue={field.value}
-                onValueChange={field.onChange}
+                value={field.value}
+                // onValueChange={field.onChange}
+                onValueChange={(value) => {
+                  field.onChange(value)
+                }}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione a cidade" />

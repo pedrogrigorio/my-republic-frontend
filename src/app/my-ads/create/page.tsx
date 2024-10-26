@@ -12,7 +12,6 @@ export default function CreateAdvertisement() {
   const router = useRouter()
 
   const onSubmit = async (data: AdvertisementFormData) => {
-    console.log(data)
     const { picture, ...createAdvertisementDto } = data
 
     const formData = new FormData()
@@ -22,10 +21,8 @@ export default function CreateAdvertisement() {
       JSON.stringify(createAdvertisementDto),
     )
 
-    console.log(formData)
-
     await createAdvertisement(formData)
-    // router.replace('/my-ads')
+    router.replace('/my-ads')
   }
 
   return (

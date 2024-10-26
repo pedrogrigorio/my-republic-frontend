@@ -24,7 +24,7 @@ type FieldName = keyof AdvertisementFormData
 const steps = [
   {
     step: 1,
-    fields: ['title', 'price', 'description', 'cep', 'picture'],
+    fields: ['title', 'price', 'description', 'stateId', 'cityId', 'picture'],
   },
   {
     step: 2,

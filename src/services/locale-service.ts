@@ -14,8 +14,7 @@ export async function getCities() {
   return response.data
 }
 
-export async function getCitiesByStateId(stateId: string | number) {
-  console.log(stateId)
+export async function getCitiesByStateId(stateId: number) {
   const response = await api.get<City[]>('cities/by-state', {
     params: {
       stateId,

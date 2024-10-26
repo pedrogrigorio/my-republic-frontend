@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from '@/components/shadcnui/select'
 import { Gender } from '@/types/gender'
+import { BedroomType } from '@/types/bedroomtype'
 
 export default function SecondStep() {
   const {
@@ -88,8 +89,12 @@ export default function SecondStep() {
                   <SelectValue placeholder="Selecione o tipo de quarto" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="individual">Individual</SelectItem>
-                  <SelectItem value="shared">Compartilhado</SelectItem>
+                  <SelectItem value={BedroomType.INDIVIDUAL}>
+                    Individual
+                  </SelectItem>
+                  <SelectItem value={BedroomType.SHARED}>
+                    Compartilhado
+                  </SelectItem>
                 </SelectContent>
               </Select>
             )}
