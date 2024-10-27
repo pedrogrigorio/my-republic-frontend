@@ -17,14 +17,22 @@ import { useQuery } from '@tanstack/react-query'
 import { getCitiesByStateId, getStates } from '@/services/locale-service'
 import { State } from '@/types/state'
 import { City } from '@/types/city'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function FirstStep() {
+interface FirstStepProps {
+  initialImg?: string
+}
+
+export default function FirstStep({ initialImg }: FirstStepProps) {
   const {
+    watch,
     control,
     register,
+    resetField,
     formState: { errors },
   } = useFormContext()
+
+  const initialValues = watch()
 
   const { data: states, isLoading } = useQuery({
     queryKey: ['get-states'],
@@ -38,6 +46,12 @@ export default function FirstStep() {
     queryFn: () => getCitiesByStateId(selectedStateId as number),
     enabled: !!selectedStateId,
   })
+
+  useEffect(() => {
+    if (initialValues?.stateId) {
+      setSelectedStateId(initialValues.stateId)
+    }
+  }, [initialValues?.stateId])
 
   return (
     <div>
@@ -91,7 +105,7 @@ export default function FirstStep() {
                 value={field.value}
                 onValueChange={(value) => {
                   field.onChange(value)
-                  setSelectedStateId(Number(value))
+                  resetField('cityId')
                 }}
               >
                 <SelectTrigger>
@@ -127,10 +141,7 @@ export default function FirstStep() {
               <Select
                 name={field.name}
                 value={field.value}
-                // onValueChange={field.onChange}
-                onValueChange={(value) => {
-                  field.onChange(value)
-                }}
+                onValueChange={field.onChange}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione a cidade" />
@@ -157,7 +168,7 @@ export default function FirstStep() {
         </div>
 
         <div className="col-span-3">
-          <ImagePicker />
+          <ImagePicker initialImg={initialImg} />
           <InputError error={errors.picture?.message?.toString()} />
         </div>
       </div>

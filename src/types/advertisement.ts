@@ -3,6 +3,7 @@ import { Amenity } from './amenity'
 import { Gender } from './gender'
 import { State } from './state'
 import { Rule } from './rule'
+import { Owner } from './owner'
 
 export interface Advertisement {
   id: number
@@ -17,6 +18,8 @@ export interface Advertisement {
   numBedroom: number
   numBathroom: number
   hasPet: boolean
+  isActive: boolean
+  imgSrc: string
   city: {
     id: number
     name: string
@@ -25,5 +28,5 @@ export interface Advertisement {
   state: State
   rules: Rule[]
   amenities: Amenity[]
-  // owner: OwnerResponseDto
+  owner: Owner
 }

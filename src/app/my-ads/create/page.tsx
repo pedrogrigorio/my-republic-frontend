@@ -3,6 +3,7 @@
 import AdvertisementForm from '@/components/forms/advertisement-form'
 import Breadcrumb from '@/components/ui/breadcrumb'
 
+import { transformAdvertisementFinalValues } from '@/utils/transformAdvertisementData'
 import { AdvertisementFormData } from '@/types/validation-types'
 import { createAdvertisement } from '@/services/advertisement-sevice'
 import { useRouter } from 'next/navigation'
@@ -12,10 +13,15 @@ export default function CreateAdvertisement() {
   const router = useRouter()
 
   const onSubmit = async (data: AdvertisementFormData) => {
-    const { picture, ...createAdvertisementDto } = data
+    const { picture, ...createAdvertisementDto } =
+      transformAdvertisementFinalValues(data)
 
     const formData = new FormData()
-    formData.append('file', picture)
+
+    if (picture) {
+      formData.append('file', picture)
+    }
+
     formData.append(
       'createAdvertisementDto',
       JSON.stringify(createAdvertisementDto),

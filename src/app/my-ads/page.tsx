@@ -5,23 +5,25 @@ import MyAdsSkeleton from './_components/my-ads-skeleton'
 import SearchInput from '@/components/ui/search-input'
 import Link from 'next/link'
 
-import { advertisements } from '@/data/advertisements'
+import { getAdvertisementsByOwner } from '@/services/advertisement-sevice'
 import { useSelectedTab } from './_hooks/useSelectedTab'
-import { Advertisement } from '@/types/advertisement'
-import { useMockFetch } from '@/hooks/useMockFetch'
+import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/shadcnui/button'
 import { Page } from '@/components/layout/page'
 
 export default function MyAds() {
-  const { data: ads, isLoading } = useMockFetch<Advertisement[]>(advertisements)
+  const { data, isLoading } = useQuery({
+    queryKey: ['get-ads-by-user'],
+    queryFn: () => getAdvertisementsByOwner(),
+  })
   const { selectedTab, selectAll, selectActive, selectPaused } =
     useSelectedTab()
 
-  if (isLoading || !ads) {
+  if (isLoading) {
     return <MyAdsSkeleton />
   }
 
-  if (ads.length === 0) {
+  if (!data?.total) {
     return (
       <div className="absolute top-64 flex w-full flex-col items-center gap-4 px-8 text-center">
         <div className="flex flex-col items-center gap-2">
@@ -49,7 +51,7 @@ export default function MyAds() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-bold">Meus anúncios</h2>
-            <span>10 resultados encontrados</span>
+            <span>{data.total} resultados encontrados</span>
           </div>
           <Button
             className="bg-button-primary hover:bg-button-primary-hover"
@@ -85,7 +87,7 @@ export default function MyAds() {
 
         <ul>
           {selectedTab === 'all' &&
-            ads.map((ad) => (
+            data.advertisements.map((ad) => (
               <li key={ad.id}>
                 <AdvertisementListItem advertisement={ad} />
 
@@ -95,7 +97,7 @@ export default function MyAds() {
             ))}
 
           {selectedTab === 'active' &&
-            ads
+            data.advertisements
               .filter((ad) => ad.isActive)
               .map((ad) => (
                 <li key={ad.id}>
@@ -107,7 +109,7 @@ export default function MyAds() {
               ))}
 
           {selectedTab === 'paused' &&
-            ads
+            data.advertisements
               .filter((ad) => !ad.isActive)
               .map((ad) => (
                 <li key={ad.id}>

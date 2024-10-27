@@ -37,7 +37,7 @@ export default function AdvertisementListItem({
     <div className="relative flex gap-3 py-3">
       <Link href={`/student-housing/${advertisement.id}`}>
         <Image
-          src={advertisement.img_url}
+          src={advertisement.imgSrc}
           width={224}
           height={128}
           alt="ad_image"
@@ -64,7 +64,9 @@ export default function AdvertisementListItem({
 
           <div className="mt-1 flex items-center gap-1 text-sm">
             <MapPin weight="fill" size={20} />
-            <span>{advertisement.locale}</span>
+            <span>
+              {advertisement.city.name}, {advertisement.state.uf.toUpperCase()}
+            </span>
           </div>
         </div>
 

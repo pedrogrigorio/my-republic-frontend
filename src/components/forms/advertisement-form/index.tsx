@@ -8,15 +8,17 @@ import ThirdStep from './third-step'
 import FourthStep from './fourth-step'
 import FifthStep from './fifth-step'
 
-import { advertisementFormSchema } from '@/lib/validations/advertisement'
+import { transformAdvertisementInitialValues } from '@/utils/transformAdvertisementData'
 import { AdvertisementFormData } from '@/types/validation-types'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useRef, useState } from 'react'
+import { Advertisement } from '@/types/advertisement'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { advertisementFormSchema } from '@/lib/validations/advertisement'
 
 interface AdvertisementFormProps {
   onSubmit: (data: AdvertisementFormData) => void
-  initialValues?: AdvertisementFormData
+  initialValues?: Advertisement
 }
 
 type FieldName = keyof AdvertisementFormData
@@ -62,7 +64,9 @@ export default function AdvertisementForm({
 
   const advertisementForm = useForm<AdvertisementFormData>({
     resolver: zodResolver(advertisementFormSchema),
-    defaultValues: initialValues,
+    defaultValues: initialValues
+      ? transformAdvertisementInitialValues(initialValues)
+      : {},
   })
 
   const { handleSubmit, trigger, clearErrors } = advertisementForm
@@ -106,7 +110,9 @@ export default function AdvertisementForm({
             className="py-5"
             ref={formRef}
           >
-            {currentStep === 1 && <FirstStep />}
+            {currentStep === 1 && (
+              <FirstStep initialImg={initialValues?.imgSrc} />
+            )}
 
             {currentStep === 2 && <SecondStep />}
 

@@ -69,8 +69,7 @@ export default function Advertisement() {
           {/* Image */}
           <div className="group relative aspect-video">
             <Image
-              // src={ad.img_url}
-              src="/images/apartment.jpg"
+              src={ad.imgSrc}
               alt="advertisement_image"
               width={1920}
               height={1080}

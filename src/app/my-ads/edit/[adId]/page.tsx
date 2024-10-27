@@ -3,29 +3,48 @@
 import AdvertisementForm from '@/components/forms/advertisement-form'
 import Breadcrumb from '@/components/ui/breadcrumb'
 
+import { transformAdvertisementFinalValues } from '@/utils/transformAdvertisementData'
 import { AdvertisementFormData } from '@/types/validation-types'
-import { useRouter } from 'next/navigation'
-import { toast } from '@/components/shadcnui/use-toast'
+import { useParams, useRouter } from 'next/navigation'
+import { Advertisement } from '@/types/advertisement'
+import { useQuery } from '@tanstack/react-query'
 import { Page } from '@/components/layout/page'
-import { ad } from '@/data/ad'
+import {
+  getAdvertisementById,
+  updateAdvertisement,
+} from '@/services/advertisement-sevice'
 
 export default function EditAdvertisement() {
+  const { adId } = useParams()
+
+  const { data: advertisement } = useQuery<Advertisement>({
+    queryKey: ['get-advertisement-to-edit'],
+    queryFn: () => getAdvertisementById(adId as string),
+  })
+
   const router = useRouter()
 
-  const onSubmit = (data: AdvertisementFormData) => {
-    console.log(data)
+  const onSubmit = async (data: AdvertisementFormData) => {
+    const { picture, ...updateAdvertisementDto } =
+      transformAdvertisementFinalValues(data)
 
-    toast({
-      title: 'Editado com sucesso',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    const formData = new FormData()
+
+    if (picture) {
+      formData.append('file', picture)
+    }
+
+    formData.append(
+      'updateAdvertisementDto',
+      JSON.stringify(updateAdvertisementDto),
+    )
+
+    await updateAdvertisement(formData, Number(adId))
 
     router.replace('/my-ads')
   }
+
+  if (!advertisement) return null
 
   return (
     <Page.Container className="pb-20">
@@ -38,7 +57,7 @@ export default function EditAdvertisement() {
 
       <Page.Content>
         <h2 className="font-bold">Editar anúncio</h2>
-        <AdvertisementForm onSubmit={onSubmit} initialValues={ad} />
+        <AdvertisementForm onSubmit={onSubmit} initialValues={advertisement} />
       </Page.Content>
     </Page.Container>
   )
