@@ -34,7 +34,7 @@ export function transformAdvertisementInitialValues(
 }
 
 export function transformAdvertisementFinalValues(data: AdvertisementFormData) {
-  return {
+  const object = {
     title: data.title,
     price: parseFloat(
       data.price.replace('R$ ', '').replace('.', '').replace(',', '.'),
@@ -54,4 +54,6 @@ export function transformAdvertisementFinalValues(data: AdvertisementFormData) {
     rules: data.rules,
     picture: data.picture,
   }
+
+  return object
 }

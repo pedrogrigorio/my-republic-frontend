@@ -18,21 +18,19 @@ import { getCitiesByStateId, getStates } from '@/services/locale-service'
 import { State } from '@/types/state'
 import { City } from '@/types/city'
 import { useEffect, useState } from 'react'
+import { Advertisement } from '@/types/advertisement'
 
 interface FirstStepProps {
-  initialImg?: string
+  initialValues?: Advertisement
 }
 
-export default function FirstStep({ initialImg }: FirstStepProps) {
+export default function FirstStep({ initialValues }: FirstStepProps) {
   const {
-    watch,
     control,
     register,
     resetField,
     formState: { errors },
   } = useFormContext()
-
-  const initialValues = watch()
 
   const { data: states, isLoading } = useQuery({
     queryKey: ['get-states'],
@@ -48,10 +46,10 @@ export default function FirstStep({ initialImg }: FirstStepProps) {
   })
 
   useEffect(() => {
-    if (initialValues?.stateId) {
-      setSelectedStateId(initialValues.stateId)
+    if (initialValues?.state.id) {
+      setSelectedStateId(initialValues.state.id)
     }
-  }, [initialValues?.stateId])
+  }, [initialValues])
 
   return (
     <div>
@@ -168,7 +166,7 @@ export default function FirstStep({ initialImg }: FirstStepProps) {
         </div>
 
         <div className="col-span-3">
-          <ImagePicker initialImg={initialImg} />
+          <ImagePicker initialImg={initialValues?.imgSrc} />
           <InputError error={errors.picture?.message?.toString()} />
         </div>
       </div>

@@ -18,7 +18,7 @@ export default function EditAdvertisement() {
   const { adId } = useParams()
 
   const { data: advertisement } = useQuery<Advertisement>({
-    queryKey: ['get-advertisement-to-edit'],
+    queryKey: ['get-advertisement-to-edit', adId],
     queryFn: () => getAdvertisementById(adId as string),
   })
 

@@ -37,7 +37,10 @@ export default function AdvertisementListItem({
     <div className="relative flex gap-3 py-3">
       <Link href={`/student-housing/${advertisement.id}`}>
         <Image
-          src={advertisement.imgSrc}
+          src={
+            advertisement.imgSrc ??
+            'http://localhost:3000/images/placeholder.png'
+          }
           width={224}
           height={128}
           alt="ad_image"

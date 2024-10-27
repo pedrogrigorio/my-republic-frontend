@@ -60,6 +60,7 @@ export default function AdvertisementForm({
   initialValues,
 }: AdvertisementFormProps) {
   const [currentStep, setCurrentStep] = useState(1)
+
   const formRef = useRef<HTMLFormElement>(null)
 
   const advertisementForm = useForm<AdvertisementFormData>({
@@ -110,9 +111,7 @@ export default function AdvertisementForm({
             className="py-5"
             ref={formRef}
           >
-            {currentStep === 1 && (
-              <FirstStep initialImg={initialValues?.imgSrc} />
-            )}
+            {currentStep === 1 && <FirstStep initialValues={initialValues} />}
 
             {currentStep === 2 && <SecondStep />}
 
