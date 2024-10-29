@@ -52,6 +52,10 @@ export async function updateAdvertisement(
   })
 }
 
+export async function pauseAdvertisement(advertisementId: number) {
+  await api.patch(`advertisements/pause/${advertisementId}`)
+}
+
 export async function deleteAdvertisement(advertisementId: number) {
   await api.delete(`advertisements/${advertisementId}`)
 }

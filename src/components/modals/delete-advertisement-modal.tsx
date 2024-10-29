@@ -1,16 +1,17 @@
 import { deleteAdvertisement } from '@/services/advertisement-sevice'
+import { useQueryClient } from '@tanstack/react-query'
+import { Advertisement } from '@/types/advertisement'
+import { useDialog } from '@/hooks/useDialog'
 import { Button } from '../shadcnui/button'
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogClose,
+  Dialog,
 } from '@/components/shadcnui/dialog'
-import { Advertisement } from '@/types/advertisement'
-import { useQueryClient } from '@tanstack/react-query'
 
 interface DeleteAdvertisementModalProps {
   children: React.ReactNode
@@ -22,16 +23,18 @@ export default function DeleteAdvertisementModal({
   advertisement,
 }: DeleteAdvertisementModalProps) {
   const queryClient = useQueryClient()
+  const dialog = useDialog()
 
-  const onDelete = async () => {
+  const onConfirm = async () => {
     await deleteAdvertisement(advertisement.id)
     queryClient.invalidateQueries({
       queryKey: ['get-ads-by-user'],
     })
+    dialog.dismiss()
   }
 
   return (
-    <Dialog>
+    <Dialog {...dialog.props}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader className="px-6">
@@ -49,7 +52,7 @@ export default function DeleteAdvertisementModal({
             </Button>
           </DialogClose>
           <Button
-            onClick={onDelete}
+            onClick={onConfirm}
             className="bg-danger px-8 hover:bg-red-600"
           >
             Excluir

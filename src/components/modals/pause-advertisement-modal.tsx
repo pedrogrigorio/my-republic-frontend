@@ -1,23 +1,40 @@
+import { pauseAdvertisement } from '@/services/advertisement-sevice'
+import { useQueryClient } from '@tanstack/react-query'
+import { Advertisement } from '@/types/advertisement'
+import { useDialog } from '@/hooks/useDialog'
 import { Button } from '../shadcnui/button'
 import {
-  Dialog,
-  DialogClose,
   DialogContent,
+  DialogTrigger,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogClose,
+  Dialog,
 } from '@/components/shadcnui/dialog'
 
 interface PauseAdvertisementModalProps {
   children: React.ReactNode
+  advertisement: Advertisement
 }
 
 export default function PauseAdvertisementModal({
   children,
+  advertisement,
 }: PauseAdvertisementModalProps) {
+  const queryClient = useQueryClient()
+  const dialog = useDialog()
+
+  const onConfirm = async () => {
+    await pauseAdvertisement(advertisement.id)
+    queryClient.invalidateQueries({
+      queryKey: ['get-ads-by-user'],
+    })
+    dialog.dismiss()
+  }
+
   return (
-    <Dialog>
+    <Dialog {...dialog.props}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader className="px-6">
@@ -34,10 +51,10 @@ export default function PauseAdvertisementModal({
             </Button>
           </DialogClose>
           <Button
-            type="submit"
+            onClick={onConfirm}
             className="bg-button-primary px-8 hover:bg-button-primary-hover"
           >
-            Excluir
+            Pausar
           </Button>
         </DialogFooter>
       </DialogContent>

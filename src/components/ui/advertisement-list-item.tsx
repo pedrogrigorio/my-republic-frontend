@@ -101,7 +101,7 @@ export default function AdvertisementListItem({
                     <span>Editar</span>
                   </Link>
                 </DropdownMenuItem>
-                <PauseAdvertisementModal>
+                <PauseAdvertisementModal advertisement={advertisement}>
                   <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                     <Pause className="mr-2 h-4 w-4" />
                     <span>Pausar</span>
