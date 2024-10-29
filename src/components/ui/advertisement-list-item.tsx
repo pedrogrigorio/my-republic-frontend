@@ -108,7 +108,7 @@ export default function AdvertisementListItem({
                   </DropdownMenuItem>
                 </PauseAdvertisementModal>
                 <DropdownMenuSeparator />
-                <DeleteAdvertisementModal>
+                <DeleteAdvertisementModal advertisement={advertisement}>
                   <DropdownMenuItem
                     onSelect={(e) => e.preventDefault()}
                     className="text-danger"

@@ -51,3 +51,7 @@ export async function updateAdvertisement(
     },
   })
 }
+
+export async function deleteAdvertisement(advertisementId: number) {
+  await api.delete(`advertisements/${advertisementId}`)
+}

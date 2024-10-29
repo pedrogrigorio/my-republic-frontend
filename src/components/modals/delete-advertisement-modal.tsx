@@ -1,3 +1,4 @@
+import { deleteAdvertisement } from '@/services/advertisement-sevice'
 import { Button } from '../shadcnui/button'
 import {
   Dialog,
@@ -8,14 +9,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/shadcnui/dialog'
+import { Advertisement } from '@/types/advertisement'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface DeleteAdvertisementModalProps {
   children: React.ReactNode
+  advertisement: Advertisement
 }
 
 export default function DeleteAdvertisementModal({
   children,
+  advertisement,
 }: DeleteAdvertisementModalProps) {
+  const queryClient = useQueryClient()
+
+  const onDelete = async () => {
+    await deleteAdvertisement(advertisement.id)
+    queryClient.invalidateQueries({
+      queryKey: ['get-ads-by-user'],
+    })
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -34,7 +48,10 @@ export default function DeleteAdvertisementModal({
               Cancelar
             </Button>
           </DialogClose>
-          <Button type="submit" className="bg-danger px-8 hover:bg-red-600">
+          <Button
+            onClick={onDelete}
+            className="bg-danger px-8 hover:bg-red-600"
+          >
             Excluir
           </Button>
         </DialogFooter>
