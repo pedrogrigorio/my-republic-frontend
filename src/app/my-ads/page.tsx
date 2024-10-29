@@ -10,12 +10,21 @@ import { useSelectedTab } from './_hooks/useSelectedTab'
 import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/shadcnui/button'
 import { Page } from '@/components/layout/page'
+import CustomPagination from '@/components/ui/custom-pagination'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function MyAds() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
+  const page = Number(searchParams.get('page') ?? '1')
+  const pageSize = 12
+
   const { data, isLoading } = useQuery({
-    queryKey: ['get-ads-by-user'],
-    queryFn: () => getAdvertisementsByOwner(),
+    queryKey: ['get-ads-by-user', page],
+    queryFn: () => getAdvertisementsByOwner(page),
   })
+
   const { selectedTab, selectAll, selectActive, selectPaused } =
     useSelectedTab()
 
@@ -40,6 +49,8 @@ export default function MyAds() {
       </div>
     )
   }
+
+  const totalPages = Math.ceil(data.total / Number(pageSize))
 
   return (
     <Page.Container>
@@ -120,6 +131,19 @@ export default function MyAds() {
                 </li>
               ))}
         </ul>
+
+        <CustomPagination
+          firstPage={() => router.push('?page=1')}
+          lastPage={() => router.push('?page=1')}
+          nextPage={() => router.push(`?page=${Number(page) + 1}`)}
+          previousPage={() => router.push(`?page=${Number(page) - 1}`)}
+          setPageIndex={(p) => router.push(`?page=${p + 1}`)}
+          pageIndex={Number(page) - 1}
+          totalPages={totalPages}
+          canNextPage={Number(page) < totalPages}
+          canPreviousPage={Number(page) > 1}
+          className="mt-4"
+        />
       </Page.Content>
     </Page.Container>
   )
