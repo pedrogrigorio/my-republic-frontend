@@ -103,6 +103,7 @@ export default function FirstStep({ initialValues }: FirstStepProps) {
                 value={field.value}
                 onValueChange={(value) => {
                   field.onChange(value)
+                  setSelectedStateId(Number(value))
                   resetField('cityId')
                 }}
               >

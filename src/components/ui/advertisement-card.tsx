@@ -33,8 +33,7 @@ export default function AdvertisementCard({ ad }: AdvertisementCardProps) {
       <div className="group flex flex-col rounded-xl bg-white shadow-custom">
         <div className="relative">
           <Image
-            // src={ad.img_url}
-            src="/images/apartment.jpg"
+            src={ad.imgSrc}
             alt="advertisement_image"
             width={692}
             height={372}
