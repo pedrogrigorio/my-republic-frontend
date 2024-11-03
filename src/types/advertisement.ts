@@ -20,6 +20,7 @@ export interface Advertisement {
   hasPet: boolean
   isActive: boolean
   imgSrc: string
+  phone: string
   city: {
     id: number
     name: string

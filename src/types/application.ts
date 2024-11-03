@@ -5,6 +5,11 @@ export interface Application {
   id: number
   status: ApplicationStatus
   createdAt: Date
-  applicantId: number
+  message: string
+  applicant: {
+    id: number
+    name: string
+    imgSrc: string
+  }
   advertisement: BaseAdvertisement
 }

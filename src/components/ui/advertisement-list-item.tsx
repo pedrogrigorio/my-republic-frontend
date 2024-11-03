@@ -113,10 +113,9 @@ export default function AdvertisementListItem({
       </div>
       <div className="absolute right-10 top-1/2 flex h-fit -translate-y-1/2 gap-3">
         {variant === 'advertiser' && (
-          <div className="relative">
+          <Link href={`/my-ads/${advertisement.id}/review-applications`}>
             <ClipboardText size={32} weight="bold" />
-            <div className="absolute bottom-0 right-0 h-4 w-4 rounded-full bg-badge" />
-          </div>
+          </Link>
         )}
 
         <DropdownMenu>

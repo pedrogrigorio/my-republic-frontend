@@ -56,6 +56,8 @@ export default function Advertisement() {
     return <AdvertisementSkeleton />
   }
 
+  const remainingSlots = ad.totalSlots - ad.occupiedSlots
+
   return (
     <Page.Container>
       <Page.Header>
@@ -176,26 +178,35 @@ export default function Advertisement() {
             </div>
 
             {/* Vacancies */}
-            <div className="flex-1">
+            <div>
               <div className="flex items-center gap-4">
                 <div className="flex items-center justify-center gap-1 rounded-xl border border-primary bg-white px-2">
                   <Person size={16} />
                   {ad.occupiedSlots} / {ad.totalSlots}
                 </div>
-                {ad.totalSlots - ad.occupiedSlots < 3 && (
+                {remainingSlots > 0 && remainingSlots < 3 && (
                   <div className="flex items-center gap-1 text-warning">
                     <Warning weight="fill" />
-                    <span className="text-sm font-medium">Restam 2 vagas</span>
+                    <span className="text-sm font-medium">
+                      Resta{remainingSlots > 1 && 'm'} {remainingSlots} vaga
+                      {remainingSlots > 1 && 's'}
+                    </span>
                   </div>
                 )}
               </div>
+            </div>
+
+            {/* Contact */}
+            <div className="flex flex-1 flex-col">
+              <h4>Informações de contato: </h4>
+              <span>Telefone: {ad.phone}</span>
             </div>
 
             {/* Apply button */}
             <ApplyModal advertisementId={ad.id}>
               <Button
                 className="bg-button-secondary hover:bg-button-secondary-hover"
-                disabled={user?.id === ad.owner.id}
+                disabled={user?.id === ad.owner.id || !ad.isActive}
               >
                 Tenho interesse
               </Button>

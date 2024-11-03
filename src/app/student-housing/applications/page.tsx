@@ -1,33 +1,34 @@
 'use client'
 
+import CustomPagination from '@/components/ui/custom-pagination'
 import AdvertisementListItem from '@/components/ui/advertisement-list-item'
 import ApplicationsSkeleton from './_components/applications-skeleton'
 import SearchInput from '@/components/ui/search-input'
 import Link from 'next/link'
 
+import { useRouter, useSearchParams } from 'next/navigation'
 import { getApplications } from '@/services/application-service'
 import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/shadcnui/button'
 import { Page } from '@/components/layout/page'
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationLink,
-  PaginationEllipsis,
-  PaginationNext,
-} from '@/components/shadcnui/pagination'
 
 export default function Applications() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
+  const page = Number(searchParams.get('page') ?? '1')
+  const pageSize = 12
+
   const { data, isLoading } = useQuery({
     queryKey: ['get-applications'],
-    queryFn: getApplications,
+    queryFn: () => getApplications(page),
   })
 
   if (isLoading || !data) {
     return <ApplicationsSkeleton />
   }
+
+  const totalPages = Math.ceil(data.total / Number(pageSize))
 
   if (data.applications.length === 0) {
     return (
@@ -76,30 +77,18 @@ export default function Applications() {
           ))}
         </ul>
 
-        <Pagination className="mt-8">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" isActive>
-                2
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <CustomPagination
+          firstPage={() => router.push('?page=1')}
+          lastPage={() => router.push('?page=1')}
+          nextPage={() => router.push(`?page=${Number(page) + 1}`)}
+          previousPage={() => router.push(`?page=${Number(page) - 1}`)}
+          setPageIndex={(p) => router.push(`?page=${p + 1}`)}
+          pageIndex={Number(page) - 1}
+          totalPages={totalPages}
+          canNextPage={Number(page) < totalPages}
+          canPreviousPage={Number(page) > 1}
+          className="mt-4"
+        />
       </Page.Content>
     </Page.Container>
   )

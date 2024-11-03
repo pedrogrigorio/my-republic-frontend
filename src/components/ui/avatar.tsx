@@ -1,5 +1,4 @@
 import { getUserInitials } from '@/utils/getUserInitials'
-import { User } from '@/types/user'
 import {
   Avatar as AvatarRoot,
   AvatarFallback,
@@ -7,7 +6,7 @@ import {
 } from '../shadcnui/avatar'
 
 interface AvatarProps {
-  user: User
+  user: { name: string; imgSrc: string }
   className?: string
 }
 
