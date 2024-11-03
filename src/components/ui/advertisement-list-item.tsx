@@ -13,7 +13,7 @@ import {
 } from '@/components/shadcnui/dropdown-menu'
 
 import {
-  ChatCircle,
+  ClipboardText,
   DotsThreeOutline,
   Eye,
   MapPin,
@@ -23,16 +23,25 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import DeleteAdvertisementModal from '../modals/delete-advertisement-modal'
 import PauseAdvertisementModal from '../modals/pause-advertisement-modal'
+import { BaseAdvertisement } from '@/types/base-advertisement'
+import { ApplicationStatus } from '@/types/application-status'
+import CancelApplicationModal from '../modals/cancel-application-modal'
 
 interface AdvertisementListItemProps {
-  advertisement: Advertisement
+  advertisement: BaseAdvertisement | Advertisement
   variant?: 'applicant' | 'advertiser'
+  status?: ApplicationStatus
+  applicationId?: number
 }
 
 export default function AdvertisementListItem({
   advertisement,
   variant = 'advertiser',
+  applicationId,
+  status,
 }: AdvertisementListItemProps) {
+  const isActive = 'isActive' in advertisement ? advertisement.isActive : true
+
   return (
     <div className="relative flex gap-3 py-3">
       <Link href={`/student-housing/${advertisement.id}`}>
@@ -52,16 +61,41 @@ export default function AdvertisementListItem({
           <div className="flex items-center gap-3">
             <h3>{advertisement.title}</h3>
 
-            {advertisement.isActive ? (
-              <div className="flex items-center gap-1">
-                <div className="h-3 w-3 rounded-full bg-button-filter" />
-                <span className="text-xs">Ativo</span>
-              </div>
+            {variant === 'advertiser' ? (
+              isActive ? (
+                <div className="flex items-center gap-1">
+                  <div className="h-3 w-3 rounded-full bg-button-filter" />
+                  <span className="text-xs">Ativo</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1">
+                  <div className="h-3 w-3 rounded-full bg-red-400" />
+                  <span className="text-xs">Pausado</span>
+                </div>
+              )
             ) : (
-              <div className="flex items-center gap-1">
-                <div className="h-3 w-3 rounded-full bg-red-400" />
-                <span className="text-xs">Pausado</span>
-              </div>
+              <>
+                {status === ApplicationStatus.PENDING && (
+                  <div className="flex items-center gap-1">
+                    <div className="h-3 w-3 rounded-full bg-gray-300" />
+                    <span className="text-xs">Pendente</span>
+                  </div>
+                )}
+
+                {status === ApplicationStatus.ACCEPTED && (
+                  <div className="flex items-center gap-1">
+                    <div className="h-3 w-3 rounded-full bg-button-filter" />
+                    <span className="text-xs">Aceito</span>
+                  </div>
+                )}
+
+                {status === ApplicationStatus.REFUSED && (
+                  <div className="flex items-center gap-1">
+                    <div className="h-3 w-3 rounded-full bg-red-500" />
+                    <span className="text-xs">Recusado</span>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
@@ -78,16 +112,19 @@ export default function AdvertisementListItem({
         </span>
       </div>
       <div className="absolute right-10 top-1/2 flex h-fit -translate-y-1/2 gap-3">
-        <div className="relative">
-          <ChatCircle size={32} weight="bold" />
-          <div className="absolute bottom-0 right-0 h-4 w-4 rounded-full bg-badge" />
-        </div>
+        {variant === 'advertiser' && (
+          <div className="relative">
+            <ClipboardText size={32} weight="bold" />
+            <div className="absolute bottom-0 right-0 h-4 w-4 rounded-full bg-badge" />
+          </div>
+        )}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <DotsThreeOutline size={32} weight="fill" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
-            {variant === 'advertiser' ? (
+            {variant === 'advertiser' || !applicationId ? (
               <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
                   <Link href={`/student-housing/${advertisement.id}`}>
@@ -101,14 +138,14 @@ export default function AdvertisementListItem({
                     <span>Editar</span>
                   </Link>
                 </DropdownMenuItem>
-                <PauseAdvertisementModal advertisement={advertisement}>
+                <PauseAdvertisementModal advertisementId={advertisement.id}>
                   <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                     <Pause className="mr-2 h-4 w-4" />
                     <span>Pausar</span>
                   </DropdownMenuItem>
                 </PauseAdvertisementModal>
                 <DropdownMenuSeparator />
-                <DeleteAdvertisementModal advertisement={advertisement}>
+                <DeleteAdvertisementModal advertisementId={advertisement.id}>
                   <DropdownMenuItem
                     onSelect={(e) => e.preventDefault()}
                     className="text-danger"
@@ -127,10 +164,15 @@ export default function AdvertisementListItem({
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-danger">
-                  <TrashSimple className="mr-2 h-4 w-4" />
-                  <span>Cancelar aplicação</span>
-                </DropdownMenuItem>
+                <CancelApplicationModal applicationId={applicationId}>
+                  <DropdownMenuItem
+                    className="text-danger"
+                    onSelect={(e) => e.preventDefault()}
+                  >
+                    <TrashSimple className="mr-2 h-4 w-4" />
+                    <span>Cancelar aplicação</span>
+                  </DropdownMenuItem>
+                </CancelApplicationModal>
               </DropdownMenuGroup>
             )}
           </DropdownMenuContent>

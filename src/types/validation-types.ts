@@ -3,10 +3,13 @@ import { advertisementFormSchema } from '@/lib/validations/advertisement'
 import { changeEmailFormSchema } from '@/lib/validations/change-email'
 import { changeNameFormSchema } from '@/lib/validations/change-name'
 import { signUpFormSchema } from '@/lib/validations/sign-up'
+import { applyFormSchema } from '@/lib/validations/appy'
 import { loginFormSchema } from '@/lib/validations/login'
 import { z } from 'zod'
 
 export type AdvertisementFormData = z.infer<typeof advertisementFormSchema>
+
+export type ApplyFormData = z.infer<typeof applyFormSchema>
 
 export type LoginFormData = z.infer<typeof loginFormSchema>
 

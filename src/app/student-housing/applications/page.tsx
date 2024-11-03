@@ -5,9 +5,8 @@ import ApplicationsSkeleton from './_components/applications-skeleton'
 import SearchInput from '@/components/ui/search-input'
 import Link from 'next/link'
 
-import { ApplicationsList } from '@/types/applications-list'
-import { applicationsList } from '@/data/applications-list'
-import { useMockFetch } from '@/hooks/useMockFetch'
+import { getApplications } from '@/services/application-service'
+import { useQuery } from '@tanstack/react-query'
 import { Button } from '@/components/shadcnui/button'
 import { Page } from '@/components/layout/page'
 import {
@@ -21,13 +20,16 @@ import {
 } from '@/components/shadcnui/pagination'
 
 export default function Applications() {
-  const { data, isLoading } = useMockFetch<ApplicationsList>(applicationsList)
+  const { data, isLoading } = useQuery({
+    queryKey: ['get-applications'],
+    queryFn: getApplications,
+  })
 
   if (isLoading || !data) {
     return <ApplicationsSkeleton />
   }
 
-  if (data.ads.length === 0) {
+  if (data.applications.length === 0) {
     return (
       <div className="absolute top-64 flex w-full flex-col items-center gap-4 px-8 text-center">
         <div className="flex flex-col items-center gap-2">
@@ -57,12 +59,17 @@ export default function Applications() {
         </div>
 
         <ul>
-          {data.ads.map((ad, index) => (
-            <li key={ad.id}>
-              <AdvertisementListItem advertisement={ad} variant="applicant" />
+          {data.applications.map((app, index) => (
+            <li key={app.id}>
+              <AdvertisementListItem
+                advertisement={app.advertisement}
+                status={app.status}
+                applicationId={app.id}
+                variant="applicant"
+              />
 
               {/* Divisor */}
-              {index !== data.ads.length - 1 && (
+              {index !== data.applications.length - 1 && (
                 <div className="h-[1px] w-full bg-divisor" />
               )}
             </li>

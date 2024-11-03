@@ -33,9 +33,11 @@ import {
   Bed,
   X,
 } from '@phosphor-icons/react/dist/ssr'
+import { useUser } from '@/context/user-context'
 
 export default function Advertisement() {
   const { adId } = useParams()
+  const { user } = useUser()
 
   const { data: ad, isLoading } = useQuery<TAdvertisement>({
     queryKey: ['get-advertisement'],
@@ -190,8 +192,11 @@ export default function Advertisement() {
             </div>
 
             {/* Apply button */}
-            <ApplyModal>
-              <Button className="bg-button-secondary hover:bg-button-secondary-hover">
+            <ApplyModal advertisementId={ad.id}>
+              <Button
+                className="bg-button-secondary hover:bg-button-secondary-hover"
+                disabled={user?.id === ad.owner.id}
+              >
                 Tenho interesse
               </Button>
             </ApplyModal>

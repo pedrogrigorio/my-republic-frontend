@@ -1,6 +1,5 @@
 import { deleteAdvertisement } from '@/services/advertisement-sevice'
 import { useQueryClient } from '@tanstack/react-query'
-import { Advertisement } from '@/types/advertisement'
 import { useDialog } from '@/hooks/useDialog'
 import { Button } from '../shadcnui/button'
 import {
@@ -15,18 +14,18 @@ import {
 
 interface DeleteAdvertisementModalProps {
   children: React.ReactNode
-  advertisement: Advertisement
+  advertisementId: number
 }
 
 export default function DeleteAdvertisementModal({
   children,
-  advertisement,
+  advertisementId,
 }: DeleteAdvertisementModalProps) {
   const queryClient = useQueryClient()
   const dialog = useDialog()
 
   const onConfirm = async () => {
-    await deleteAdvertisement(advertisement.id)
+    await deleteAdvertisement(advertisementId)
     queryClient.invalidateQueries({
       queryKey: ['get-ads-by-user'],
     })

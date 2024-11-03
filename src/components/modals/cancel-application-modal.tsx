@@ -1,33 +1,33 @@
-import { pauseAdvertisement } from '@/services/advertisement-sevice'
+import { cancelApplication } from '@/services/application-service'
 import { useQueryClient } from '@tanstack/react-query'
 import { useDialog } from '@/hooks/useDialog'
 import { Button } from '../shadcnui/button'
 import {
-  DialogContent,
   DialogTrigger,
-  DialogFooter,
+  DialogContent,
   DialogHeader,
+  DialogFooter,
   DialogTitle,
   DialogClose,
   Dialog,
 } from '@/components/shadcnui/dialog'
 
-interface PauseAdvertisementModalProps {
+interface DeleteAdvertisementModalProps {
   children: React.ReactNode
-  advertisementId: number
+  applicationId: number
 }
 
-export default function PauseAdvertisementModal({
+export default function CancelApplicationModal({
   children,
-  advertisementId,
-}: PauseAdvertisementModalProps) {
+  applicationId,
+}: DeleteAdvertisementModalProps) {
   const queryClient = useQueryClient()
   const dialog = useDialog()
 
   const onConfirm = async () => {
-    await pauseAdvertisement(advertisementId)
+    await cancelApplication(applicationId)
     queryClient.invalidateQueries({
-      queryKey: ['get-ads-by-user'],
+      queryKey: ['get-applications'],
     })
     dialog.dismiss()
   }
@@ -37,11 +37,12 @@ export default function PauseAdvertisementModal({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader className="px-6">
-          <DialogTitle>Pausar anúncio</DialogTitle>
+          <DialogTitle>Excluir aplicação</DialogTitle>
         </DialogHeader>
         <div className="h-[1px] w-full bg-divisor" />
         <div className="px-6 py-4">
-          Você tem certeza que deseja pausar o anúncio?
+          Você tem certeza que deseja excluir esta aplicação? Esse processo não
+          poderá ser desfeito.
         </div>
         <DialogFooter className="px-6">
           <DialogClose asChild>
@@ -51,9 +52,9 @@ export default function PauseAdvertisementModal({
           </DialogClose>
           <Button
             onClick={onConfirm}
-            className="bg-button-primary px-8 hover:bg-button-primary-hover"
+            className="bg-danger px-8 hover:bg-red-600"
           >
-            Pausar
+            Sim, excluir
           </Button>
         </DialogFooter>
       </DialogContent>
