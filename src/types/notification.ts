@@ -1,15 +1,15 @@
-import { StaticImageData } from 'next/image'
+import { NotificationType } from './notification-type'
 
 export interface Notification {
   id: number
-  img_url: string | null | StaticImageData
-  type: number
-  user: string | null
-  title: string
-  ad: string
-  body: string
-  date: string
+  message: string
   isRead: boolean
+  type: NotificationType
+  createdAt: Date
+  recipient: {
+    id: number
+    name: string
+  }
 }
 
 export interface NotificationGroup {

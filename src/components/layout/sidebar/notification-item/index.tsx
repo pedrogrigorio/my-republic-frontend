@@ -1,7 +1,6 @@
 import Notifications from './notifications'
 import dayjs from '@/lib/dayjs'
 
-import { notificationsGroupedByDate } from '@/data/notifications'
 import { Bell, Checks } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/shadcnui/button'
 import { cn } from '@/lib/utils'
@@ -10,6 +9,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/shadcnui/popover'
+import { groupNotificationsByDate } from '@/utils/groupNotificationsByDate'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  getAllNotifications,
+  markAllAsRead,
+} from '@/services/notifications-service'
 
 interface NotificationItemProps {
   sidebarIsOpen: boolean
@@ -18,15 +23,37 @@ interface NotificationItemProps {
 export default function NotificationItem({
   sidebarIsOpen,
 }: NotificationItemProps) {
-  // TO DO: Refactor
+  const queryClient = useQueryClient()
+
+  const { data } = useQuery({
+    queryKey: ['get-notifications'],
+    queryFn: getAllNotifications,
+  })
+
+  const onMarkAllAsRead = async () => {
+    await markAllAsRead()
+    queryClient.invalidateQueries({
+      queryKey: ['get-notifications'],
+    })
+  }
+
+  if (!data) return null
+
+  const notificationsGroupedByDate = groupNotificationsByDate(data)
+  const unreadNotifications = data.filter(
+    (notification) => notification.isRead === false,
+  )
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <div className="flex h-12 rounded-xl px-3 hover:text-black">
           <div className="flex items-center">
-            <div className="flex w-8 items-center justify-center">
+            <div className="relative flex w-8 items-center justify-center">
               <Bell size={24} />
+              {unreadNotifications.length > 0 && (
+                <div className="absolute right-1 top-0 h-3 w-3 rounded-full bg-badge" />
+              )}
             </div>
             <span
               className={cn(
@@ -56,7 +83,11 @@ export default function NotificationItem({
         <div className="overflow-y-auto pt-4 scrollbar-thin">
           {/* Botão */}
           <div className="flex justify-end px-6">
-            <Button variant="outline" className="flex gap-2 text-strong">
+            <Button
+              variant="outline"
+              className="flex gap-2 text-strong"
+              onClick={onMarkAllAsRead}
+            >
               <Checks size={24} />
               Marcar tudo como lido
             </Button>

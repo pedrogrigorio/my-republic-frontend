@@ -1,5 +1,5 @@
 import persona from '@/assets/img/persona.png'
-import { groupNotificationsByDate } from '@/utils/groupNotificationsByDate'
+// import { groupNotificationsByDate } from '@/utils/groupNotificationsByDate'
 
 export const notifications = [
   {
@@ -103,5 +103,5 @@ export const notifications = [
   },
 ]
 
-export const notificationsGroupedByDate =
-  groupNotificationsByDate(notifications)
+// export const notificationsGroupedByDate =
+//   groupNotificationsByDate(notifications)

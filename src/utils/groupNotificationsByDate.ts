@@ -3,7 +3,7 @@ import { Notification } from '@/types/notification'
 export const groupNotificationsByDate = (notifications: Notification[]) => {
   const grouped = notifications.reduce<Record<string, Notification[]>>(
     (acc, notification) => {
-      const date = notification.date.split(' ')[0]
+      const date = notification.createdAt.toString().split('T')[0]
       if (!acc[date]) {
         acc[date] = []
       }
