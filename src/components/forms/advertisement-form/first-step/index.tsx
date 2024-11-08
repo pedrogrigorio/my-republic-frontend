@@ -19,6 +19,7 @@ import { State } from '@/types/state'
 import { City } from '@/types/city'
 import { useEffect, useState } from 'react'
 import { Advertisement } from '@/types/advertisement'
+import { phoneMask } from '@/utils/phoneMask'
 
 interface FirstStepProps {
   initialValues?: Advertisement
@@ -90,6 +91,19 @@ export default function FirstStep({ initialValues }: FirstStepProps) {
             {...register('description')}
           />
           <InputError error={errors.description?.message?.toString()} />
+        </div>
+
+        <div className="col-span-3 lg:col-span-1">
+          <Label htmlFor="phone">Telefone</Label>
+          <Input
+            placeholder="(xx) xxxxx-xxxx"
+            id="phone"
+            {...register('phone', {
+              onChange: phoneMask,
+            })}
+            className="mt-1"
+          />
+          <InputError error={errors.phone?.message?.toString()} />
         </div>
 
         <div className="col-span-3 lg:col-span-1">

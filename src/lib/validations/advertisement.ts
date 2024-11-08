@@ -22,6 +22,7 @@ export const advertisementFormSchema = z.object({
   description: z
     .string()
     .min(10, 'A descrição deve ter pelo menos 10 caracteres'),
+  phone: z.string().min(15, { message: 'Campo obrigatório' }),
   stateId: z.string({ message: 'Campo obrigatório.' }),
   cityId: z.string({ message: 'Campo obrigatório.' }),
   picture: z.instanceof(File, { message: 'Campo obrigatório.' }).optional(),

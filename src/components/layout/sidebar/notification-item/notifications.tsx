@@ -10,7 +10,7 @@ interface NotificationsProps {
 export default function Notifications({ notifications }: NotificationsProps) {
   return (
     <ul>
-      {notifications.map((notification) => (
+      {notifications.map((notification, index) => (
         <li key={notification.id}>
           {/* Notificação */}
           <div className="flex gap-3 px-6 py-4 hover:bg-gray-50">
@@ -23,7 +23,7 @@ export default function Notifications({ notifications }: NotificationsProps) {
 
               <p className="mt-1 text-xs">
                 {dayjs(notification.createdAt).format(
-                  'D[ de ]MMMM[ de ]YYYY[ · ]h[:]m A',
+                  'D[ de ]MMMM[ de ]YYYY[ · ]h[:]mm A',
                 )}
               </p>
             </div>
@@ -35,9 +35,9 @@ export default function Notifications({ notifications }: NotificationsProps) {
           </div>
 
           {/* Divisor */}
-          {/* {index !== notifications.length - 1 && ( */}
-          <div className="h-[1px] w-full bg-divisor" />
-          {/* )} */}
+          {index !== notifications.length - 1 && (
+            <div className="h-[1px] w-full bg-divisor" />
+          )}
         </li>
       ))}
     </ul>
