@@ -57,6 +57,8 @@ export default function Advertisement() {
   }
 
   const remainingSlots = ad.totalSlots - ad.occupiedSlots
+  const genderMatch =
+    ad.genderPreference === user?.gender || ad.genderPreference === Gender.MIXED
 
   return (
     <Page.Container>
@@ -203,14 +205,16 @@ export default function Advertisement() {
             </div>
 
             {/* Apply button */}
-            <ApplyModal advertisementId={ad.id}>
-              <Button
-                className="bg-button-secondary hover:bg-button-secondary-hover"
-                disabled={user?.id === ad.owner.id || !ad.isActive}
-              >
-                Tenho interesse
-              </Button>
-            </ApplyModal>
+            {user?.id !== ad.owner.id && (
+              <ApplyModal advertisementId={ad.id}>
+                <Button
+                  className="bg-button-secondary hover:bg-button-secondary-hover"
+                  disabled={!ad.isActive || !genderMatch}
+                >
+                  Tenho interesse
+                </Button>
+              </ApplyModal>
+            )}
           </div>
         </div>
 
